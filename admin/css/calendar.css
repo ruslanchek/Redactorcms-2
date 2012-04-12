@@ -1,0 +1,35 @@
+.calendar_frame { padding: 10px 10px 5px; }
+.calendar_frame .table { border: none; border-collapse: collapse; width: 160px; }
+.calendar_frame td { text-align: center; width: 23px; height: 30px; padding: 0; }
+.calendar_frame th { font-weight: normal; color: #222222; border-bottom: 1px solid #dddddd; width: 23px; padding: 0; }
+
+/* Current date */
+/* .calendar_frame .table .curr a { background: url(../img/icons/calendar_day_today.png) no-repeat 2px 3px; }*/
+.calendar_frame .table .curr a { font-weight: bold; color: #000; }
+
+.calendar_frame .table td a:hover { background: url(../img/icons/calendar_day_hover.png) no-repeat 2px 3px; color: #fff; text-shadow: 0 -1px 0 #444; }
+
+.calendar_frame .table .sel { text-shadow: 0 -1px 0 #21579b; }
+.calendar_frame .table .sel a { background: url(../img/icons/calendar_day_selected.png) no-repeat 2px 3px !important; color: #fff !important; }
+
+/* Weekend  */
+.calendar_frame .table .weekend, .calendar_frame .table .weekend a { color: #e10030; }
+
+/* Cell link */
+.calendar_frame .table td a { text-decoration: none; color: #2F2F2F; display: block; height: 25px; width: 23px; line-height: 27px; text-align: center; }
+
+/* Cell link hover */
+
+/* Name of the selected month (at the top) */
+.calendar_frame .monthName { margin: 0 0 8px; text-align: center; }
+
+/* Next-Prev arrows */
+.calendar_frame .monthName a { text-decoration: none; }
+
+.calendar_frame .next { float: right; display: block; background: url(../img/icons/calendar_arrows.png) -9px -15px; height: 15px; width: 9px; margin: 0 6px 0 0; }
+.calendar_frame .next:hover { background-position: -9px 0; }
+
+.calendar_frame .prev { float: left; display: block; background: url(../img/icons/calendar_arrows.png) 0 -15px; height: 15px; width: 9px; margin: 0 0 0 8px; }
+.calendar_frame .prev:hover { background-position: 0 0; }
+
+.calendar_frame pre { background-color: #eeeeee; }

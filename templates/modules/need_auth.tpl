@@ -1,0 +1,1 @@
+Требуется <a href="/auth/register">регистрация</a> или <a href="/auth">вход</a>
