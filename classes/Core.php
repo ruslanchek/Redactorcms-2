@@ -1012,7 +1012,6 @@
         //Get section content
         public function getSectionContent($section_id, $fields, $where, $order, $limit, $current_page = false){
             $section_id = $this->db->quote($section_id);
-
             $f = "";
             if(is_array($fields) && !empty($fields)){
                 foreach($fields as $item){
