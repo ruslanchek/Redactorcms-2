@@ -22,10 +22,7 @@
                 'online',
                 'subscriber',
                 'vk_id',
-                'fb_id',
-                'phone',
-                'address',
-                'description'
+                'fb_id'
             );
 
             $this->password_length = 6;
@@ -556,10 +553,7 @@
                 $new_data = array(
                     'email' => $_POST['email'],
                     'login' => $_POST['login'],
-                    'name' => $_POST['name'],
-                    'phone' => $_POST['phone'],
-                    'address' => $_POST['address'],
-                    'description' => $_POST['description']
+                    'name' => $_POST['name']
                 );
 
                 if(!Utilities::matchPattern($new_data['email'], 'email')){
@@ -602,10 +596,7 @@
                         `public_users`
                     SET
                         `email` = '".DB::quote($new_data['email'])."',
-                        `name` = '".DB::quote($new_data['name'])."',
-                        `phone` = '".DB::quote($new_data['phone'])."',
-                        `address` = '".DB::quote($new_data['address'])."',
-                        `description` = '".DB::quote($new_data['description'])."'
+                        `name` = '".DB::quote($new_data['name'])."'
                     WHERE
                         `id` = ".intval($user_id)."
                 ";
@@ -615,9 +606,6 @@
                 $this->user_status['userdata']['email'] = $new_data['email'];
                 $this->user_status['userdata']['login'] = $new_data['login'];
                 $this->user_status['userdata']['name'] = $new_data['name'];
-                $this->user_status['userdata']['phone'] = $new_data['phone'];
-                $this->user_status['userdata']['address'] = $new_data['address'];
-                $this->user_status['userdata']['description'] = $new_data['description'];
 
                 return array(
                    'status' => true,

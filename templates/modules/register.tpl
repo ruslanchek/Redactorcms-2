@@ -1,41 +1,34 @@
-<h1 class="uppercase">Регистрация</h1>
-
 {if $core->page.form.message}
-    <div class="form_message"><div class="{if $core->page.form.status}ok{else}error{/if}">{$core->page.form.message}</div></div>
+    <div class="alert {if $core->page.form.status}alert-success{else}alert-error{/if}">
+        {$core->page.form.message}
+    </div>
 {/if}
 
-<div class="form">
-    <div class="form_menu uppercase">
-        <a href="/auth/">Авторизация</a>
-        <b>Регистрация</b>
-        <a href="/auth/remember_pass/">Напомнить пароль</a>
-    </div>
+<form class="form-horizontal" action="?action=go" method="POST">
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label" for="email">Email</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="email" name="email">
+            </div>
+        </div>
 
-    <form class="regular_form" action="?action=go" method="POST">
-        <table>
-            <tr>
-                <th><label for="form_email">Электронная почта</label></th>
-                <td><input type="text" name="email" id="form_email" class="text req" value="{$smarty.post.email}" /></td>
-            </tr>
-            <tr>
-                <th>
-                    <label for="form_phone">Код с картинки</label>
-                </th>
-                <td><input type="text" name="phone" id="form_phone" class="text req" />
-                    <div class="captcha">
-                        <a href="javascript:void(0)" onclick="document.getElementById('captcha').src = '/securimage/securimage_show.php?' + Math.random()">Обновить картинку</a><br>
-                        <img id="captcha" src="/securimage/securimage_show.php" width="150" height="50">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th><input type="submit" class="submit" value="Зарегистрироваться" /></th>
-                <td>
-                    <div class="required">
-                        — поля, обязательные для заполнения
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
+        <div class="control-group">
+            <label class="control-label" for="captcha_code">Код с картинки</label>
+
+            <div class="controls captcha">
+                <input type="text" class="input-xlarge" id="captcha_code" name="captcha_code" />
+
+                <div class="clear" style="margin-top: 20px"></div>
+                <img id="captcha" src="/securimage/securimage_show.php?0.15141636761836708" width="216" height="80">
+                <a href="javascript:void(0)" onclick="document.getElementById('captcha').src = '/securimage/securimage_show.php?' + Math.random()">Обновить картинку</a>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            &nbsp;&nbsp;&nbsp;<a href="/auth/">Авторизация</a>
+            &nbsp;&nbsp;&nbsp;<a href="/auth/remember_pass/">Напомнить пароль</a>
+        </div>
+    </fieldset>
+</form>

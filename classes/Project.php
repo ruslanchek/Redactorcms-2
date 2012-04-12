@@ -22,7 +22,6 @@
             };
 
             $this->operateOauth();
-            $this->operateUpload();
         }
 
         private function operateAJAX(){
@@ -34,89 +33,10 @@
                     case 'remember'                 : $this->page['content'] = print json_encode($this->remember());        break;
                     case 'change_user_data'         : $this->page['content'] = print json_encode($this->changeUserData());  break;
                     case 'change_password'          : $this->page['content'] = print json_encode($this->changePassword());  break;
-                    case 'load_more_items'          : $this->page['content'] = print $this->loadMoreItems();                break;
-                    case 'getProject'               : $this->page['content'] = print json_encode($this->getProjectsItemData($_GET['id'], $_GET['number']));          break;
                 };
 
                 exit;
             }
-        }
-
-        private function convertImg($f, $ext){
-            $file = $f.'.'.$ext;
-
-            $image_info = getimagesize($file);
-            $image_type = $image_info[2];
-
-            if($image_type == IMAGETYPE_JPEG){
-                $image = imagecreatefromjpeg($file);
-            }elseif($image_type == IMAGETYPE_GIF){
-                $image = imagecreatefromgif($file);
-            }elseif($image_type == IMAGETYPE_PNG){
-                $image = imagecreatefrompng($file);
-            };
-
-            imagejpeg($image, $f.'.jpg', 100);
-            imagedestroy($image);
-
-            if($image_type != IMAGETYPE_JPEG){
-                unlink($file);
-            };
-        }
-
-        private function uploadAvatar(){
-            $dir = $_SERVER['DOCUMENT_ROOT'].'/data/users/'.$this->login->user_status['userdata']['id'].'/';
-
-            if(!file_exists($dir)){
-                mkdir($dir, 0777, true);
-            };
-
-            $ext = mb_strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
-
-            if ((($ext == "jpeg") || ($ext == "jpg") || ($ext == "png") || ($ext == "gif")) && ($_FILES["Filedata"]["size"] < 1048576)){
-
-                if(!$dh = @opendir($dir)) return;
-
-                while (false !== ($obj = readdir($dh))) {
-                    if($obj=='.' || $obj=='..') continue;
-                    @unlink($dir.'/'.$obj);
-                };
-
-                closedir($dh);
-
-                $image = new SimpleImage();
-
-                $image->load($_FILES['file']['tmp_name']);
-                $image->resizeToWidth(150);
-                $image->save($dir.'userpic_150.'.$ext);
-                $image->resizeToWidth(25);
-                $image->save($dir.'userpic_25.'.$ext);
-
-
-                $this->convertImg($dir.'userpic_150', $ext);
-                $this->convertImg($dir.'userpic_25', $ext);
-
-                print json_encode(array(
-                    'status' => true,
-                    'user_id' => $this->login->user_status['userdata']['id'],
-                    'message' => 'Картинка успешно загружена'
-                ));
-            }else{
-                print json_encode(array(
-                    'status' => false,
-                    'message' => 'Поддерживается только JPEG, GIF и PNG, размер файла не более 1 МБ'
-                ));
-            };
-        }
-
-        private function operateUpload(){
-            if(isset($_GET['upload_userpic'])){
-                if($this->login->user_status['status'] && $this->login->user_status['userdata']['id'] > 0){
-                    $this->uploadAvatar();
-                    exit;
-                };
-                exit;
-            };
         }
 
         private function operateOauth(){
@@ -124,28 +44,6 @@
                 $this->login->oAuth();
                 exit;
             };
-        }
-
-        private function loadMoreItems(){
-            switch($_GET['module']){
-                case 'news' : {
-                    $this->page['data']['list'] = $this->getNewsList($_GET['per_page_items']);
-                    $template = 'modules/news_list.tpl';
-                }; break;
-
-                case 'projects' : {
-                    $this->page['data']['list'] = $this->getProjectsList($_GET['per_page_items']);
-                    $template = 'modules/projects_list.tpl';
-                }; break;
-            };
-
-            $result['total_pages'] = $this->page['data']['list']['pager']['total_pages'];
-
-            if($this->page['data']['list']['pager']['total_pages'] >= $_GET['page']){
-                $result['html'] = $this->smarty->fetch($template);
-            };
-
-            print json_encode($result);
         }
 
         private function ajaxTest(){
@@ -349,141 +247,6 @@
             return $result;
         }
 
-        public function getProjectsList($limit){
-            $section_id = '13';
-
-            $fields = array(
-                'id',
-                'name',
-                array('col_82', 'type'),
-                array('col_83', 'city'),
-                array('col_86', 'authors'),
-                array('col_87', 'customer'),
-                array('col_88', 'project_year'),
-                array('col_89', 'complete_year'),
-                array('col_90', 'budget'),
-                array('col_91', 'stage'),
-                array('col_92', 'partners'),
-                array('col_93', 'prizes'),
-                array('col_94', 'description'),
-                array('col_106', 'scope')
-            );
-
-            switch($_GET['mode']){
-                case 'types' : {
-                    $order = array('col_82', 'DESC');
-                }; break;
-
-                case 'chronology' : {
-                    $order = array('col_88', 'DESC');
-                }; break;
-
-                case 'scope' : {
-                    $order = array('col_106', 'DESC');
-                }; break;
-
-                case 'stage' : {
-                    $order = array('col_91', 'DESC');
-                }; break;
-
-                case 'map' : {
-                    $order = array('col_83', 'DESC');
-                }; break;
-
-                default : {
-                    $order = array('name', 'ASC');
-                };
-            };
-
-            return $this->getSectionContent($section_id, $fields, false, $order, $limit, $_GET['page']);
-        }
-
-        public function projectsByCities($city){
-            $section_id = '13';
-
-            $fields = array(
-                'id',
-                'name',
-                array('col_82', 'type'),
-                array('col_83', 'city'),
-                array('col_86', 'authors'),
-                array('col_87', 'customer'),
-                array('col_88', 'project_year'),
-                array('col_89', 'complete_year'),
-                array('col_90', 'budget'),
-                array('col_91', 'stage'),
-                array('col_92', 'partners'),
-                array('col_93', 'prizes'),
-                array('col_94', 'description')
-            );
-
-            $order = array('sort', 'DESC');
-
-            return $this->getSectionContent($section_id, $fields, "`col_83` = '".DB::quote($city)."'", $order, false, false);
-        }
-
-        public function getProjectsItemData($id, $number, $first){
-            if($number && $number != 'info') {
-                $image_on = "i.id = ".intval($number);
-            } elseif ($number == 'info') {
-                $image_on = "i.relative_table = 'section_13' AND i.relative_id = p.id AND form_item = 'col_97'";
-            } else {
-                $image_on = "i.relative_table = 'section_13' AND i.relative_id = p.id AND form_item = 'col_107'";
-            }
-
-            $query = "
-                SELECT
-                    p.id,
-                    p.name,
-                    p.col_83 AS `city`,
-                    p.col_86 AS `authors`,
-                    p.col_87 AS `customer`,
-                    p.col_88 AS `project_year`,
-                    p.col_89 AS `complete_year`,
-                    p.col_90 AS `budget`,
-                    p.col_84 AS `map_params`,
-                    if(p.col_91=1,'Концепция','')  as `stage1`,
-                    if(p.col_91=2,'Проект','') as `stage2`,
-                    if(p.col_91=3,'В реализации','') as `stage3`,
-                    if(p.col_91=4,'Постройка','') as `stage4`,
-                    p.col_92 AS `partners`,
-                    p.col_93 AS `prizes`,
-                    p.col_94 AS `description`,                  
-                    t.name AS `type`,
-                    t.col_102 AS `color`,
-                    i.path,                    
-                    i.name AS `name_img`,
-                    i.extension,
-                    i.id AS `id_img`,
-                    i.width,
-                    i.height,
-                    ii.name AS `img_current`,                                        
-                    ii.path AS `path_current`,
-                    ii.extension AS `extension_current`,
-                    f.name AS `file_name`,
-                    f.path AS `file_path`,
-                    f.extension AS `file_extension`,
-                    m.data AS `marker`,
-                    COUNT(ii.relative_id) as total,
-					GROUP_CONCAT(DISTINCT(ii.id)) as images
-				FROM
-                    section_13 p
-                LEFT JOIN section_14 t ON (t.id = p.col_82)
-                LEFT JOIN images i ON ($image_on)
-                LEFT JOIN images ii ON (ii.relative_table = 'section_13' AND ii.relative_id = p.id AND ii.type = '1' AND ii.form_item = 'col_107')
-                LEFT JOIN files f ON (f.relative_table = 'section_13' AND f.relative_id = p.id AND f.type = '0' AND f.form_item = 'col_108')
-                LEFT JOIN maps_objects m ON (m.section_id = 13 AND m.relative_id = p.id AND m.type = '1' AND m.form_item = 'col_84')
-                WHERE
-                    p.id = ".intval($id)." &&
-                    p.publish = 1
-                GROUP BY ii.relative_id
-                ORDER BY i.sort
-            ";
-
-            $result = $this->db->assocItem($query);
-            return $result;
-        }
-
         public function getMapMarkers($id){
             $query = "
                 SELECT
@@ -525,24 +288,8 @@
             return $result;
         }
 
-        public function getCities(){
-            $query = "
-                SELECT
-                    `col_83` AS `city`
-                FROM
-                    `section_13`
-                WHERE
-                    `publish` = 1 &&
-                    `col_83` != ''
-                GROUP BY
-                    `col_83`
-            ";
-
-            return $this->db->assocMulti($query);
-        }
-
         //News item
-        public function getLastNewsItemData($limit){
+        public function getLastNewsItemsData($limit){
             $query = "
                 SELECT
                     `id`,
@@ -557,10 +304,9 @@
                     `id`
                 DESC
                 LIMIT ".intval($limit)."
-
             ";
 
-            $result = $this->db->assocItem($query);
+            $result = $this->db->assocMulti($query);
             return $result;
         }
 
@@ -609,12 +355,12 @@
         }
 
         public function getVideosList(){
-            $section_id = '12';
+            $section_id = '16';
 
             $fields = array(
                 'id',
                 'name',
-                array('col_76', 'announce')
+                array('col_112', 'announce')
             );
 
             $order = array('sort', 'DESC');
@@ -628,10 +374,10 @@
                 SELECT
                     `id`,
                     `name`,
-                    `col_74` AS `embed_code`,
-                    `col_76` AS `text`
+                    `col_111` AS `embed_code`,
+                    `col_113` AS `text`
                 FROM
-                    `section_12`
+                    `section_16`
                 WHERE
                     `id` = ".intval($id)." &&
                     `publish` = 1
@@ -676,16 +422,6 @@
             );
 
             return $result[0];
-        }
-
-        public function getAvatar($format = 150){
-            $file = '/data/users/'.$this->login->user_status['userdata']['id'].'/userpic_'.$format.'.jpg';
-
-            if(file_exists($_SERVER['DOCUMENT_ROOT'].$file)){
-                return $file;
-            }else{
-                return '/resources/img/nophoto_'.$format.'.jpg';
-            };
         }
     }
 ?>

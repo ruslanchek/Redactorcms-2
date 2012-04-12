@@ -5,17 +5,13 @@
 
     <title>{$core->page.title}</title>
 
-    <link rel="stylesheet" href="/resources/css/style.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="/resources/uploadify-v2.1.4/uploadify.css" type="text/css" media="screen, projection" />
-    <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" />
-
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/resources/css/bootstrap-responsive.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/resources/css/style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="all" />
 
     <script src="/resources/js/jquery.js"></script>
-    <script src="/resources/uploadify-v2.1.4/swfobject.js"></script>
-    <script src="/resources/uploadify-v2.1.4/jquery.uploadify.v2.1.4.min.js"></script>
-	<script src="/resources/js/cufon.js"></script>
-    <script src="/resources/js/hoog_400.font.js"></script>
-    <script src="/resources/js/actions.js"></script>
+    <script src="/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="/resources/js/bootstrap.min.js"></script>
+    <script src="/resources/js/core.js"></script>
 </head>

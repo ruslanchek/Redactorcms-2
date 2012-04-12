@@ -392,7 +392,7 @@
 
                     }else{
                         $data = array();
-                        $data['list'] = $this->getNewsList(2);
+                        $data['list'] = $this->getNewsList(5);
 
                         $this->page = array(
                             'id'            => $item['data']['id'],
@@ -548,78 +548,8 @@
 
                 }; break;
 
+
                 case '5' : {
-                    $data = array();
-
-                    if($_GET['mode'] == 'map'){
-                        $data['list'] = $this->getProjectsList(false);
-                    }else{
-                        $data['list'] = $this->getProjectsList(10);
-                    };
-
-                    $this->page = array(
-                        'id'            => $item['data']['id'],
-                        'pid'           => $item['data']['pid'],
-                        'path'          => $item['data']['path'],
-                        'title'         => $item['data']['title'],
-                        'description'   => $item['data']['description'],
-                        'keywords'      => $item['data']['keywords'],
-                        'h1'            => $item['data']['name'],
-                        'mode'          => $item['data']['mode'],
-                        'data'          => $data,
-                        'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                    );
-
-                    if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                        $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                    }else{
-                        switch($_GET['mode']){
-                            case 'types' : {
-                                $this->page['continuous'] = true;
-                                $this->page['loading_url'] = '/?ajax&action=load_more_items&module=projects&mode='.$_GET['mode'].'&per_page_items=10';
-
-                                $template = 'modules/projects_list.tpl';
-                            }; break;
-
-                            case 'chronology' : {
-                                $this->page['continuous'] = true;
-                                $this->page['loading_url'] = '/?ajax&action=load_more_items&module=projects&mode='.$_GET['mode'].'&per_page_items=10';
-
-                                $template = 'modules/projects_list.tpl';
-                            }; break;
-
-                            case 'scope' : {
-                                $this->page['continuous'] = true;
-                                $this->page['loading_url'] = '/?ajax&action=load_more_items&module=projects&mode='.$_GET['mode'].'&per_page_items=10';
-
-                                $template = 'modules/projects_list.tpl';
-                            }; break;
-
-                            case 'stage' : {
-                                $this->page['continuous'] = true;
-                                $this->page['loading_url'] = '/?ajax&action=load_more_items&module=projects&mode='.$_GET['mode'].'&per_page_items=10';
-
-                                $template = 'modules/projects_list.tpl';
-                            }; break;
-
-                            case 'map' : {
-                                $template = 'modules/projects_list_map.tpl';
-                            }; break;
-
-                            default : {
-                                $this->page['continuous'] = true;
-                                $this->page['loading_url'] = '/?ajax&action=load_more_items&module=projects&mode='.$_GET['mode'].'&per_page_items=10';
-
-                                $template = 'modules/projects_list.tpl';
-                            };
-                        };
-
-                        $this->page['content'] = $this->smarty->fetch($template);
-                    };
-
-                }; break;
-
-                case '6' : {
                     if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
                         $form = $this->login();
                     };
@@ -645,7 +575,7 @@
 
                 }; break;
 
-                case '7' : {
+                case '6' : {
                     if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
                         $form = $this->register();
                     };
@@ -671,7 +601,7 @@
 
                 }; break;
 
-                case '8' : {
+                case '7' : {
                     if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
                         $form = $this->remember($_POST['email']);
                     };
@@ -702,7 +632,7 @@
 
                 }; break;
 
-                case '9' : {
+                case '8' : {
                     if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
                         $form = $this->changeUserData();
                     };
@@ -728,7 +658,7 @@
 
                 }; break;
 
-                case '10' : {
+                case '9' : {
                     if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
                         $form = $this->changePassword();
                     };
@@ -754,7 +684,7 @@
 
                 }; break;
 
-                case '11' : {
+                case '10' : {
                     if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
                         $form = $this->postToGb($_POST['email']);
                     };
@@ -783,7 +713,7 @@
                     };
                 }; break;
 
-                case '12' : {
+                case '11' : {
                     if($_GET['item'] > 0){
                         $data = $this->getVideosItemData($_GET['item']);
 
@@ -845,30 +775,6 @@
                             $this->page['content'] = $this->smarty->fetch('modules/videos_list.tpl');
                         };
                     };
-
-                }; break;
-
-                case '16' : {
-                    $data = array();
-
-                    $_GET['mode'] = '';
-                    $data['list'] = $this->getProjectsList(8);
-
-                    $this->page = array(
-                        'id'            => $item['data']['id'],
-                        'pid'           => $item['data']['pid'],
-                        'path'          => $item['data']['path'],
-                        'title'         => $item['data']['title'],
-                        'description'   => $item['data']['description'],
-                        'keywords'      => $item['data']['keywords'],
-                        'h1'            => $item['data']['name'],
-                        'mode'          => $item['data']['mode'],
-                        'data'          => $data,
-                        'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                    );
-
-                    $this->page['content']  = $this->getPage(46);
-                    $this->page['content'] .= $this->smarty->fetch('modules/projects_list.tpl');
 
                 }; break;
             };

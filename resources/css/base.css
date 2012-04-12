@@ -356,9 +356,3 @@ select.w100 { width: 99.8%; }
 .alpha { margin-left: 0; }
 
 .omega { margin-right: 0; }
-
-.uppercase { text-transform: uppercase; }
-
-.align-right { text-align: right; }
-
-.no_decoration { text-decoration: none; }

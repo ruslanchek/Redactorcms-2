@@ -1,4 +1,4 @@
-{$last_n = $core->getLastNewsItemData(4)}
+{$last_n = $core->getLastNewsItemsData(4)}
 
 {if $last_n}
     {foreach $last_n as $item}

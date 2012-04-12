@@ -1,30 +1,29 @@
-<h1 class="uppercase">Авторизация</h1>
-
 {if $core->page.form.message}
-    <div class="form_message"><div class="{if $core->page.form.status}ok{else}error{/if}">{$core->page.form.message}</div></div>
+    <div class="alert {if $core->page.form.status}alert-success{else}alert-error{/if}">
+        {$core->page.form.message}
+    </div>
 {/if}
 
-<div class="form">
-    <div class="form_menu uppercase">
-        <b>Авторизация</b>
-        <a href="/auth/register/">Регистрация</a>
-        <a href="/auth/remember_pass/">Напомнить пароль</a>
-    </div>
+<form class="form-horizontal" action="?action=go" method="POST">
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label" for="login_name">Email или логин</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="login_name" name="login_name">
+            </div>
+        </div>
 
-    <form class="regular_form" action="?action=go" method="POST">
+        <div class="control-group">
+            <label class="control-label" for="login_password">Пароль</label>
+            <div class="controls">
+                <input type="password" class="input-xlarge" id="login_password" name="login_password">
+            </div>
+        </div>
 
-        <table>
-            <tr>
-                <th><label for="form_login">Электронная почта или логин</label></th>
-                <td><input type="text" name="login" id="form_login" class="text req" value="{$smarty.post.login}" /></td>
-            </tr>
-            <tr>
-                <th><label for="form_password">Пароль</label></th>
-                <td><input type="password" name="password" id="form_password" class="text req" value="{$smarty.post.email}" /></td>
-            </tr>
-            <tr>
-                <th colspan="2"><input type="submit" class="submit" value="Зарегистрироваться" /></th>
-            </tr>
-        </table>
-    </form>
-</div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Войти</button>
+            &nbsp;&nbsp;&nbsp;<a href="/auth/register/">Регистрация</a>
+            &nbsp;&nbsp;&nbsp;<a href="/auth/remember_pass/">Напомнить пароль</a>
+        </div>
+    </fieldset>
+</form>

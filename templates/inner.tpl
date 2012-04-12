@@ -4,41 +4,50 @@
         {include file="include/common/head.tpl"}
     </head>
     <body>
-        <div id="wrapper">
-            <div id="header" class="site_width_limiter menu_spacing">
-                <a href="/" id="logo"></a>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
 
-                <form class="search_form" action="/search" method="get">
-                    {literal}
-                    <input class="search_text unactive" type="text" name="q" value="Поиск на сайте"
-                           onblur="if(this.value == ''){this.value = 'Поиск на сайте'; this.className='search_text unactive'}"
-                           onfocus="if(this.value == 'Поиск на сайте'){this.value = ''; this.className='search_text'}" />
-                    <input class="search_go" type="submit" value="" title="Найти" />
-                    {/literal}
-                </form>
+                    <!-- Be sure to leave the brand out there if you want it shown -->
+                    <a class="brand" href="/">Project name</a>
 
-                {include file="include/common/user_block.tpl"}
+                    <!-- Everything you want hidden at 940px or less, place within here -->
+                    <div class="nav-collapse">
+                        {include file="include/common/main_menu.tpl"}
+                        {include file="include/common/user_block.tpl"}
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div id="content" class="site_width_limiter menu_spacing">
-                {include file="include/common/left_side_menu.tpl"}
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    {include file="include/common/second_level_menu.tpl"}
+                    {include file="include/common/news_short.tpl"}
+                </div>
+                <div class="span9">
+                    {include file="include/common/breadcrumbs.tpl"}
 
-                <div id="load_place">
+                    <div class="page-header">
+                        <h1>{$core->page.h1}</h1>
+                    </div>
+
                     {$core->page.content}
                 </div>
-
-                <div class="clear"></div>
             </div>
-        </div>
 
-        <div id="footer" class="site_width_limiter menu_spacing">
-            {include file="include/common/footer.tpl"}
-        </div>
+            <hr />
 
-        {if $core->page.continuous}
-        <script>
-            core.loadItems.init('{$core->page.loading_url}');
-        </script>
-        {/if}
+            <footer>
+                {include file="include/common/footer.tpl"}
+            </footer>
+        </div>
     </body>
 </html>

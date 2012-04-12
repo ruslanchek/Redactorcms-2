@@ -26,9 +26,9 @@
                                     ),
 
 		//DB vars
-		'db_host'                   => '31.31.200.15',
-		'db_base'                   => 'digitalbakery',
-		'db_user'                   => 'digitalbakery',
-		'db_pass'                   => 'Tukzara12'
+		'db_host'                   => 'localhost',
+		'db_base'                   => 'rdc',
+		'db_user'                   => 'root',
+		'db_pass'                   => ''
 	);
 ?>

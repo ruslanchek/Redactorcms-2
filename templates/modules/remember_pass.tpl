@@ -1,25 +1,22 @@
-<h1 class="uppercase">Восстановление пароля</h1>
-
 {if $core->page.form.message}
-    <div class="form_message"><div class="{if $core->page.form.status}ok{else}error{/if}">{$core->page.form.message}</div></div>
+    <div class="alert {if $core->page.form.status}alert-success{else}alert-error{/if}">
+        {$core->page.form.message}
+    </div>
 {/if}
 
-<div class="form">
-    <div class="form_menu uppercase">
-        <a href="/auth/">Авторизация</a>
-        <a href="/auth/register/">Регистрация</a>
-        <b>Напомнить пароль</b>
-    </div>
+<form class="form-horizontal" action="?action=go" method="POST">
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label" for="email">Email или логин</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="email" name="email">
+            </div>
+        </div>
 
-    <form class="regular_form" action="?action=go" method="POST">
-        <table>
-            <tr>
-                <th><label for="form_email">Электронная почта или логин</label></th>
-                <td><input type="text" name="email" id="form_email" class="text req" value="{$smarty.post.email}" /></td>
-            </tr>
-            <tr>
-                <th colspan="2"><input type="submit" class="submit" value="Выслать пароль" /></th>
-            </tr>
-        </table>
-    </form>
-</div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Выслать пароль</button>
+            &nbsp;&nbsp;&nbsp;<a href="/auth/register/">Регистрация</a>
+            &nbsp;&nbsp;&nbsp;<a href="/auth/">Авторизация</a>
+        </div>
+    </fieldset>
+</form>
