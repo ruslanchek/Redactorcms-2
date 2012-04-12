@@ -1010,15 +1010,22 @@
         }
 
         //Get section content
-        public function getSectionContent($section_id, $fields, $where, $order, $limit, $current_page = false){
-            $section_id = $this->db->quote($section_id);
+        public function getSectionContent($table, $fields, $where, $order, $limit, $current_page = false, $inner){
+            if(is_integer($table)){
+                $table = "section_".intval($table);
+            }else{
+                $table = $this->db->quote($table);
+            };
+
             $f = "";
             if(is_array($fields) && !empty($fields)){
                 foreach($fields as $item){
                     if(is_array($item)){
-                        $f .= "`".$this->db->quote($item[0])."` AS `".$this->db->quote($item[1])."`, ";
+                       //$f .= "`".$this->db->quote($item[0])."` AS `".$this->db->quote($item[1])."`, ";
+                        $f .= $this->db->quote($item[0])." AS `".$this->db->quote($item[1])."`, ";
                     }else{
-                        $f .= "`".$this->db->quote($item)."`, ";
+                        //$f .= "`".$this->db->quote($item)."`, ";
+                        $f .= $this->db->quote($item).", ";
                     };
                 };
                 $f = substr($f, 0, strlen($f)-2);
@@ -1038,14 +1045,14 @@
             };
 
             $l = "";
-            
+
             if($limit){
                 if($current_page < 1){
                     $current_page = 1;
                 };
 
                 $result['pager']['per_page'] = $limit;
-                $result['pager']['total_items'] = $this->getTableItemsCount('section_'.$section_id, $where);
+                $result['pager']['total_items'] = $this->getTableItemsCount($table, $where);
                 $result['pager']['total_pages'] = ceil($result['pager']['total_items']/$result['pager']['per_page']);
 
                 if($current_page > $result['pager']['total_pages']){
@@ -1075,7 +1082,7 @@
                 };
             };
 
-            $query = "SELECT ".$f." FROM `section_".$this->db->quote($section_id)."` ".$w." ".$o." ".$l;
+            $query = "SELECT ".$f." FROM `".$this->db->quote($table)."` ".$inner.$w." ".$o." ".$l;
             $result['items'] = $this->db->assocMulti($query);
             return $result;
         }
