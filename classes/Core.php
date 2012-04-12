@@ -1011,7 +1011,7 @@
 
         //Get section content
         public function getSectionContent($table, $fields, $where, $order, $limit, $current_page = false, $inner){
-            if(is_integer($table)){
+            if(is_integer($table) || intval($table) > 0){
                 $table = "section_".intval($table);
             }else{
                 $table = $this->db->quote($table);
