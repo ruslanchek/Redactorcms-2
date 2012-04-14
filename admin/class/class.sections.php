@@ -1401,6 +1401,7 @@
 
             //подключаем и создаем класс PHPExcel
             include_once $_SERVER['DOCUMENT_ROOT'].'/admin/excel/PHPExcel.php';
+
             $pExcel = new PHPExcel();
             $pExcel->setActiveSheetIndex(0);
             $aSheet = $pExcel->getActiveSheet();
@@ -1424,10 +1425,22 @@
 
             $row = 2;
             foreach($result as $item){
-                $cell = 0;
+                $col = 0;
                 foreach($item as $key => $value){
-                    $aSheet->setCellValueByColumnAndRow($cell, $row, $value);
-                    $cell++;
+                    switch($key){
+                        case 'Порядок сортировки';
+                        case 'Публиковать';
+                        case 'Код' : {
+                            $type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+                        }; break;
+
+                        default : {
+                            $type = PHPExcel_Cell_DataType::TYPE_STRING;
+                        }; break;
+                    };
+
+                    $aSheet->getCellByColumnAndRow($col, $row)->setValueExplicit($value, $type);
+                    $col++;
                 };
 
                 $row++;
