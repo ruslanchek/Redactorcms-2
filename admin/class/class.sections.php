@@ -1252,7 +1252,10 @@
                         LIMIT 1
                     ";
                     $result = $this->main->db->assocItem($query);
-                    return 'col_'.$result['id'];
+
+                    if($result['id'] > 0){
+                        return 'col_'.$result['id'];
+                    };
                 }; break;
             };
         }
@@ -1284,14 +1287,19 @@
                     foreach($aSheet->getRowIterator() as $row){
                         //получим итератор ячеек текущей строки
                         $cellIterator = $row->getCellIterator();
+                        $cellIterator->setIterateOnlyExistingCells(false);
 
                         //пройдемся циклом по ячейкам строки
                         $cell_id = 0;
                         foreach($cellIterator as $cell){
                             if($row_id == 0){
-                                $cols[$cell_id] = $this->getRealColName($id, $cell->getCalculatedValue());
+                                $col_name = $this->getRealColName($id, $cell->getValue());
+
+                                if($col_name != ''){
+                                    $cols[$cell_id] = $col_name;
+                                };
                             }else{
-                                $result[$row_id][] = array('name' => $cols[$cell_id], 'value' => $cell->getCalculatedValue());
+                                $result[$row_id][] = array('name' => $cols[$cell_id], 'value' => $cell->getValue());
                             };
 
                             $cell_id++;
@@ -1313,10 +1321,12 @@
 							};
 						
 							if($exists){
-								$colnames .= "`{$cell['name']}` = '{$cell['value']}', ";
+                                if($cell['name']){
+                                    $colnames .= "`".DB::quote($cell['name'])."` = '".DB::quote($cell['value'])."', ";
+                                };
 							}else{
-								$colnames .= "`{$cell['name']}`, ";
-								$values .= "'{$cell['value']}', ";
+								$colnames .= "`".DB::quote($cell['name'])."`, ";
+								$values .= "'".DB::quote($cell['value'])."', ";
 							};
                         };
 
@@ -1324,8 +1334,11 @@
 							$colnames = substr($colnames, 0, strlen($colnames) - 2);
 							
 							$query = "UPDATE `section_".intval($id)."` SET ".$colnames." WHERE `id` = ".intval($item_id);
-							
+
 							$this->main->db->query($query);
+
+                            Utilities::writeLogFile($query);
+
 						}else{
 							$colnames = substr($colnames, 0, strlen($colnames) - 2);
 							$values = substr($values, 0, strlen($values) - 2);
@@ -1356,7 +1369,6 @@
                 WHERE
                     `type` NOT IN ('separator', 'map', 'image', 'gallery', 'file', 'multifile') &&
                     `section_id` = ".intval($id)."
-                ORDER BY `id` ASC
             ";
 
             $result = $this->main->db->assocMulti($query);
@@ -1392,7 +1404,7 @@
                 FROM
                     `section_".intval($id)."`
                 ORDER BY
-                    `sort`
+                    `id`
                 ASC
             ";
 
