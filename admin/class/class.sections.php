@@ -1356,6 +1356,7 @@
                 WHERE
                     `type` NOT IN ('separator', 'map', 'image', 'gallery', 'file', 'multifile') &&
                     `section_id` = ".intval($id)."
+                ORDER BY `id` ASC
             ";
 
             $result = $this->main->db->assocMulti($query);
