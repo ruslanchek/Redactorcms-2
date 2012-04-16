@@ -1337,8 +1337,6 @@
 
 							$this->main->db->query($query);
 
-                            Utilities::writeLogFile($query);
-
 						}else{
 							$colnames = substr($colnames, 0, strlen($colnames) - 2);
 							$values = substr($values, 0, strlen($values) - 2);
