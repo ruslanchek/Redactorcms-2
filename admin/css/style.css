@@ -2317,3 +2317,25 @@ ul#tag_tree li {
     border-radius: 0px 0px 5px 5px;
 	border-bottom: 1px solid #ccc;
 }
+
+.form .add_param_button {
+    position: absolute;
+    background: url(../img/buttons/gray_mini.png) repeat-x top left;
+    color: #222;
+    width: 76px;
+    height: 21px;
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 21px;
+    right: 14px;
+    top: -4px;
+    text-decoration: none;
+}
+
+.form .add_param_button:hover {
+    background-position: 0 -21px;
+}
+
+.form .add_param_button:active {
+    background-position: 0 -42px;
+}
