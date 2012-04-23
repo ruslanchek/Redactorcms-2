@@ -1368,6 +1368,25 @@ var mailing = {
     }
 };
 
+var catalog = {
+    drawTable: function(id){
+        var json = JSON.parse(decodeURIComponent($('#'+id).val())),
+            html = new String();
+
+        if(json){
+            for(var i = 0, l = json.length; i < l; i++){
+                html += '<tr><td>'+(i+1)+'</td><td>'+json[i].key+'</td><td>'+json[i].val+'</td><td><a title="Удалить" onclick="" href="javascript:void(0)" class="icon_action icon_delete_instance"></a></td></tr>';
+            };
+
+            $('#catalog_'+id).find('table').append(html);
+        };
+    },
+
+    init: function(id){
+        this.drawTable(id);
+    }
+};
+
 
 var blocks = {
     /*
@@ -1404,7 +1423,6 @@ var blocks = {
         });
     }
 };
-
 
 //Template selector
 var template_selector = {

@@ -26,6 +26,12 @@
             <span class="fielditem_name">{$main->getText('sections', 'form_editor_tools_param')}</span>
         </li>
 
+        {* Catalog *}
+        <li rel="catalog" title="Каталог">
+            <img class="form_tools_icons form_tools_icons_catalog" src="/admin/img/frames/e.gif" title="Каталог" />
+            <span class="fielditem_name">Каталог</span>
+        </li>
+
         {* Tags *}
         <li rel="tags" title="{$main->getText('sections', 'form_editor_tools_tags_help')}">
             <img class="form_tools_icons form_tools_icons_tags" src="/admin/img/frames/e.gif" title="{$main->getText('sections', 'form_editor_tools_tags')}" />

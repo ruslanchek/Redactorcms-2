@@ -128,6 +128,19 @@
                     </li>
                 {/if}
 
+                {if $item.type == 'catalog'}
+                    <li {if $item.embed == '1'}class="item_embed"{/if}  id="field_{$item.id}" colname="col_{$item.id}" rel="catalog">
+                        <img class="form_tools_icons form_tools_icons_catalog" src="/admin/img/frames/e.gif" title="Каталог" />
+                        <span class="fielditem_name">{$item.label}</span>
+
+                        {if $item.embed == '1'}
+                            {include file="system/fields_editor/catalog.tpl" default=true}
+                        {else}
+                            {include file="system/fields_editor/catalog.tpl"}
+                        {/if}
+                    </li>
+                {/if}
+
                 {if $item.type == 'textarea'}
                     <li {if $item.embed == '1'}class="item_embed"{/if}  id="field_{$item.id}" colname="col_{$item.id}" rel="textarea">
                         <img class="form_tools_icons form_tools_icons_text_area" src="/admin/img/frames/e.gif" title="{$main->getText('sections', 'form_editor_tools_textarea')}" />

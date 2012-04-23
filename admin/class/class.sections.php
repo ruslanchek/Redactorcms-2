@@ -744,7 +744,6 @@
 
             foreach($this->parseSaveParam($data) as $item){
                 if(preg_match('/^new_\d+$/', $item['id'])){
-
 					if($item['type'] == 'color_picker'){
 						$default_param = 'FFFFFF';
 						$requied_param = '1';
@@ -752,6 +751,9 @@
 					}else if($item['type'] == 'calendar'){
 						$default_param = 'now';
 						$requied_param = '1';
+
+                    }else if($item['type'] == 'catalog'){
+                        $default_param = '{}';
 
                     }else if($item['type'] == 'multiselect'){
                         $default_param = Main::parseMultipleSelectParams($item['default']);
@@ -853,8 +855,12 @@
 							break;
 
 						case 'textarea':
-							$type_params = 'text NULL';
+							$type_params = 'longtext NULL';
 							break;
+
+                        case 'catalog':
+                            $type_params = 'longtext NULL';
+                            break;
 
                         case 'multifile':
                             $type_params = "int NULL DEFAULT '0'";
