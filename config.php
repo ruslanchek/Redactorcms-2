@@ -29,6 +29,6 @@
 		'db_host'                   => 'localhost',
 		'db_base'                   => 'rdc',
 		'db_user'                   => 'root',
-		'db_pass'                   => ''
+		'db_pass'                   => '123'
 	);
 ?>

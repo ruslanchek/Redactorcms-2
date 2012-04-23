@@ -29,7 +29,7 @@
             	FROM `".$this->table."`
             	WHERE `id` = ".intval($id)."
             ");
-            
+
             $result = mysql_fetch_assoc($sql);
             $this->main->item_data = $result;
 
@@ -175,9 +175,9 @@
             	    `".$section_list_table_name."`
                 ".$this->content_list_where_statement.$this->main->getSortingParams()."
             	LIMIT ".$limit[0].", ".$limit[1];
-            
+
             $sql = mysql_query($query);
-            
+
             while($req = mysql_fetch_assoc($sql)){
             	$rows[] = $req;
             };
@@ -243,7 +243,7 @@
 			$result['randomize'] = $this->parseDatasetParam($req['randomize']);
 			$result['email'] = $this->parseDatasetParam($req['email']);
 			$result['number'] = $this->parseDatasetParam($req['number']);
-            
+
             return $result;
         }
 
@@ -372,9 +372,9 @@
                 SELECT * FROM `section_".$id."`
                 WHERE `id` = '".$item."'
             ";
-            
+
             $sql = mysql_query($query);
-            
+
             if($sql){
             	$values = mysql_fetch_assoc($sql);
             };
@@ -384,7 +384,7 @@
                 WHERE `section_id` = ".$id."
                 ORDER BY `sort` ASC
             ";
-            
+
             $sql = mysql_query($query);
 
             $rows['params']['enctype'] = 'application/x-www-form-urlencoded';
@@ -753,7 +753,7 @@
 						$requied_param = '1';
 
                     }else if($item['type'] == 'catalog'){
-                        $default_param = '{}';
+                        $default_param = '[]';
 
                     }else if($item['type'] == 'multiselect'){
                         $default_param = Main::parseMultipleSelectParams($item['default']);
@@ -865,7 +865,7 @@
                         case 'multifile':
                             $type_params = "int NULL DEFAULT '0'";
                             break;
-                            
+
                         case 'gallery':
                             $type_params = "int NULL DEFAULT '0'";
                             break;
@@ -991,7 +991,7 @@
                 };
             };
         }
-        
+
         //Deletes an item field
         public function deleteFieldItem($id, $section_id){
             //Delete dataset item
@@ -1067,7 +1067,7 @@
                     `module`
                 ) VALUES (
                     '".$data."',
-                    '".$relative_id."', 
+                    '".$relative_id."',
                     '".$section_id."',
                     '".$form_item."',
                     '1',
@@ -1133,7 +1133,7 @@
                     "description" : "'.$data['description'].'"
                 }
             ';
-            
+
             return $result;
         }
 
@@ -1162,7 +1162,7 @@
                 FROM
                     `files`
                 WHERE
-                    `relative_id` = ".intval($relative_id)." && 
+                    `relative_id` = ".intval($relative_id)." &&
                     `relative_table` = 'section_".intval($section_id)."' &&
                     `form_item` = '".DB::quote($form_item)."' &&
                     `type` = 0 &&
@@ -1271,13 +1271,13 @@
             $dir = $_SERVER['DOCUMENT_ROOT'].'/admin/import/';
             $fileinfo = pathinfo($_FILES['csv']['name']);
             $target_path = $dir.$fileinfo['basename'];
-			
+
             if($fileinfo['extension'] == 'xls' && file_exists($file)){
                 if(!file_exists($dir)){
                     mkdir($dir, 0777, true);
                 };
-								
-                if(move_uploaded_file($file, $target_path)){				
+
+                if(move_uploaded_file($file, $target_path)){
                     set_include_path(get_include_path() .PATH_SEPARATOR . 'PhpExcel/Classes/');
                     include_once $_SERVER['DOCUMENT_ROOT'].'/admin/excel/PHPExcel/IOFactory.php';
 
@@ -1325,7 +1325,7 @@
 								$item_id = $cell['value'];
 								$exists = $this->main->db->checkRowExistance('section_'.intval($id), 'id', $cell['value'], $not = false);
 							};
-						
+
 							if($exists){
                                 if($cell['name']){
                                     $colnames .= "`".DB::quote($cell['name'])."` = '".DB::quote($cell['value'])."', ";
@@ -1338,7 +1338,7 @@
 
 						if($exists){
 							$colnames = substr($colnames, 0, strlen($colnames) - 2);
-							
+
 							$query = "UPDATE `section_".intval($id)."` SET ".$colnames." WHERE `id` = ".intval($item_id);
 
 							$this->main->db->query($query);
@@ -1346,7 +1346,7 @@
 						}else{
 							$colnames = substr($colnames, 0, strlen($colnames) - 2);
 							$values = substr($values, 0, strlen($values) - 2);
-							
+
 							$query = "
 								INSERT INTO `section_".intval($id)."` (
 									".$colnames."
@@ -1354,7 +1354,7 @@
 									".$values."
 								)
 							";
-							
+
 							$this->main->db->query($query);
 						};
                     };

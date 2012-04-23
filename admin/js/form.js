@@ -1369,15 +1369,112 @@ var mailing = {
 };
 
 var catalog = {
+    createParam: function(id, params){
+        var json = JSON.parse(decodeURIComponent($('#'+id).val()));
+
+        json.push(params);
+        $('#'+id).val(encodeURIComponent(JSON.stringify(json)));
+        this.drawTable(id);
+    },
+
+    addParam: function(id){
+        var editor_html =   '<div class="ie_container">' +
+                                '<form action="javascript:void(0)" id="add_param_editor_form">' +
+                                    '<div>' +
+                                        '<label>Параметр<br><input autocomplete="off" class="text" type="text" id="add_param_key" value="" /></label>' +
+                                        '<label>Значение<br><textarea autocomplete="off" class="area" id="add_param_val" rows="3"></textarea></label>' +
+                                        '<input class="button" id="ie_save" type="submit" value="Добавить" />' +
+                                    '</div>' +
+                                '</form>' +
+                            '</div>';
+
+        var window = new Window();
+        window.createModal('Добавить параметр в каталог', editor_html, 500);
+
+        $('#add_param_editor_form').on('submit', function(){
+            if($('#add_param_key').val()){
+                catalog.createParam(id, {
+                    key: $('#add_param_key').val(),
+                    val: $('#add_param_val').val()
+                });
+                window.destroyModal();
+            }else{
+                alert('Параметр не может быть пустым.');
+            };
+        });
+    },
+
+    deleteCatalogIndex: function(id, index){
+        if(confirm('Удалить параметр?')){
+            var json = JSON.parse(decodeURIComponent($('#'+id).val()));
+            delete json[index];
+            var new_json = new Array();
+
+            for(var i = 0, l = json.length; i < l; i++){
+                if(json[i] != null){
+                    new_json.push(json[i]);
+                };
+            };
+
+            json = new_json;
+
+            $('#'+id).val(encodeURIComponent(JSON.stringify(json)));
+            this.drawTable(id);
+        };
+    },
+
+    editCatalogIndex: function(id, index){
+        var json = JSON.parse(decodeURIComponent($('#'+id).val()));
+
+        var editor_html =   '<div class="ie_container">' +
+                                '<form action="javascript:void(0)" id="edit_param_editor_form">' +
+                                    '<div>' +
+                                        '<label>Параметр<br><input autocomplete="off" class="text" type="text" id="edit_param_key" value="'+json[index].key+'" /></label>' +
+                                        '<label>Значение<br><textarea autocomplete="off" class="area" id="edit_param_val" rows="3">'+json[index].val+'</textarea></label>' +
+                                        '<input class="button" id="ie_save" type="submit" value="Сохранить" />' +
+                                    '</div>' +
+                                '</form>' +
+                            '</div>';
+
+        var window = new Window();
+        window.createModal('Редактировать параметр', editor_html, 500);
+
+        $('#edit_param_editor_form').on('submit', function(){
+            if($('#edit_param_key').val()){
+                json[index] = {
+                    key: $('#edit_param_key').val(),
+                    val: $('#edit_param_val').val()
+                };
+
+                $('#'+id).val(encodeURIComponent(JSON.stringify(json)));
+                catalog.drawTable(id);
+
+                window.destroyModal();
+            }else{
+                alert('Параметр не может быть пустым.');
+            };
+        });
+    },
+
     drawTable: function(id){
         var json = JSON.parse(decodeURIComponent($('#'+id).val())),
             html = new String();
 
         if(json){
             for(var i = 0, l = json.length; i < l; i++){
-                html += '<tr><td>'+(i+1)+'</td><td>'+json[i].key+'</td><td>'+json[i].val+'</td><td><a title="Удалить" onclick="" href="javascript:void(0)" class="icon_action icon_delete_instance"></a></td></tr>';
+                if(json[i] != null){
+                    html += '<tr>' +
+                            '<td>'+(i+1)+'</td>' +
+                            '<td>'+json[i].key+'</td>' +
+                            '<td>'+json[i].val+'</td>' +
+                            '<td><a title="Редактировать" onclick="catalog.editCatalogIndex(\''+id+'\', '+i+');" href="javascript:void(0)" class="icon_action icon_edit_instance"></a></td>' +
+                            '<td><a title="Удалить" onclick="catalog.deleteCatalogIndex(\''+id+'\', '+i+');" href="javascript:void(0)" class="icon_action icon_delete_instance"></a></td>' +
+                        '</tr>';
+
+                };
             };
 
+            $('#catalog_'+id).find('table tr').not('.thead').remove();
             $('#catalog_'+id).find('table').append(html);
         };
     },
@@ -1386,7 +1483,6 @@ var catalog = {
         this.drawTable(id);
     }
 };
-
 
 var blocks = {
     /*

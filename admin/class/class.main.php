@@ -431,6 +431,12 @@
                             array_push($data, array($item_1['name'] => $result));
                         }; break;
 
+                        case 'catalog' : {
+                            $result = DB::quote(urldecode($value));
+
+                            array_push($data, array($item_1['name'] => $result));
+                        }; break;
+
                         case 'multiselect' : {
                             $result = $this->parseMultipleSelectParams($value);
                             array_push($data, array($item_1['name'] => $result));
