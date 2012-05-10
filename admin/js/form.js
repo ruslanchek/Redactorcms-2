@@ -1464,12 +1464,12 @@ var catalog = {
             for(var i = 0, l = json.length; i < l; i++){
                 if(json[i] != null){
                     html += '<tr>' +
-                            '<td>'+(i+1)+'</td>' +
-                            '<td>'+json[i].key+'</td>' +
-                            '<td>'+json[i].val+'</td>' +
-                            '<td><a title="Редактировать" onclick="catalog.editCatalogIndex(\''+id+'\', '+i+');" href="javascript:void(0)" class="icon_action icon_edit_instance"></a></td>' +
-                            '<td><a title="Удалить" onclick="catalog.deleteCatalogIndex(\''+id+'\', '+i+');" href="javascript:void(0)" class="icon_action icon_delete_instance"></a></td>' +
-                        '</tr>';
+                                '<td>'+(i+1)+'</td>' +
+                                '<td>'+json[i].key+'</td>' +
+                                '<td>'+json[i].val+'</td>' +
+                                '<td><a title="Редактировать" onclick="catalog.editCatalogIndex(\''+id+'\', '+i+');" href="javascript:void(0)" class="icon_action icon_edit_instance"></a></td>' +
+                                '<td><a title="Удалить" onclick="catalog.deleteCatalogIndex(\''+id+'\', '+i+');" href="javascript:void(0)" class="icon_action icon_delete_instance"></a></td>' +
+                            '</tr>';
 
                 };
             };
