@@ -311,4 +311,5 @@ function colorizeTable(table_obj){
 
 $(function(){
     colorizeTable($('.list_table'));
+    $('select').chosen();
 });

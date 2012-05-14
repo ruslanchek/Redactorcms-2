@@ -11,12 +11,14 @@
         {/foreach}
 
         <link rel="stylesheet" type="text/css" href="/admin/css/style.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/admin/css/chosen.css" media="all" />
 
         <script type="text/javascript" src="/admin/js/jquery.js"></script>
         <script type="text/javascript" src="/admin/js/color_animation.js"></script>
         <script type="text/javascript" src="/admin/js/extends.js"></script>
         <script type="text/javascript" src="/admin/js/cookie.js"></script>
         <script type="text/javascript" src="/admin/js/ui.js"></script>
+        <script type="text/javascript" src="/admin/js/chosen.jquery.js"></script>
 
         {foreach from=$main->addition_js item=item}
         <script type="text/javascript" src="{$item}"></script>
