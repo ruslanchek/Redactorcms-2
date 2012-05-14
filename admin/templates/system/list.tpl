@@ -102,6 +102,7 @@
                     </td>
 
                     {foreach from=$main->list_items item=col}
+
                     <td>
                         {if $col.type == 'select' && $col.options_source == '1'}
                             {if $item[$col.col_name]}
