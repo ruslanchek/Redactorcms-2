@@ -1266,6 +1266,77 @@
             };
         }
 
+        private function parseValue($col_name, $value, $id){
+            if($col_name == 'publish'){
+                if($value == 'да'){
+                    return '1';
+                }else{
+                    return '0';
+                };
+            };
+
+            if($col_name != 'id' && $col_name != 'name' && $col_name != 'sort'){
+                $query = "
+                    SELECT
+                        `id`,
+                        `type`,
+                        `options_source`,
+                        `options_custom`,
+                        `options_table`
+                    FROM
+                        `datasets`
+                    WHERE
+                        `id` = ".intval(substr($col_name, 4, strlen($col_name)));
+
+                $result = $this->main->db->assocItem($query);
+
+                switch($result['type']){
+                    case 'checkbox' : {
+                        if($value == 'да'){
+                            return '1';
+                        }else{
+                            return '0';
+                        };
+                    }; break;
+
+                    case 'select' : {
+                        if($result['options_source'] == '1'){
+                            if($value){
+                                $query = "
+                                    SELECT
+                                        `id`
+                                    FROM
+                                        `".DB::quote($result['options_table'])."`
+                                    WHERE
+                                        `name` = '".DB::quote($value)."'";
+
+                                $result = $this->main->db->assocItem($query);
+                                return $result['id'];
+                            }else{
+                                return '';
+                            };
+                        }else{
+                            $opts1 = explode(';', $result['options_custom']);
+
+                            foreach($opts1 as $item){
+                                $opts2 = explode('=', $item);
+
+                                if($opts2[1] == $value){
+                                    return $opts2[0];
+                                };
+                            };
+                        };
+                    }; break;
+
+                    default : {
+                        return $value;
+                    }; break;
+                };
+            }else{
+                return $value;
+            }
+        }
+
         public function importContent($id){
             $file = $_FILES['csv']['tmp_name'];
             $dir = $_SERVER['DOCUMENT_ROOT'].'/admin/import/';
@@ -1321,6 +1392,7 @@
 						$exists = false;
 
                         foreach($row as $cell){
+                            //Пороверяем по ID существование записи
 							if($cell['name'] == 'id'){
 								$item_id = $cell['value'];
 								$exists = $this->main->db->checkRowExistance('section_'.intval($id), 'id', $cell['value'], $not = false);
@@ -1328,11 +1400,11 @@
 
 							if($exists){
                                 if($cell['name']){
-                                    $colnames .= "`".DB::quote($cell['name'])."` = '".DB::quote($cell['value'])."', ";
+                                    $colnames .= "`".DB::quote($cell['name'])."` = '".DB::quote($this->parseValue($cell['name'], $cell['value'], $id))."', ";
                                 };
 							}else{
 								$colnames .= "`".DB::quote($cell['name'])."`, ";
-								$values .= "'".DB::quote($cell['value'])."', ";
+								$values .= "'".DB::quote($this->parseValue($cell['name'], $cell['value'], $id))."', ";
 							};
                         };
 
@@ -1441,20 +1513,24 @@
             $aSheet->getStyle('A1:AK1')->applyFromArray($boldFont);
 
             $row = 2;
+            $item_id = 0;
+
             foreach($result as $item){
                 $col = 0;
                 foreach($item as $key => $value){
                     switch($key){
                         case 'Порядок сортировки';
-                        case 'Публиковать';
                         case 'Код' : {
                             $type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+                            $item_id = $value;
                         }; break;
 
                         default : {
                             $type = PHPExcel_Cell_DataType::TYPE_STRING;
                         }; break;
                     };
+
+                    $value = $this->getRealColValue($key, $value, $id, $item_id);
 
                     $aSheet->getCellByColumnAndRow($col, $row)->setValueExplicit($value, $type);
                     $col++;
@@ -1482,6 +1558,69 @@
             fclose($fp);
 
             //$objWriter->save('php://output');
+        }
+
+        private function getRealColValue($key, $value, $id, $item_id){
+            switch($key){
+                case 'Порядок сортировки' : return $value; break;
+                case 'Код' : return $value; break;
+
+                default : {
+                    $query = "
+                        SELECT
+                            `id`,
+                            `type`,
+                            `options_source`,
+                            `options_custom`,
+                            `options_table`
+                        FROM
+                            `datasets`
+                        WHERE
+                            `label` = '".DB::quote($key)."' &&
+                            `section_id` = ".intval($id);
+
+                    $result = $this->main->db->assocItem($query);
+
+                    switch($result['type']){
+                        case 'select' : {
+                            if($result['options_source'] == '1'){
+                                $query = "
+                                    SELECT
+                                        `name`
+                                    FROM
+                                        `".DB::quote($result['options_table'])."`
+                                    WHERE
+                                        `id` = '".intval($item_id)."'";
+
+                                $result = $this->main->db->assocItem($query);
+                                return $result['name'];
+                            }else{
+                                $opts1 = explode(';', $result['options_custom']);
+
+                                foreach($opts1 as $item){
+                                    $opts2 = explode('=', $item);
+
+                                    if($opts2[0] == $item_id){
+                                        return $opts2[1];
+                                    };
+                                };
+                            };
+                        }; break;
+
+                        case 'checkbox' : {
+                            if($value == '1'){
+                                return 'да';
+                            }else{
+                                return 'нет';
+                            };
+                        }; break;
+
+                        default : {
+                            return $value;
+                        }; break;
+                    };
+                }; break;
+            };
         }
 	};
 ?>
