@@ -891,6 +891,9 @@
                     }else if($item['type'] == 'slider'){
                         $default_param = DB::quote($item['min']);
 
+                    }else if($item['type'] == 'catalog'){
+                        $default_param = '[]';
+
 					}else{
                         $default_param = DB::quote($item['default']);
                     };
