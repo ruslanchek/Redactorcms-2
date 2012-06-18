@@ -16,7 +16,7 @@
             //Operate ajax calls
             $this->operateAJAX();
 
-            if($_GET['action'] == 'exit'){
+            if(isset($_GET['action']) && $_GET['action'] == 'exit'){
                 $this->login->exitUser();
                 header('Location:'.$this->uri);
             };

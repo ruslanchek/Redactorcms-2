@@ -100,24 +100,28 @@
 
         //Check user status
         private function checkLogin(){
-            $query = "
-                SELECT
-                    ".$this->getFields()."
-                FROM
-                    `public_users`
-                WHERE
-                    `id` = '".intval($_COOKIE['id'])."'
-                LIMIT 1
-            ";
+            $interval = false;
 
-            $data = mysql_fetch_assoc($this->core->db->query($query));
-            $interval = Utilities::datetimeToSeconds(date('Y-m-d H:i:s')) - Utilities::datetimeToSeconds($data['last_activity']);
+            if(isset($_COOKIE['id']) && $_COOKIE['id'] > 0){
+                $query = "
+                    SELECT
+                        ".$this->getFields()."
+                    FROM
+                        `public_users`
+                    WHERE
+                        `id` = '".intval($_COOKIE['id'])."'
+                    LIMIT 1
+                ";
 
-            if($interval > $this->session_time){
+                $data = mysql_fetch_assoc($this->core->db->query($query));
+                $interval = Utilities::datetimeToSeconds(date('Y-m-d H:i:s')) - Utilities::datetimeToSeconds($data['last_activity']);
+            };
+
+            if($interval && $interval > $this->session_time){
                 $this->exitUser();
 
             }else{
-                if(($data['hash'] == $_COOKIE['hash'] && $data['id'] == $_COOKIE['id']) && !empty($data)){
+                if(isset($data) && !empty($data) && ($data['hash'] == $_COOKIE['hash'] && $data['id'] == $_COOKIE['id'])){
                     $this->user_status['status']    = true;
                     $this->user_status['message']   = "Autherized";
                     $this->user_status['userdata']  = $data;

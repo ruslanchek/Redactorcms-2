@@ -15,6 +15,7 @@
            {if $item.value == $key}
                $(window).load(function(){
                    $('#select_{$val}').show();
+                   $('select').chosen();
                });
            {/if}
 
@@ -26,6 +27,8 @@
                }else{
                    $('#select_{$val}').slideUp(100);
                };
+
+               $('select').chosen();
            });
        {/foreach}
    </script>
