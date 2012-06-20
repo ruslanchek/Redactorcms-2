@@ -18,7 +18,7 @@ function initEditor(obj, locale, dom_id){
             resize: true,
             focus: false,
             lang: lang,
-            toolbar: 'main',
+            toolbar: 'default',
             typo: '/admin/?action=typo',
             image_upload: '/admin/?action=upload&type=image',
 			file_upload: '/admin/?action=upload&type=file'
