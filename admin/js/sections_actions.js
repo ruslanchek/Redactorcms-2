@@ -363,6 +363,7 @@ var i_images = {
             case 1 : dc_class = 'icon_dimensions_xy'; break;
             case 2 : dc_class = 'icon_dimensions_x'; break;
             case 3 : dc_class = 'icon_dimensions_y'; break;
+            case 4 : dc_class = 'icon_dimensions_sq'; break;
         };
 
         return dc_class;
@@ -403,7 +404,7 @@ var i_images = {
         if(instance == 'new'){
             var mode = parseInt(grid.find('.adder_d').val());
 
-            if(mode < 3){
+            if(mode < 4){
                 mode++;
             }else{
                 mode = 1;
@@ -412,6 +413,7 @@ var i_images = {
             grid.find('.adder_d')
                 .val(mode)
                 .next()
+                .removeClass('icon_dimensions_sq')
                 .removeClass('icon_dimensions_xy')
                 .removeClass('icon_dimensions_x')
                 .removeClass('icon_dimensions_y')

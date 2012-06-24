@@ -133,6 +133,9 @@
                         $this->images->resizeToWidth = intval($item_a[0]);
                     }elseif($item_a[3] == '3'){
                         $this->images->resizeToHeight = intval($item_a[1]);
+                    }elseif($item_a[3] == '4'){
+                        $this->images->cropThumb($this->images->sourceFile, $this->images->sourceFile);
+                        $this->images->resizeToHeight = intval($item_a[0]);
                     }else{
                         $this->images->resizeToWidth = intval($item_a[0]);
                         $this->images->resizeToHeight = intval($item_a[1]);

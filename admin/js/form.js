@@ -20,8 +20,8 @@ function initEditor(obj, locale, dom_id){
             lang            : lang,
             toolbar         : 'default',
             typo            : '/admin/?action=typo',
-            image_upload    : '/admin/?action=upload&type=image',
-			file_upload     : '/admin/?action=upload&type=file'
+            imageUpload     : '/admin/?action=upload&type=image',
+            fileUpload      : '/admin/?action=upload&type=file'
         })
     };
 
