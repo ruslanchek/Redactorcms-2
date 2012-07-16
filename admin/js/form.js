@@ -1201,6 +1201,37 @@ var gmaps_edit = {
             });
         };
     },
+    geolocation: function(dom_id){
+        var q = $('#geolocation_q_'+dom_id).val(),
+            geocoder = new google.maps.Geocoder(),
+            map_id = $('#map_'+dom_id).attr('index'),
+            map = gmaps_edit.map[map_id].map;
+
+        geocoder.geocode({
+            address: q
+        }, function(results, status){
+            if(status == google.maps.GeocoderStatus.OK && results[0]){
+                if(results[0].geometry){
+                    if(results[0].geometry.location){
+                        map.panTo(results[0].geometry.location);
+                        map.setZoom(15);
+                    };
+
+                    if(results[0].geometry.bounds){
+                        map.fitBounds(results[0].geometry.bounds);
+                    };
+
+                    $('#geolocation_q_'+dom_id).css({
+                        color: 'green'
+                    });
+                };
+            }else{
+                $('#geolocation_q_'+dom_id).css({
+                    color: 'red'
+                });
+            };
+        });
+    },
     init: function(id){
         id = id.substr(4, id.length);
         var data = gmaps_edit.getData(id);

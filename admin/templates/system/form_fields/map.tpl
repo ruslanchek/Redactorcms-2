@@ -6,6 +6,14 @@
         <div class="map" id="map_{$item.name}"></div>
         <div class="map_tools">
             <label>
+                Поиск
+                <input type="search" id="geolocation_q_{$item.name}">
+            </label>
+
+            <input class="button" type="button" value="Найти" onclick="gmaps_edit.geolocation('{$item.name}')">
+            <br><br><br>
+
+            <label>
                 {$main->getText('gmaps', 'latitude')}
                 <input type="text" id="map_lat_{$item.name}">
             </label>
