@@ -1401,14 +1401,16 @@
 								$exists = $this->main->db->checkRowExistance('section_'.intval($id), 'id', $cell['value'], $not = false);
 							};
 
-							if($exists){
-                                if($cell['name']){
+                            if($exists){
+                                if($cell['name'] != ''){
                                     $colnames .= "`".DB::quote($cell['name'])."` = '".DB::quote($this->parseValue($cell['name'], $cell['value'], $id))."', ";
                                 };
-							}else{
-								$colnames .= "`".DB::quote($cell['name'])."`, ";
-								$values .= "'".DB::quote($this->parseValue($cell['name'], $cell['value'], $id))."', ";
-							};
+                            }else{
+                                if($cell['name'] != ''){
+                                    $colnames .= "`".DB::quote($cell['name'])."`, ";
+                                    $values .= "'".DB::quote($this->parseValue($cell['name'], $cell['value'], $id))."', ";
+                                };
+                            };
                         };
 
 						if($exists){
