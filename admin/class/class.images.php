@@ -258,6 +258,9 @@ class Images
             $min = $w_i;
             if ($w_i > $h_i) $min = $h_i;
             $w_o = $h_o = $min;
+
+            $x_o = ($w_i / 2) - ($w_o / 2);
+            $y_o = ($h_i / 2) - ($h_o / 2);
         } else {
             list($x_o, $y_o, $w_o, $h_o) = $crop;
             if ($percent) {
@@ -275,7 +278,7 @@ class Images
         $img_o = imagecreatetruecolor($w_o, $h_o);
 
         imagecopy($img_o, $img, 0, 0, $x_o, $y_o, $w_o, $h_o);
-        
+
         if($type == 2){
             return imagejpeg($img_o,$file_output,100);
         }else{
