@@ -150,13 +150,23 @@
             };
         }
 
-        public function getInlineMenu($menu_id, $pid){
+        public function getInlineMenu($menu_id = false, $pid = false){
             $additional = '';
+            $menu = '';
+            $pid_add = '';
+
+            if($pid){
+                $pid_add = " && `structure`.`pid` = ".intval($pid);
+            };
 
             if($this->login->user_status['status']){
                 $additional .= " && `mode` NOT IN (6,7,8)";
             }else{
                 $additional .= " && `mode` NOT IN (9,10)";
+            };
+
+            if($menu_id > 0){
+                $menu = "`structure_data`.`menu` = ".intval($menu_id)." && ";
             };
 
             $query = "
@@ -169,10 +179,9 @@
                     `structure_data`,
                     `structure`
                 WHERE
-                    `structure_data`.`menu` = ".intval($menu_id)." &&
+                    ".$menu."
                     `structure_data`.`publish` = 1 &&
-                    `structure_data`.`id` = `structure`.`id` &&
-                    `structure`.`pid` = ".intval($pid).$additional."
+                    `structure_data`.`id` = `structure`.`id` ".$pid_add.$additional."
                 ORDER BY
                     `sort` ASC
             ";
