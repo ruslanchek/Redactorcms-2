@@ -324,7 +324,7 @@ function editFile(id, path, filename, size, date){
             var window = new Window();
             window.createModal('Редактирование файла', editor_html, 500);
 
-            $('#image_editor_form').on('submit', function(){
+            $('#image_editor_form').off('submit').on('submit', function(){
                 saveFileinfo(id, 'files', window);
             });
         };
@@ -387,7 +387,7 @@ function editImage(id, path, filename, size, dimensions, date){
             // TODO : Сделать так, чтобы сначала загружалось окошко, потом в него с оборажением лоудинг-анимации грузилось вся хрень
             window.createModal(uploader_texts.form_edit_image, editor_html, 500);
 
-            $('#image_editor_form').live('submit', function(){
+            $('#image_editor_form').off('submit').on('submit', function(){
                 saveFileinfo(id, 'images', window);
             });
         };
