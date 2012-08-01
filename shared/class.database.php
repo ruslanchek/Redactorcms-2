@@ -125,6 +125,7 @@
         }
 
         public function getRandomItems($table, $count, $fields = array(), $where = false){
+            $count = intval($count);
 
             if($where){
                 $where = "WHERE ".$where;
@@ -134,6 +135,10 @@
             $row_count = $this->assocItem($query);
             $row_count = $row_count['count'] - 1;
             $query = array();
+
+            if($count > $row_count){
+                $count = $row_count;
+            };
 
             if(!empty($fields)){
                 $f = implode(",", $fields);
