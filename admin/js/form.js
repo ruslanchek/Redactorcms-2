@@ -1244,7 +1244,8 @@ var gmaps_edit = {
             map: new google.maps.Map(document.getElementById('map_col_' + id), {
                 center: new google.maps.LatLng(data[0], data[1]),
                 zoom: data[2],
-                mapTypeId: data[3]
+                mapTypeId: data[3],
+                scrollwheel: false
             })
         };
 
