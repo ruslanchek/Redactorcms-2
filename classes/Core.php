@@ -1110,5 +1110,29 @@
 
             return $zone_html;
         }
+
+        public function getParamFromCustom($section_id, $form_item_id, $param_id){
+            $q = "
+                SELECT
+                    `options_custom`
+                FROM
+                    `datasets`
+                WHERE
+                    `section_id` = ".intval($section_id)." &&
+                    `id` = ".intval($form_item_id)."
+            ";
+
+            $r1 = $this->db->assocItem($q);
+
+            $r2 = explode(';', $r1);
+
+            foreach($r2 as $r3){
+                $r4 = explode('=', $r3);
+
+                if($r4[0] == $param_id){
+                    return $r4[1];
+                };
+            };
+        }
     }
 ?>
