@@ -124,7 +124,7 @@
             };
         }
 
-        public function getRandomItems($table, $count, $fields = array(), $where = false){
+        public function getRandomItems($table, $count, $fields = array(), $where = false, $join){
             $count = intval($count);
 
             if($where){
@@ -135,10 +135,6 @@
             $row_count = $this->assocItem($query);
             $row_count = $row_count['count'] - 1;
             $query = array();
-
-            if($count > $row_count){
-                $count = $row_count;
-            };
 
             if(!empty($fields)){
                 $f = implode(",", $fields);
@@ -157,7 +153,7 @@
 
                 array_push($rand_matrix, $next_random);
 
-                $query[] = "(SELECT ".$this->quote($f)." FROM `".$this->quote($table)."` ".$where." LIMIT ".$next_random.", 1)";
+                $query[] = "(SELECT ".$this->quote($f)." FROM `".$this->quote($table)."` ".$join.$where." LIMIT ".$next_random.", 1)";
             };
 
             unset($rand_matrix, $next_random);
