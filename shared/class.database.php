@@ -147,7 +147,7 @@
             while (count($query) < $count) {
                 $next_random = rand(0, $row_count);
 
-                while(in_array($next_random, $rand_matrix)){
+                while(in_array($next_random, $rand_matrix) && count($rand_matrix)-1 < $row_count){
                     $next_random = rand(0, $row_count);
                 };
 
