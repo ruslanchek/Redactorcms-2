@@ -3,6 +3,7 @@
    <div class="cl"></div>
 
    <select class="select" name="{$item.name}" id="{$item.name}" tabindex="{$index+1}">
+       <option value="0" {if $item.value == 0 || !$item.value}selected="selected"{/if}>{$main->getText('form', 'zero_selection')}</option>
        {foreach from=$item.options item=options}
            <option value="{$options.key}" {if $options.key == $item.value}selected="selected"{/if}>{$options.key}. {$options.value}</option>
        {/foreach}
