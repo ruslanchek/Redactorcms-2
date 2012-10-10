@@ -352,433 +352,183 @@
                 }; break;
 
                 case '2' : {
-                    if($_GET['item'] > 0){
-                        $data = $this->getNewsItemData($_GET['item']);
+                    $data = new stdClass();
+                    $data->section_id       = 18;
+                    $data->limit            = 6;
+                    $data->text_col_id      = 126;
+                    $data->date_col_id      = 123;
+                    $data->announce_col_id  = 125;
+                    $data->image_col_id     = 122;
+                    $data->template_item    = 'modules/news_item.tpl';
+                    $data->template_list    = 'modules/news_list.tpl';
 
-                        if($data['id'] > 0){
-                            $bc = $this->getBreadCrumbs($item['data']['id']);
-                            $bc[count($bc)-1]['current'] = false;
-
-                            array_push(
-                                $bc,
-                                array(
-                                    'id' => $data['id'],
-                                    'name' => $data['name'],
-                                    'current' => true
-                                )
-                            );
-
-                            $this->page = array(
-                                'id'            => $item['data']['id'],
-                                'pid'           => $item['data']['pid'],
-                                'path'          => $item['data']['path'],
-                                'title'         => $data['name'],
-                                'description'   => $item['data']['description'],
-                                'keywords'      => $item['data']['keywords'],
-                                'h1'            => $data['name'],
-                                'mode'          => $item['data']['mode'],
-                                'data'          => $data,
-                                'breadcrumbs'   => $bc
-                            );
-
-                            if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                                $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                            }else{
-                                $this->page['content'] = $this->smarty->fetch('modules/news_item.tpl');
-                            };
-                        }else{
-                            $this->error404();
-                        };
-
-                    }else{
-                        $data = array();
-                        $data['list'] = $this->getNewsList(5);
-
-                        $this->page = array(
-                            'id'            => $item['data']['id'],
-                            'pid'           => $item['data']['pid'],
-                            'path'          => $item['data']['path'],
-                            'title'         => $item['data']['title'],
-                            'description'   => $item['data']['description'],
-                            'keywords'      => $item['data']['keywords'],
-                            'h1'            => $item['data']['name'],
-                            'mode'          => $item['data']['mode'],
-                            'continuous'    => true,
-                            'loading_url'   => '/?ajax&action=load_more_items&module=news&per_page_items=2',
-                            'data'          => $data,
-                            'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                        );
-
-                        if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                            $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                        }else{
-                            $this->page['content'] = $this->smarty->fetch('modules/news_list.tpl');
-                        };
-                    };
-
+                    $this->operateModule($item, $data);
                 }; break;
 
                 case '3' : {
-                    if($_GET['item'] > 0){
-                        $data = $this->getArticlesItemData($_GET['item']);
+                    $data = new stdClass();
+                    $data->section_id       = 6;
+                    $data->limit            = 6;
+                    $data->text_col_id      = 31;
+                    $data->date_col_id      = 32;
+                    $data->announce_col_id  = 30;
+                    $data->image_col_id     = 78;
+                    $data->template_item    = 'modules/news_item.tpl';
+                    $data->template_list    = 'modules/news_list.tpl';
 
-                        if($data['id'] > 0){
-                            $bc = $this->getBreadCrumbs($item['data']['id']);
-                            $bc[count($bc)-1]['current'] = false;
-
-                            array_push(
-                                $bc,
-                                array(
-                                    'id' => $data['id'],
-                                    'name' => $data['name'],
-                                    'current' => true
-                                )
-                            );
-
-                            $this->page = array(
-                                'id'            => $item['data']['id'],
-                                'pid'           => $item['data']['pid'],
-                                'path'          => $item['data']['path'],
-                                'title'         => $data['name'],
-                                'description'   => $item['data']['description'],
-                                'keywords'      => $item['data']['keywords'],
-                                'h1'            => $data['name'],
-                                'mode'          => $item['data']['mode'],
-                                'data'          => $data,
-                                'breadcrumbs'   => $bc
-                            );
-
-                            if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                                $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                            }else{
-                                $this->page['content'] = $this->smarty->fetch('modules/news_item.tpl');
-                            };
-                        }else{
-                            $this->error404();
-                        };
-
-                    }else{
-                        $data = array();
-                        $data['list'] = $this->getArticlesList();
-
-                        $this->page = array(
-                            'id'            => $item['data']['id'],
-                            'pid'           => $item['data']['pid'],
-                            'path'          => $item['data']['path'],
-                            'title'         => $item['data']['title'],
-                            'description'   => $item['data']['description'],
-                            'keywords'      => $item['data']['keywords'],
-                            'h1'            => $item['data']['name'],
-                            'mode'          => $item['data']['mode'],
-                            'data'          => $data,
-                            'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                        );
-
-                        if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                            $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                        }else{
-                            $this->page['content'] = $this->smarty->fetch('modules/news_list.tpl');
-                        };
-                    };
+                    $this->operateModule($item, $data);
 
                 }; break;
 
                 case '4' : {
-                    if($_GET['item'] > 0){
-                        $data = $this->getAlbum($_GET['item']);
+                    $data = new stdClass();
+                    $data->section_id       = 19;
+                    $data->limit            = 6;
+                    $data->text_col_id      = 133;
+                    $data->date_col_id      = 131;
+                    $data->announce_col_id  = 132;
+                    $data->image_col_id     = 130;
+                    $data->template_item    = 'modules/news_item.tpl';
+                    $data->template_list    = 'modules/news_list.tpl';
 
-                        if($data['id'] > 0){
-                            $bc = $this->getBreadCrumbs($item['data']['id']);
-                            $bc[count($bc)-1]['current'] = false;
-
-                            array_push(
-                                $bc,
-                                array(
-                                    'id' => $data['id'],
-                                    'name' => $data['name'],
-                                    'current' => true
-                                )
-                            );
-
-                            $this->page = array(
-                                'id'            => $item['data']['id'],
-                                'pid'           => $item['data']['pid'],
-                                'path'          => $item['data']['path'],
-                                'title'         => $data['name'],
-                                'description'   => $item['data']['description'],
-                                'keywords'      => $item['data']['keywords'],
-                                'h1'            => $data['name'],
-                                'mode'          => $item['data']['mode'],
-                                'data'          => $data,
-                                'breadcrumbs'   => $bc
-                            );
-
-                            if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                                $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                            }else{
-                                $this->page['content'] = $this->smarty->fetch('modules/photos.tpl');
-                            };
-                        }else{
-                            $this->error404();
-                        };
-
-                    }else{
-                        $data = array();
-                        $data['list'] = $this->getAlbums();
-
-                        $this->page = array(
-                            'id'            => $item['data']['id'],
-                            'pid'           => $item['data']['pid'],
-                            'path'          => $item['data']['path'],
-                            'title'         => $item['data']['name'],
-                            'description'   => $item['data']['description'],
-                            'keywords'      => $item['data']['keywords'],
-                            'h1'            => $item['data']['name'],
-                            'mode'          => $item['data']['mode'],
-                            'data'          => $data,
-                            'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                        );
-
-                        if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                            $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                        }else{
-                            $this->page['content'] = $this->smarty->fetch('modules/albums.tpl');
-                        };
-                    };
-
+                    $this->operateModule($item, $data);
                 }; break;
 
-
                 case '5' : {
-                    if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
-                        $form = $this->login();
-                    };
+                    $data = new stdClass();
+                    $data->section_id       = 20;
+                    $data->limit            = 8;
+                    $data->text_col_id      = 139;
+                    $data->date_col_id      = false;
+                    $data->announce_col_id  = 138;
+                    $data->image_col_id     = 137;
+                    $data->template_item    = 'modules/sportsmans_item.tpl';
+                    $data->template_list    = 'modules/sportsmans_list.tpl';
 
-                    $this->page = array(
-                        'id'            => $item['data']['id'],
-                        'path'          => $item['data']['path'],
-                        'pid'           => $item['data']['pid'],
-                        'title'         => $item['data']['title'],
-                        'description'   => $item['data']['description'],
-                        'keywords'      => $item['data']['keywords'],
-                        'h1'            => $item['data']['name'],
-                        'mode'          => $item['data']['mode'],
-                        'form'          => $form,
-                        'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                    );
-
-                    if($this->login->user_status['status']){
-                        $this->page['content'] = $this->smarty->fetch('modules/no_need_auth.tpl');
-                    }else{
-                        $this->page['content'] = $this->smarty->fetch('modules/auth.tpl');
-                    };
-
+                    $this->operateModule($item, $data);
                 }; break;
 
                 case '6' : {
-                    if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
-                        $form = $this->register();
-                    };
+                    $data = new stdClass();
+                    $data->section_id       = 21;
+                    $data->limit            = 6;
+                    $data->text_col_id      = 145;
+                    $data->date_col_id      = false;
+                    $data->announce_col_id  = false;
+                    $data->image_col_id     = 143;
+                    $data->template_item    = 'modules/rukovodstvo_item.tpl';
+                    $data->template_list    = 'modules/rukovodstvo_list.tpl';
 
-                    $this->page = array(
-                        'id'            => $item['data']['id'],
-                        'path'          => $item['data']['path'],
-                        'pid'           => $item['data']['pid'],
-                        'title'         => $item['data']['title'],
-                        'description'   => $item['data']['description'],
-                        'keywords'      => $item['data']['keywords'],
-                        'h1'            => $item['data']['name'],
-                        'mode'          => $item['data']['mode'],
-                        'form'          => $form,
-                        'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                    );
-
-                    if($this->login->user_status['status']){
-                        $this->page['content'] = $this->smarty->fetch('modules/no_need_auth.tpl');
-                    }else{
-                        $this->page['content'] = $this->smarty->fetch('modules/register.tpl');
-                    };
-
+                    $this->operateModule($item, $data);
                 }; break;
 
                 case '7' : {
-                    if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
-                        $form = $this->remember($_POST['email']);
-                    };
+                    $data = new stdClass();
+                    $data->section_id       = 22;
+                    $data->limit            = 6;
+                    $data->text_col_id      = 151;
+                    $data->date_col_id      = 149;
+                    $data->announce_col_id  = 150;
+                    $data->image_col_id     = false;
+                    $data->template_item    = 'modules/articles_item.tpl';
+                    $data->template_list    = 'modules/articles_list.tpl';
 
-                    $this->page = array(
-                        'id'            => $item['data']['id'],
-                        'path'          => $item['data']['path'],
-                        'pid'           => $item['data']['pid'],
-                        'title'         => $item['data']['title'],
-                        'description'   => $item['data']['description'],
-                        'keywords'      => $item['data']['keywords'],
-                        'h1'            => $item['data']['name'],
-                        'mode'          => $item['data']['mode'],
-                        'form'          => $form,
-                        'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                    );
-
-                    if($this->login->user_status['status']){
-                        $this->page['content'] = $this->smarty->fetch('modules/no_need_auth.tpl');
-                    }else{
-                        if($_GET['action'] == 'password_recover'){
-                            $this->page['form'] = $this->login->rememberCode($_GET['user_id'], $_GET['code']);
-                            $this->page['content'] = $this->smarty->fetch('modules/remember_pass_code.tpl');
-                        }else{
-                            $this->page['content'] = $this->smarty->fetch('modules/remember_pass.tpl');
-                        };
-                    };
-
+                    $this->operateModule($item, $data);
                 }; break;
 
                 case '8' : {
-                    if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
-                        $form = $this->changeUserData();
-                    };
+                    $data = new stdClass();
+                    $data->section_id       = 23;
+                    $data->limit            = 6;
+                    $data->text_col_id      = 157;
+                    $data->date_col_id      = 155;
+                    $data->announce_col_id  = 156;
+                    $data->image_col_id     = false;
+                    $data->template_item    = 'modules/articles_item.tpl';
+                    $data->template_list    = 'modules/articles_list.tpl';
 
-                    $this->page = array(
-                        'id'            => $item['data']['id'],
-                        'path'          => $item['data']['path'],
-                        'pid'           => $item['data']['pid'],
-                        'title'         => $item['data']['title'],
-                        'description'   => $item['data']['description'],
-                        'keywords'      => $item['data']['keywords'],
-                        'h1'            => $item['data']['name'],
-                        'mode'          => $item['data']['mode'],
-                        'form'          => $form,
-                        'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                    );
-
-                    if($this->login->user_status['status']){
-                        $this->page['content'] = $this->smarty->fetch('modules/personal.tpl');
-                    }else{
-                        $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                    };
-
+                    $this->operateModule($item, $data);
                 }; break;
 
                 case '9' : {
-                    if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
-                        $form = $this->changePassword();
-                    };
+                    $data = new stdClass();
+                    $data->section_id       = 25;
+                    $data->limit            = 6;
+                    $data->text_col_id      = 169;
+                    $data->date_col_id      = false;
+                    $data->announce_col_id  = 169;
+                    $data->image_col_id     = 164;
+                    $data->template_item    = 'modules/links_item.tpl';
+                    $data->template_list    = 'modules/links_list.tpl';
 
-                    $this->page = array(
-                        'id'            => $item['data']['id'],
-                        'path'          => $item['data']['path'],
-                        'pid'           => $item['data']['pid'],
-                        'title'         => $item['data']['title'],
-                        'description'   => $item['data']['description'],
-                        'keywords'      => $item['data']['keywords'],
-                        'h1'            => $item['data']['name'],
-                        'mode'          => $item['data']['mode'],
-                        'form'          => $form,
-                        'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
+                    $this->operateModule($item, $data);
+                }; break;
+            };
+        }
+
+        private function operateModule($item, $d){
+            if($_GET['item'] > 0){
+                $data = $this->getItem($_GET['item'], $d->section_id, $d->text_col_id, $d->date_col_id);
+
+                if($data['id'] > 0){
+                    $bc = $this->getBreadCrumbs($item['data']['id']);
+                    $bc[count($bc)-1]['current'] = false;
+
+                    array_push(
+                        $bc,
+                        array(
+                            'id' => $data['id'],
+                            'name' => $data['name'],
+                            'current' => true
+                        )
                     );
 
-                    if($this->login->user_status['status']){
-                        $this->page['content'] = $this->smarty->fetch('modules/change_password.tpl');
-                    }else{
-                        $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                    };
-
-                }; break;
-
-                case '10' : {
-                    if($_GET['action'] == 'go' && strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
-                        $form = $this->postToGb($_POST['email']);
-                    };
-
-                    $data = array();
-                    $data['list'] = $this->getGbItems();
-
                     $this->page = array(
                         'id'            => $item['data']['id'],
                         'pid'           => $item['data']['pid'],
                         'path'          => $item['data']['path'],
-                        'title'         => $item['data']['title'],
+                        'title'         => $data['name'],
                         'description'   => $item['data']['description'],
                         'keywords'      => $item['data']['keywords'],
-                        'h1'            => $item['data']['name'],
+                        'h1'            => $data['name'],
                         'mode'          => $item['data']['mode'],
-                        'form'          => $form,
                         'data'          => $data,
-                        'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
+                        'breadcrumbs'   => $bc
                     );
 
                     if($item['data']['private'] == '1' && !$this->login->user_status['status']){
                         $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
                     }else{
-                        $this->page['content'] = $this->smarty->fetch('modules/guest_book.tpl');
+                        $this->page['content'] = $this->smarty->fetch($d->template_item);
                     };
-                }; break;
+                }else{
+                    $this->error404();
+                };
 
-                case '11' : {
-                    if($_GET['item'] > 0){
-                        $data = $this->getVideosItemData($_GET['item']);
+            }else{
+                $data['list'] = $this->getList($d->section_id, $d->limit, $d->announce_col_id, $d->date_col_id, $d->image_col_id);
 
-                        if($data['id'] > 0){
-                            $bc = $this->getBreadCrumbs($item['data']['id']);
-                            $bc[count($bc)-1]['current'] = false;
+                $this->page = array(
+                    'id'            => $item['data']['id'],
+                    'pid'           => $item['data']['pid'],
+                    'path'          => $item['data']['path'],
+                    'title'         => $item['data']['title'],
+                    'description'   => $item['data']['description'],
+                    'keywords'      => $item['data']['keywords'],
+                    'h1'            => $item['data']['name'],
+                    'mode'          => $item['data']['mode'],
+                    'continuous'    => true,
+                    'loading_url'   => '/?ajax&action=load_more_items&module=news&per_page_items=2',
+                    'data'          => $data,
+                    'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
+                );
 
-                            array_push(
-                                $bc,
-                                array(
-                                    'id' => $data['id'],
-                                    'name' => $data['name'],
-                                    'current' => true
-                                )
-                            );
-
-                            $this->page = array(
-                                'id'            => $item['data']['id'],
-                                'pid'           => $item['data']['pid'],
-                                'path'          => $item['data']['path'],
-                                'title'         => $data['name'],
-                                'description'   => $item['data']['description'],
-                                'keywords'      => $item['data']['keywords'],
-                                'h1'            => $data['name'],
-                                'mode'          => $item['data']['mode'],
-                                'data'          => $data,
-                                'breadcrumbs'   => $bc
-                            );
-
-                            if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                                $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                            }else{
-                                $this->page['content'] = $this->smarty->fetch('modules/videos_item.tpl');
-                            };
-                        }else{
-                            $this->error404();
-                        };
-
-                    }else{
-                        $data = array();
-                        $data['list'] = $this->getVideosList();
-
-                        $this->page = array(
-                            'id'            => $item['data']['id'],
-                            'pid'           => $item['data']['pid'],
-                            'path'          => $item['data']['path'],
-                            'title'         => $item['data']['title'],
-                            'description'   => $item['data']['description'],
-                            'keywords'      => $item['data']['keywords'],
-                            'h1'            => $item['data']['name'],
-                            'mode'          => $item['data']['mode'],
-                            'data'          => $data,
-                            'breadcrumbs'   => $this->getBreadCrumbs($item['data']['id'])
-                        );
-
-                        if($item['data']['private'] == '1' && !$this->login->user_status['status']){
-                            $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
-                        }else{
-                            $this->page['content'] = $this->smarty->fetch('modules/videos_list.tpl');
-                        };
-                    };
-
-                }; break;
+                if($item['data']['private'] == '1' && !$this->login->user_status['status']){
+                    $this->page['content'] = $this->smarty->fetch('modules/need_auth.tpl');
+                }else{
+                    $this->page['content'] = $this->smarty->fetch($d->template_list);
+                };
             };
-
         }
 
         //Get template filename by id
@@ -1022,7 +772,7 @@
                 foreach($fields as $item){
                     if(is_array($item)){
                        //$f .= "`".$this->db->quote($item[0])."` AS `".$this->db->quote($item[1])."`, ";
-                        $f .= $this->db->quote($item[0])." AS `".$this->db->quote($item[1])."`, ";
+                        $f .= $item[0]." AS `".$this->db->quote($item[1])."`, ";
                     }else{
                         //$f .= "`".$this->db->quote($item)."`, ";
                         $f .= $this->db->quote($item).", ";
@@ -1041,7 +791,7 @@
             //TODO : Make a multiple orders here
             $o = "";
             if(!empty($order)){
-                $o = "ORDER BY `".$order[0]."` ".$order[1];
+                $o = "ORDER BY ".$order[0]." ".$order[1];
             };
 
             $l = "";
@@ -1083,6 +833,7 @@
             };
 
             $query = "SELECT ".$f." FROM `".$this->db->quote($table)."` ".$inner.$w." ".$o." ".$l;
+
             $result['items'] = $this->db->assocMulti($query);
             return $result;
         }
@@ -1157,6 +908,60 @@
                     return $r4[1];
                 };
             };
+        }
+
+        public function getList($section_id, $limit, $announce_col_id = false, $date_col_id = false, $image_col_id = false){
+            $fields = array(
+                'section_'.intval($section_id).'.id',
+                'section_'.intval($section_id).'.name',
+
+            );
+
+            $order = false;
+            $inner = false;
+
+            if($announce_col_id){
+                array_push($fields, array('section_'.intval($section_id).'.col_'.intval($announce_col_id), 'announce'));
+            };
+
+            if($date_col_id){
+                array_push($fields, array('section_'.intval($section_id).'.col_'.intval($date_col_id), 'date'));
+                $order = array('col_'.intval($date_col_id), 'DESC');
+            }else{
+                $order = array('`section_'.intval($section_id).'`.`sort`', 'ASC');
+            };
+
+            if($image_col_id){
+                array_push($fields, array('CONCAT(images.path,images.name,\'_pic.\',images.extension)', 'pic'));
+                $inner = "LEFT JOIN images ON images.relative_table = 'section_".intval($section_id)."' && images.relative_id = section_".intval($section_id).".id && images.form_item = 'col_".intval($image_col_id)."'";
+            };
+
+            return $this->getSectionContent($section_id, $fields, 'publish = 1', $order, $limit, $_GET['page'], $inner);
+        }
+
+        //News item
+        public function getItem($id, $section_id, $text_col_id, $date_col_id = false){
+            $date = "";
+
+            if($date_col_id){
+                $date = ", `col_".intval($date_col_id)."` AS `date`";
+            };
+
+            $query = "
+                SELECT
+                    `id`,
+                    `name`,
+                    `col_".intval($text_col_id)."` AS `text`
+                    ".$date."
+                FROM
+                    `section_".intval($section_id)."`
+                WHERE
+                    `id` = ".intval($id)." &&
+                    `publish` = 1
+            ";
+
+            $result = $this->db->assocItem($query);
+            return $result;
         }
     }
 ?>

@@ -1,63 +1,84 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        {include file="include/common/head.tpl"}
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+    {include file="include/common/head.tpl"}
+
     <body>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
+        <div id="wrapper">
+        {include file="include/common/top.tpl"}
 
-                    <!-- Be sure to leave the brand out there if you want it shown -->
-                    <span class="brand">Project name</span>
+        {include file="include/common/top_menu.tpl"}
 
-                    <!-- Everything you want hidden at 940px or less, place within here -->
-                    <div class="nav-collapse">
-                        {include file="include/common/main_menu.tpl"}
-                        {include file="include/common/user_block.tpl"}
+            <div id="content">
+                <div class="left_col">
+                    {include file="include/common/left_side_menu.tpl"}
+
+                    {include file="include/common/chart.tpl"}
+                </div>
+
+                <div class="right_col">
+                    {if !$smarty.get.item}
+                    <div class="images">
+                        <a class="slide_left" href="javascript:void(0)"></a>
+                        <a class="slide_right" href="javascript:void(0)"></a>
+
+                        <div class="slides navy_block">
+                            <div class="container">
+
+                                <div class="slide">
+                                    <div class="slide_inner" style="background-image: url('/resources/img/slides/slide_1.jpg')">
+                                        <div class="info_line">
+                                            <h1>Слайд 1</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slide">
+                                    <div class="slide_inner" style="background-image: url('/resources/img/slides/slide_2.jpg')">
+                                        <div class="info_line">
+                                            <h1>Слайд 2</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slide">
+                                    <div class="slide_inner" style="background-image: url('/resources/img/slides/slide_3.jpg')">
+                                        <div class="info_line">
+                                            <h1>Слайд 3</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slide">
+                                    <div class="slide_inner" style="background-image: url('/resources/img/slides/slide_4.jpg')">
+                                        <div class="info_line">
+                                            <h1>Слайд 4</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pagination"></div>
+                    </div>
+                    {/if}
+
+                    {if $smarty.get.item}
+                    {include file="include/common/breadcrumbs.tpl"}
+                    {/if}
+
+                    <div class="page-header">
+                        <h1>{$core->page.h1}</h1>
+                    </div>
+
+                    <div class="content_c">
+                        {$core->page.content}
                     </div>
                 </div>
+
+                <div class="clear"></div>
             </div>
         </div>
 
-        <div class="container">
-            <div class="hero-unit">
-                <h1>Heading</h1>
-                    <p>Tagline</p>
-                    <p>
-                        <a class="btn btn-primary btn-large">
-                        <Lea></Lea>rn more
-                    </a>
-                </p>
-            </div>
-            {$core->page.content}
-
-            <div class="row">
-                {$last_n = $core->getLastNewsItemsData(4)}
-
-                {if $last_n}
-                    {foreach $last_n as $item}
-                    <div class="span3">
-                        <h3>{$item.name}</h3>
-                        <em>{$item.date|date:"datetime"}</em>
-                        {$item.announce}
-                        <a class="btn" href="/news/?item={$item.id}">Читать далее</a>
-                    </div>
-                    {/foreach}
-                {/if}
-            </div>
-
-            <hr />
-
-            <footer>
-                {include file="include/common/footer.tpl"}
-            </footer>
-        </div>
+        {include file="include/common/footer.tpl"}
     </body>
 </html>

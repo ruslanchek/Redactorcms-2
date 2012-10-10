@@ -23,6 +23,7 @@
                     </div>
 
                     <div class="content_c">
+                        {include file="include/common/second_level_menu.tpl"}
                         {$core->page.content}
                     </div>
                 </div>

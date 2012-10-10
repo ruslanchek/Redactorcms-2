@@ -5,13 +5,8 @@
 
     <title>{$core->page.title}</title>
 
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="/resources/css/bootstrap-responsive.min.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="/resources/css/style.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/resources/css/style.css" type="text/css" media="screen, projection" />
 
-    <script src="/resources/js/jquery.js"></script>
-    <script src="/fancybox/jquery.fancybox.pack.js"></script>
-    <script src="/resources/js/bootstrap.min.js"></script>
-    <script src="/resources/js/core.js"></script>
+    <script src="/resources/js/jquery-1.8.2.min.js"></script>
+    <script src="/resources/js/actions.js"></script>
 </head>

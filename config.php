@@ -27,8 +27,8 @@
 
 		//DB vars
 		'db_host'                   => 'localhost',
-		'db_base'                   => 'rdc',
-		'db_user'                   => 'root',
-		'db_pass'                   => '123'
+		'db_base'                   => 'Sporthimki',
+		'db_user'                   => 'sporthimki_user',
+		'db_pass'                   => 'xUqQhI0i0NV5l'
 	);
 ?>

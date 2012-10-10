@@ -9,3 +9,5 @@
         {/if}
     {/foreach}
 </ul>
+
+<div class="clear"></div>

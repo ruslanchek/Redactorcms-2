@@ -1,8 +1,8 @@
 {* Меню второго уровня *}
-{$second_level_menu=$core->getInlineMenu(3, $core->page.id)}
+{$second_level_menu=$core->getInlineMenu(4, $core->page.id)}
 
 {if !$second_level_menu && $core->page.pid > 1}
-    {$second_level_menu=$core->getInlineMenu(3, $core->page.pid)}
+    {$second_level_menu=$core->getInlineMenu(4, $core->page.id)}
 {/if}
 
 {if $second_level_menu}

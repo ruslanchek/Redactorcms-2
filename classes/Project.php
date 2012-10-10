@@ -222,40 +222,6 @@
             return $result;
         }
 
-        public function getNewsList($limit){
-            $section_id = '6';
-
-            $fields = array(
-                'id',
-                'name',
-                array('col_32', 'date'),
-                array('col_30', 'announce')
-            );
-
-            $order = array('col_30', 'DESC');
-
-            return $this->getSectionContent($section_id, $fields, false, $order, $limit, $_GET['page']);
-        }
-
-        //News item
-        public function getNewsItemData($id){
-            $query = "
-                SELECT
-                    `id`,
-                    `name`,
-                    `col_32` AS `date`,
-                    `col_31` AS `text`
-                FROM
-                    `section_6`
-                WHERE
-                    `id` = ".intval($id)." &&
-                    `publish` = 1
-            ";
-
-            $result = $this->db->assocItem($query);
-            return $result;
-        }
-
         public function getMapMarkers($id){
             $query = "
                 SELECT
@@ -431,6 +397,33 @@
             );
 
             return $result[0];
+        }
+
+        //Returns array of specified branch
+        public function getBranchMenu($id = 1, $menu){
+            $query = "
+                SELECT
+                    `structure`.`id`,
+                    `structure_data`.`name`,
+                    `structure_data`.`path`
+                FROM
+                    `structure`,
+                    `structure_data`
+                WHERE
+                    `structure`.`pid` = ".intval($id)." &&
+                    `structure`.`id` = `structure_data`.`id` &&
+                    `structure_data`.`menu` = ".intval($menu)."
+                ORDER BY
+                    `structure_data`.`sort` ASC
+            ";
+            $result = mysql_query($query);
+
+            while($row = mysql_fetch_assoc($result)){
+                $row['childrens'] = $this->getBranchMenu($row['id'], $menu);
+                $rows[] = $row;
+            };
+
+            return $rows;
         }
     }
 ?>

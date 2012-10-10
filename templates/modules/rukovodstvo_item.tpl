@@ -1,0 +1,1 @@
+{$core->page.data.text}

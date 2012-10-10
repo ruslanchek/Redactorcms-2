@@ -55,7 +55,13 @@
                     if($type == 'image'){
                         $this->createThumbnail($_SERVER['DOCUMENT_ROOT'] . $target_path, $file_name, $file_ext);
                         $out = trim(Utilities::clearString($target_path . $file_name . '.' . $file_ext));
-                        print $out;
+
+                         // displaying file
+                        $array = array(
+                            'filelink' => $out
+                        );
+
+                        echo stripslashes(json_encode($array));
                     }else{
                         print '<a href="' . $target_path . $file_name . '.' . $file_ext . '">' . $file_name . '.' . $file_ext . '</a>';
                     };
