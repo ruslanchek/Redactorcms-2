@@ -381,7 +381,7 @@
                 '/admin/css/colorpicker.css',
                 '/admin/css/calendar.css',
                 '/admin/css/uploader.css',
-                '/admin/redactor/css/redactor.css',
+                '/admin/redactor/redactor.css',
                 '/admin/css/autocomplete.css',
                 '/admin/css/tagsinput.css'
             );

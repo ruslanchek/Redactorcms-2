@@ -15,18 +15,29 @@ function initEditor(obj, locale, dom_id){
         id: id,
         obj: obj,
         instance: obj.redactor({
-            resize          : true,
-            focus           : false,
             lang            : lang,
-            toolbar         : 'default',
-            typo            : '/admin/?action=typo',
+            convertDivs     : false,
+            fileUpload      : '',
+            minHeight       : obj.attr('rows') * 22,
             imageUpload     : '/admin/?action=upload&type=image',
-            fileUpload      : '/admin/?action=upload&type=file'
+            fileUpload      : '/admin/?action=upload&type=file',
+            wym             : true
         })
     };
 
     $('.typo[rel="'+dom_id+'"]').attr('index', editors_index).click(function(){
-        editors[$(this).attr('index')].instance.typo();
+        var editor = editors[$(this).attr('index')].instance;
+
+        $.ajax({
+            url: '/admin/?action=typo',
+            type: 'post',
+            data: {
+                redactor: editor.getCode()
+            },
+            success: function(data){
+                editor.setCode(data);
+            }
+        })
     });
 
     editors_index++;

@@ -331,7 +331,7 @@
             array_push(
                 $main->addition_css,
                 '/admin/css/checkboxes.css',
-                '/admin/redactor/css/redactor.css'
+                '/admin/redactor/redactor.css'
             );
         }; break;
     };
