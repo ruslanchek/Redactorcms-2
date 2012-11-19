@@ -456,6 +456,7 @@
                     $data->limit            = 6;
                     $data->text_col_id      = 169;
                     $data->date_col_id      = false;
+                    $data->order_by          = array('col_169', 'ASC');
                     $data->announce_col_id  = 169;
                     $data->image_col_id     = 164;
                     $data->template_item    = 'modules/links_item.tpl';
@@ -468,7 +469,7 @@
 
         private function operateModule($item, $d){
             if($_GET['item'] > 0){
-                $data = $this->getItem($_GET['item'], $d->section_id, $d->text_col_id, $d->date_col_id);
+                $data = $this->getItem($_GET['item'], $d->section_id, $d->text_col_id, $d->date_col_id, $d->order_by);
 
                 if($data['id'] > 0){
                     $bc = $this->getBreadCrumbs($item['data']['id']);
@@ -507,7 +508,7 @@
                 };
 
             }else{
-                $data['list'] = $this->getList($d->section_id, $d->limit, $d->announce_col_id, $d->date_col_id, $d->image_col_id, $d->additional_where);
+                $data['list'] = $this->getList($d->section_id, $d->limit, $d->announce_col_id, $d->date_col_id, $d->image_col_id, $d->additional_where, $d->order_by);
 
                 $this->page = array(
                     'id'            => $item['data']['id'],
@@ -911,7 +912,7 @@
             };
         }
 
-        public function getList($section_id, $limit, $announce_col_id = false, $date_col_id = false, $image_col_id = false, $additional_where = false){
+        public function getList($section_id, $limit, $announce_col_id = false, $date_col_id = false, $image_col_id = false, $additional_where = false, $order_by = false){
             $fields = array(
                 'section_'.intval($section_id).'.id',
                 'section_'.intval($section_id).'.name'
@@ -921,18 +922,19 @@
                 $additional_where = "";
             };
 
-            $order = false;
             $inner = false;
 
             if($announce_col_id){
                 array_push($fields, array('section_'.intval($section_id).'.col_'.intval($announce_col_id), 'announce'));
             };
 
-            if($date_col_id){
+            if($date_col_id && !$order_by){
                 array_push($fields, array('section_'.intval($section_id).'.col_'.intval($date_col_id), 'date'));
                 $order = array('col_'.intval($date_col_id), 'DESC');
-            }else{
+            }elseif(!$date_col_id && !$order_by){
                 $order = array('`section_'.intval($section_id).'`.`sort`', 'ASC');
+            }elseif(!$date_col_id && $order_by){
+                $order = array($order_by[0], $order_by[1]);
             };
 
             if($image_col_id){
@@ -944,11 +946,16 @@
         }
 
         //News item
-        public function getItem($id, $section_id, $text_col_id, $date_col_id = false){
+        public function getItem($id, $section_id, $text_col_id, $date_col_id = false, $order_by = false){
             $date = "";
+            $o = "";
 
             if($date_col_id){
                 $date = ", `col_".intval($date_col_id)."` AS `date`";
+            };
+
+            if($order_by){
+                $o = " ORDER BY `".$this->db->quote($order_by[0])."` ".$this->db->quote($order_by[1])." ";
             };
 
             $query = "
@@ -962,7 +969,7 @@
                 WHERE
                     `id` = ".intval($id)." &&
                     `publish` = 1
-            ";
+                ".$o;
 
             $result = $this->db->assocItem($query);
             return $result;
