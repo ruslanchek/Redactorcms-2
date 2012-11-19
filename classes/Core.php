@@ -493,7 +493,8 @@
                         'h1'            => $data['name'],
                         'mode'          => $item['data']['mode'],
                         'data'          => $data,
-                        'breadcrumbs'   => $bc
+                        'breadcrumbs'   => $bc,
+                        'additional'    => $d->additional
                     );
 
                     if($item['data']['private'] == '1' && !$this->login->user_status['status']){
@@ -506,7 +507,7 @@
                 };
 
             }else{
-                $data['list'] = $this->getList($d->section_id, $d->limit, $d->announce_col_id, $d->date_col_id, $d->image_col_id);
+                $data['list'] = $this->getList($d->section_id, $d->limit, $d->announce_col_id, $d->date_col_id, $d->image_col_id, $d->additional_where);
 
                 $this->page = array(
                     'id'            => $item['data']['id'],
@@ -910,12 +911,15 @@
             };
         }
 
-        public function getList($section_id, $limit, $announce_col_id = false, $date_col_id = false, $image_col_id = false){
+        public function getList($section_id, $limit, $announce_col_id = false, $date_col_id = false, $image_col_id = false, $additional_where = false){
             $fields = array(
                 'section_'.intval($section_id).'.id',
-                'section_'.intval($section_id).'.name',
-
+                'section_'.intval($section_id).'.name'
             );
+
+            if(!$additional_where){
+                $additional_where = "";
+            };
 
             $order = false;
             $inner = false;
@@ -936,7 +940,7 @@
                 $inner = "LEFT JOIN images ON images.relative_table = 'section_".intval($section_id)."' && images.relative_id = section_".intval($section_id).".id && images.form_item = 'col_".intval($image_col_id)."'";
             };
 
-            return $this->getSectionContent($section_id, $fields, 'publish = 1', $order, $limit, $_GET['page'], $inner);
+            return $this->getSectionContent($section_id, $fields, 'publish = 1'.$additional_where, $order, $limit, $_GET['page'], $inner);
         }
 
         //News item
