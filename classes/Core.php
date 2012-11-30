@@ -935,6 +935,9 @@
                 $order = array('`section_'.intval($section_id).'`.`sort`', 'ASC');
             }elseif(!$date_col_id && $order_by){
                 $order = array($order_by[0], $order_by[1]);
+            }elseif($date_col_id && $order_by){
+                array_push($fields, array('section_'.intval($section_id).'.col_'.intval($date_col_id), 'date'));
+                $order = array($order_by[0], $order_by[1]);
             };
 
             if($image_col_id){
