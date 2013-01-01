@@ -14,16 +14,17 @@ function initEditor(obj, locale, dom_id){
     editors[editors_index] = {
         id: id,
         obj: obj,
-        instance: obj.redactor({
-            lang            : lang,
-            convertDivs     : false,
-            fileUpload      : '',
-            minHeight       : obj.attr('rows') * 22,
-            imageUpload     : '/admin/?action=upload&type=image',
-            fileUpload      : '/admin/?action=upload&type=file',
-            wym             : true
+        instance: obj.elrte({
+            cssClass : 'el-rte',
+            lang     : lang,
+            height   : obj.attr('rows') * 22,
+            toolbar  : 'maxi',
+            cssfiles : ['css/elrte-inner.css']
         })
     };
+
+
+
 
     $('.typo[rel="'+dom_id+'"]').attr('index', editors_index).click(function(){
         var editor = editors[$(this).attr('index')].instance;

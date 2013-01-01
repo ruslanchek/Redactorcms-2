@@ -12,6 +12,7 @@
 
         <link rel="stylesheet" type="text/css" href="/admin/css/style.css" media="all" />
         <link rel="stylesheet" type="text/css" href="/admin/css/chosen.css" media="all" />
+        <link rel="stylesheet" href="/admin/elrte-1.3/css/elrte.full.css" type="text/css" media="screen" charset="utf-8">
 
         <script type="text/javascript" src="/admin/js/jquery.js"></script>
         <script type="text/javascript" src="/admin/js/color_animation.js"></script>
@@ -19,6 +20,12 @@
         <script type="text/javascript" src="/admin/js/cookie.js"></script>
         <script type="text/javascript" src="/admin/js/ui.js"></script>
         <script type="text/javascript" src="/admin/js/chosen.jquery.js"></script>
+
+        <!-- elRTE -->
+        <script src="/admin/elrte-1.3/js/elrte.full.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- elRTE translation messages -->
+        <script src="/admin/elrte-1.3/js/i18n/elrte.ru.js" type="text/javascript" charset="utf-8"></script>
 
         {foreach from=$main->addition_js item=item}
         <script type="text/javascript" src="{$item}"></script>
