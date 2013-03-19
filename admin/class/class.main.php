@@ -432,9 +432,17 @@
                         }; break;
 
                         case 'catalog' : {
-                            $result = DB::quote(urldecode($value));
+                            $result = json_decode(urldecode($value));
 
-                            array_push($data, array($item_1['name'] => $result));
+                            $r1 = '';
+
+                            foreach($result as $item){
+                                $r1 .= '{"key":"'. htmlspecialchars(htmlspecialchars_decode($item->key)) . '","val":"' . htmlspecialchars(htmlspecialchars_decode($item->val)) . '"},';
+                            };
+
+                            $r1 = DB::quote('['.substr($r1, 0, strlen($r1) - 1).']');
+
+                            array_push($data, array($item_1['name'] => $r1));
                         }; break;
 
                         case 'multiselect' : {

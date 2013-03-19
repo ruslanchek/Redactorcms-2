@@ -34,6 +34,8 @@
                 </th>
                 {/if}
 
+                <th width="1%"></th>
+
                 {if !$main->vars.list_no_publish}
                 <th width="1%" align="left">
                     <span class="sort_arr_with_icon">
@@ -42,10 +44,6 @@
                     <a class="icon_action icon_hide_instance" title="{$main->getText('list', 'show_item_help')}/{$main->getText('list', 'hide_item_help')}" href="{$main->getListSortingLink('publish', true)}"></a>
                 </th>
                 {/if}
-
-                <th width="1%" align="left">
-
-                </th>
 
                 <th width="1%"></th>
             </tr>
@@ -234,6 +232,10 @@
                     </td>
                     {/if}
 
+                    <td>
+                        <a href="{$main->content_list_copy_link}{$item.id}" class="icon_action icon_copy_instance" title="Копировать запись"></a>
+                    </td>
+
                     {if !$main->vars.list_no_publish}
                     <td>
                         {if $item.publish == '0'}
@@ -246,10 +248,6 @@
 
                     <td>
                         <a class="icon_action icon_delete_instance" title="{$main->getText('list', 'delete_item_help')}" href="javascript:void(0)" onclick="confirmMessage('{$main->getText('list', 'confirm_delete_text')}', '{$main->content_list_delete_link}{$item.id}')"></a>
-                    </td>
-
-                    <td>
-                        <a href="{$main->content_list_copy_link}{$item.id}" class="icon_action icon_copy_instance" title="Копировать ячейку"></a>
                     </td>
                 </tr>
             {/foreach}

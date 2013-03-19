@@ -1414,11 +1414,69 @@ var mailing = {
 
 var catalog = {
     createParam: function(id, params){
-        var json = JSON.parse(decodeURIComponent($('#'+id).val()));
+        var str = $('#'+id).val(),
+            json = [];
+
+        if(str && this.checkJson(str)){
+            json = JSON.parse(decodeURIComponent(str));
+        };
 
         json.push(params);
+
         $('#'+id).val(encodeURIComponent(JSON.stringify(json)));
-        this.drawTable(id);
+
+        this.drawTable(id, $('#'+id).val());
+    },
+
+    pasteParams: function(id){
+        var json = JSON.parse(decodeURIComponent($('#'+id).val()));
+
+        var data = JSON.stringify(json, null, "\t");
+
+        var editor_html =   '<div>' +
+                                '<textarea style="width: 100%; height: 300px" readonly autocomplete="off" class="area" id="catalog_paste_params">' + data + '</textarea>' +
+                            '</div>';
+
+        var window = new Window();
+        window.createModal('Экспорт значений', editor_html, 500);
+    },
+
+    checkJson: function(str){
+        try {
+           var json = JSON.parse(decodeURIComponent(str));
+
+        } catch(e) {
+           json = false;
+        };
+
+
+        return json;
+    },
+
+    copyParams: function(id){
+        var editor_html =   '<div>' +
+                                '<div id="catalog_copy_message" style="color: #999">Вставьте JSON-объект в поле</div>' +
+                                '<textarea style="width: 100%; height: 300px" autocomplete="off" class="area" id="catalog_copy_params"></textarea>' +
+                                '<input class="button" id="catalog_copy_save" type="button" value="Импортировать" />' +
+                            '</div>';
+
+        var window = new Window();
+        window.createModal('Импорт значений', editor_html, 500);
+
+        $('#catalog_copy_save').off('click').on('click', function(){
+            var value = $('#catalog_copy_params').val();
+
+            if(catalog.checkJson(value)){
+                var json = JSON.parse(value);
+
+                $('#'+id).val(encodeURIComponent(JSON.stringify(json)));
+                catalog.drawTable(id, $('#'+id).val());
+
+                $('#catalog_copy_message').css({color: '#0c6927'}).text('Данные успешно импортированны');
+            }else{
+                $('#catalog_copy_message').css({color: '#940100'}).text('Ошибка синтаксиса при обработки JSON-объекта');
+            };
+        });
     },
 
     addParam: function(id){
@@ -1463,7 +1521,7 @@ var catalog = {
             json = new_json;
 
             $('#'+id).val(encodeURIComponent(JSON.stringify(json)));
-            this.drawTable(id);
+            this.drawTable(id, $('#'+id).val());
         };
     },
 
@@ -1491,7 +1549,7 @@ var catalog = {
                 };
 
                 $('#'+id).val(encodeURIComponent(JSON.stringify(json)));
-                catalog.drawTable(id);
+                catalog.drawTable(id, $('#'+id).val());
 
                 window.destroyModal();
             }else{
@@ -1500,11 +1558,11 @@ var catalog = {
         });
     },
 
-    drawTable: function(id){
-        var json = JSON.parse(decodeURIComponent($('#'+id).val())),
-            html = new String();
+    drawTable: function(id, str){
+        var html = new String();
+        if(str && this.checkJson(str)){
+            var json = JSON.parse(decodeURIComponent(str));
 
-        if(json){
             for(var i = 0, l = json.length; i < l; i++){
                 if(json[i] != null){
                     html += '<tr>' +
@@ -1520,11 +1578,13 @@ var catalog = {
 
             $('#catalog_'+id).find('table tr').not('.thead').remove();
             $('#catalog_'+id).find('table').append(html);
+        }else{
+            $('#'+id).val('[]');
         };
     },
 
     init: function(id){
-        this.drawTable(id);
+        this.drawTable(id, $('#'+id).val());
     }
 };
 

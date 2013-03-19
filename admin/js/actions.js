@@ -117,15 +117,24 @@ function Window(){
         $(window).bind('resize', function(){
             that.setModalPosition();
         });
+
         $(document).bind('scroll', function(){
             that.setModalPosition();
         });
+
         $('#modal_closer').bind('click', function(){
             that.destroyModal();
+        });
+
+        $('body').on('keyup', function(e){
+            if(e.keyCode == 27){
+                that.destroyModal();
+            };
         });
     };
     
     this.destroyModal = function(){
+        $('body').off('keyup');
         $(window).unbind('resize');
         $(document).unbind('scroll');
         $('#modal_closer').unbind('click');

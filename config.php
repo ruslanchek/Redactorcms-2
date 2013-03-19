@@ -1,4 +1,9 @@
 <?php
+    #error_reporting(E_ALL | E_STRICT);
+
+    session_start();
+    date_default_timezone_set('Europe/Moscow');
+
 	$config = array(
 		//Global vars
 		'current_version'           => '2.0',

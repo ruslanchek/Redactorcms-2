@@ -1500,6 +1500,11 @@ a.icon_file_instance:visited { background: url(../img/icons/actions.png) -112px 
 a.icon_file_instance:hover { background: url(../img/icons/actions.png) -112px -16px; }
 a.icon_file_instance:active { background: url(../img/icons/actions.png) -112px -16px; }
 
+.icon_copy_instance { background: url(../img/icons/actions.png) -128px 0; }
+a.icon_copy_instance:link { background: url(../img/icons/actions.png) -128px 0; }
+a.icon_copy_instance:visited { background: url(../img/icons/actions.png) -128px 0; }
+a.icon_copy_instance:hover { background: url(../img/icons/actions.png) -128px -16px; }
+a.icon_copy_instance:active { background: url(../img/icons/actions.png) -128px -16px; }
 
 .icon_dimensions_xy {
 	width: 17px;
@@ -2312,5 +2317,52 @@ ul#tag_tree li {
 }
 
 .form .add_param_button:active {
+    background-position: 0 -42px;
+}
+
+
+.form .copy_params_button {
+    position: absolute;
+    background: url(../img/buttons/gray_mini.png) repeat-x top left;
+    color: #222;
+    width: 76px;
+    height: 21px;
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 21px;
+    right: 104px;
+    top: -4px;
+    text-decoration: none;
+}
+
+.form .copy_params_button:hover {
+    background-position: 0 -21px;
+}
+
+.form .copy_params_button:active {
+    background-position: 0 -42px;
+}
+
+
+
+.form .paste_params_button {
+    position: absolute;
+    background: url(../img/buttons/gray_mini.png) repeat-x top left;
+    color: #222;
+    width: 76px;
+    height: 21px;
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 21px;
+    right: 184px;
+    top: -4px;
+    text-decoration: none;
+}
+
+.form .paste_params_button:hover {
+    background-position: 0 -21px;
+}
+
+.form .paste_params_button:active {
     background-position: 0 -42px;
 }
