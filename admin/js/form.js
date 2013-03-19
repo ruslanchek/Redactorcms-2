@@ -1449,6 +1449,16 @@ var catalog = {
            json = false;
         };
 
+        return json;
+    },
+
+    checkJsonRaw: function(str){
+        try {
+           var json = JSON.parse(str);
+
+        } catch(e) {
+           json = false;
+        };
 
         return json;
     },
@@ -1466,7 +1476,7 @@ var catalog = {
         $('#catalog_copy_save').off('click').on('click', function(){
             var value = $('#catalog_copy_params').val();
 
-            if(catalog.checkJson(value)){
+            if(catalog.checkJsonRaw(value)){
                 var json = JSON.parse(value);
 
                 $('#'+id).val(encodeURIComponent(JSON.stringify(json)));
