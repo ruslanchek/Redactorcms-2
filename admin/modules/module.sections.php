@@ -137,6 +137,8 @@
         $main->content_list_table           =   'section_'.$main->item_data['id'];
         $main->export_link                  =   Utilities::getParamstring('action').'action=export';
         $main->import_link                  =   Utilities::getParamstring('action').'action=import';
+        $main->content_list_copy_link       =   Utilities::getParamstring('action,item_id').'action=copy&item_id=';
+
    
         $sections->prepareContentListData();
 
@@ -152,6 +154,11 @@
 
         if(isset($_GET['action']) && strlen($_GET['action']) > 0){
             switch($_GET['action']){
+                case 'copy' : {
+                    $id = $sections->copyContentListRow(intval($_GET['item_id']));
+                    header('Location: '.$main->content_list_edit_link.$id);
+                }; break;
+
                 //Delete content list item
                 case 'delete' : {
                     $sections->deleteContentListRow(intval($_GET['item_id']));

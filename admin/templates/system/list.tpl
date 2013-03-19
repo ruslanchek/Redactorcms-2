@@ -43,6 +43,10 @@
                 </th>
                 {/if}
 
+                <th width="1%" align="left">
+
+                </th>
+
                 <th width="1%"></th>
             </tr>
         </thead>
@@ -242,6 +246,10 @@
 
                     <td>
                         <a class="icon_action icon_delete_instance" title="{$main->getText('list', 'delete_item_help')}" href="javascript:void(0)" onclick="confirmMessage('{$main->getText('list', 'confirm_delete_text')}', '{$main->content_list_delete_link}{$item.id}')"></a>
+                    </td>
+
+                    <td>
+                        <a href="{$main->content_list_copy_link}{$item.id}" class="icon_action icon_copy_instance" title="Копировать ячейку"></a>
                     </td>
                 </tr>
             {/foreach}

@@ -57,7 +57,7 @@
             $query = "
             	SELECT ".$this->main->getMySqlFieldset($this->list_mysql_fieldset)."
             	FROM `".$this->table."`
-            	ORDER BY `id` DESC
+            	ORDER BY `sort` ASC
             ";
 
             $sql = mysql_query($query);
@@ -423,6 +423,33 @@
         	");
 
         	return true;
+        }
+
+        //Copy list row
+        public function copyContentListRow($id){
+            $section_list_table_name = 'section_'.$this->main->item_data['id'];
+
+            $query = "CREATE TEMPORARY TABLE `temp_table` AS SELECT * FROM `".$section_list_table_name."` WHERE id = ".intval($id);
+            mysql_query($query);
+
+            $result = mysql_fetch_row(mysql_query("SELECT id FROM `".$section_list_table_name."` WHERE `id`=(SELECT max(`id`) FROM `".$section_list_table_name."`)"));
+            $maxid = $result[0] + 1;
+
+            $query = "SELECT `name` FROM `".$section_list_table_name."` WHERE `id`= ".intval($id);
+            $result = mysql_fetch_row(mysql_query($query));
+
+            $name = $result[0]." (копия)";
+
+            $query = "UPDATE temp_table SET id = ".intval($maxid).", name = '".$name."' WHERE id = ".intval($id);
+            mysql_query($query);
+
+            $query = "INSERT INTO `".$section_list_table_name."` SELECT * FROM temp_table";
+            mysql_query($query);
+
+            $query = "DROP TEMPORARY TABLE temp_table";
+            mysql_query($query);
+
+            return $maxid;
         }
 
         //Deletes a content list row
