@@ -209,7 +209,27 @@ class Images
         if (!$h_o) $h_o = $w_o/($w_i/$h_i);
         if (!$w_o) $w_o = $h_o/($h_i/$w_i);
         $img_o = imagecreatetruecolor($w_o, $h_o);
+
+// enable alpha blending on the destination image.
+
+imagealphablending($img_o, true);
+
+
+// Allocate a transparent color and fill the new image with it.
+
+// Without this the image will have a black background instead of being transparent.
+
+$transparent = imagecolorallocatealpha( $img_o, 0, 0, 0, 127 );
+
+        imagefill( $img_o, 0, 0, $transparent );
+
         imagecopyresampled($img_o, $img, 0, 0, 0, 0, $w_o, $h_o, $w_i, $h_i);
+
+        imagealphablending($img_o, false);
+
+                    // save the alpha
+        imagesavealpha($img_o, true);
+
         if ($type == 2) {
             return imagejpeg($img_o,$file_output,100);
         } else {
@@ -276,6 +296,16 @@ class Images
         }
 
         $img_o = imagecreatetruecolor($w_o, $h_o);
+
+        imagealphablending($img_o, true);
+
+        // Allocate a transparent color and fill the new image with it.
+        // Without this the image will have a black background instead of being transparent.
+        $transparent = imagecolorallocatealpha( $img_o, 0, 0, 0, 127 );
+        imagefill( $img_o, 0, 0, $transparent);
+
+        imagealphablending($img_o, false);
+        imagesavealpha($img_o,true);
 
         imagecopy($img_o, $img, 0, 0, $x_o, $y_o, $w_o, $h_o);
 
@@ -347,6 +377,17 @@ class Images
                 case 3:
                     // creates an image from file
                     $sourceImageIdentifier = imagecreatefrompng($this->sourceFile);
+
+                    imagealphablending($sourceImageIdentifier, true);
+
+                    // Allocate a transparent color and fill the new image with it.
+                    // Without this the image will have a black background instead of being transparent.
+                    $transparent = imagecolorallocatealpha( $sourceImageIdentifier, 0, 0, 0, 127 );
+                    imagefill( $sourceImageIdentifier, 0, 0, $transparent );
+
+                    imagealphablending($sourceImageIdentifier, false);
+                    imagesavealpha($sourceImageIdentifier,true);
+
                     break;
                 default:
                     // if file has an unsupported extension
@@ -515,8 +556,23 @@ class Images
             }
             // prepares the target image
             $targetImageIdentifier = $this->create_target_image_identifier($targetImageWidth, $targetImageHeight);
+
+            // enable alpha blending on the destination image.
+            imagealphablending($targetImageIdentifier, true);
+
+            // Allocate a transparent color and fill the new image with it.
+            // Without this the image will have a black background instead of being transparent.
+            $transparent = imagecolorallocatealpha( $targetImageIdentifier, 0, 0, 0, 127 );
+            imagefill( $targetImageIdentifier, 0, 0, $transparent );
+
             // resizes image
             imagecopyresampled($targetImageIdentifier, $sourceImageIdentifier, 0, 0, 0, 0, $targetImageWidth, $targetImageHeight, $sourceImageWidth, $sourceImageHeight);
+
+            imagealphablending($targetImageIdentifier, false);
+
+            // save the alpha
+            imagesavealpha($targetImageIdentifier, true);
+
             // writes image
             return $this->output_target_image($targetImageIdentifier);
         // if new image resource could not be created
