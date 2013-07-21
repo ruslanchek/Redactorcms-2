@@ -293,7 +293,7 @@
             //Set per page cookie
             if(isset($_GET['limit'])){
                 $this->setPerPage(intval($_GET['limit']));
-            }else if($_COOKIE['sections_list_per_page_limit']){
+            }else if($_COOKIE[$this->main->module_mode.'_list_per_page_limit']){
                 $this->per_page = intval($_COOKIE[$this->main->module_mode.'_list_per_page_limit']);
             };
 

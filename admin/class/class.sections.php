@@ -1576,13 +1576,17 @@
 
             //отдаем пользователю в браузер
             include($_SERVER['DOCUMENT_ROOT']."/admin/excel/PHPExcel/Writer/Excel2007.php");
+
             $objWriter = new PHPExcel_Writer_Excel2007($pExcel);
+
             header('Content-Type: application/vnd.ms-excel');
             header('Content-Disposition: attachment;filename="section_'.$id.'.xls"');
             header('Cache-Control: max-age=0');
+
             $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/admin/export/section_'.$id.'.xls');
 
             $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/admin/export/section_'.$id.'.xls', 'rb');
+
             while($cline = fgets($fp)){
                 print $cline;
             };
@@ -1633,7 +1637,7 @@
                                     $opts2 = explode('=', $item);
 
                                     if($opts2[0] == $item_id){
-                                        return $opts2[1];
+                                        return $opts2[1]; // TODO: Проверить! Выдает хуйню!
                                     };
                                 };
                             };
