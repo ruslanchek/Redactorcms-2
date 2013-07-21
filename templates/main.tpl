@@ -1,84 +1,50 @@
-<!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<!DOCTYPE html>
+<html>
     {include file="include/common/head.tpl"}
 
     <body>
-        <div id="wrapper">
-        {include file="include/common/top.tpl"}
+        {include file="include/common/header.tpl"}
 
-        {include file="include/common/top_menu.tpl"}
-
-            <div id="content">
-                <div class="left_col">
-                    {include file="include/common/left_side_menu.tpl"}
-
-                    {include file="include/common/chart.tpl"}
+        <div class="main-content limiter">
+            <div class="row">
+                <div class="third">
+                    <p><a href="#"><img src="img/art-1.jpg" class="rounded"></a>
                 </div>
 
-                <div class="right_col">
-                    {if !$smarty.get.item}
-                    <div class="images">
-                        <a class="slide_left" href="javascript:void(0)"></a>
-                        <a class="slide_right" href="javascript:void(0)"></a>
+                <div class="third">
+                    <p><a href="#"><img src="img/art-2.jpg" class="rounded"></a></p>
+                </div>
 
-                        <div class="slides navy_block">
-                            <div class="container">
+                <div class="third">
+                    <div class="textured rounded">
+                        <h2>Прайс-лист</h2>
+                        <a id="request-opener" href="#" class="button button-margin button-orange button-full">
+                            <i class="halflings envelope"></i>&nbsp; Заказать прайс-лист
+                        </a>
+                        <em class="gray">Прайс-лист будет выслан на ваш электронный адрес, в формате XLSX.</em>
+                    </div>
 
-                                <div class="slide">
-                                    <div class="slide_inner" style="background-image: url('/resources/img/slides/slide_1.jpg')">
-                                        <div class="info_line">
-                                            <h1>Слайд 1</h1>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="rounded textured news-announcements">
+                        <h2><a href="#" class="black-link">Специальные предложения</a></h2>
 
-                                <div class="slide">
-                                    <div class="slide_inner" style="background-image: url('/resources/img/slides/slide_2.jpg')">
-                                        <div class="info_line">
-                                            <h1>Слайд 2</h1>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="slide">
-                                    <div class="slide_inner" style="background-image: url('/resources/img/slides/slide_3.jpg')">
-                                        <div class="info_line">
-                                            <h1>Слайд 3</h1>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="slide">
-                                    <div class="slide_inner" style="background-image: url('/resources/img/slides/slide_4.jpg')">
-                                        <div class="info_line">
-                                            <h1>Слайд 4</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="item">
+                            <div class="date gray">28 июня, 2013</div>
+                            <h3><a href="#">Снижены цены на продукцию российского производства. Спешите заказать!</a></h3>
                         </div>
 
-                        <div class="pagination"></div>
-                    </div>
-                    {/if}
+                        <div class="item">
+                            <div class="date gray">28 июня, 2013</div>
+                            <h3><a href="#">Снижены цены на продукцию российского производства. Спешите заказать!</a></h3>
+                        </div>
 
-                    {if $smarty.get.item}
-                    {include file="include/common/breadcrumbs.tpl"}
-                    {/if}
-
-                    <div class="page-header">
-                        <h1>{$core->page.h1}</h1>
-                    </div>
-
-                    <div class="content_c">
-                        {$core->page.content}
+                        <div class="item">
+                            <div class="date gray">28 июня, 2013</div>
+                            <h3><a href="#">Снижены цены на продукцию российского производства. Спешите заказать!</a></h3>
+                        </div>
                     </div>
                 </div>
-
-                <div class="clear"></div>
             </div>
         </div>
-
         {include file="include/common/footer.tpl"}
     </body>
 </html>

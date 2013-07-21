@@ -49,12 +49,18 @@
             $this->setRequest();
             $this->setAnswerType();
 
+            $this->constants = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/constants.ini', true);
+
             //Run
             parent::__construct();
         }
 
         /* Core utilities
         *****************************************************************************/
+        public function getConstant($section, $name){
+            return $this->constants[$section][$name][0];
+        }
+
         //Find value in array
         private static function findValueInArray($needle, $haystack, $index_name){
             $found = false;

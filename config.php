@@ -25,7 +25,7 @@
                                         //array('shop',       'modules/module.shop.php',      true),
                                         array('templates',  'modules/module.templates.php', true),
                                         array('users',      'modules/module.users.php',     true),
-                                        //array('config',     'modules/module.config.php',    true),
+                                        array('config',     'modules/module.config.php',    true),
 
                                         array('personal',   'modules/module.personal.php',  false)
                                     ),

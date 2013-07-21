@@ -1,12 +1,12 @@
 <h1>{$main->h1}</h1>
 
-{if $main->module_mode == 'constants'}
+
     <div class="list_table config_table">
         <form action="/admin/?option=config&suboption=constants&action=save_params" method="POST">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 {foreach $main->constants as $key => $val}
                     <tr>
-                        <th colspan="3" align="left">{$main->getText('modules_menu', $key)}</th>
+                        <th colspan="3" align="left">{$main->getText('contstants', $key)}</th>
                     </tr>
 
                     {foreach $main->constants[$key] as $key_i => $val_i}
@@ -30,6 +30,3 @@
             <div class="form_end"></div>
         </form>
     </div>
-{else}
-    sad
-{/if}
