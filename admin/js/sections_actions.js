@@ -586,8 +586,8 @@ var sql_preview = {
         var result = new String();
 
         result += "SELECT\n";
-        result += "    `id`,\n";
-        result += "    `sort`,\n";
+        result += "\t`id`,\n";
+        result += "\t`sort`,\n";
         
         items.each(function(){
             var item = $(this);
@@ -595,12 +595,12 @@ var sql_preview = {
             if(item.attr('rel') != 'separator'){
                 if(item.hasClass('item_embed')){
                     if(item.attr('rel') == 'checkbox'){
-                        result += "    `publish`,\n";
+                        result += "\t`publish`,\n";
                     }else if(item.attr('rel') == 'text'){
-                        result += "    `name`,\n";
+                        result += "\t`name`,\n";
                     };
                 }else{
-                    result += "    `" + item.attr('colname') + "` AS `" + item.find('.fielditem_name').text() + "`,\n";
+                    result += "\t`" + item.attr('colname') + "` AS `" + item.find('.fielditem_name').text() + "`,\n";
                 };
             };
         });
@@ -608,7 +608,12 @@ var sql_preview = {
         result = result.substr(0, result.length-2)+"\n";
 
         result += "FROM\n";
-        result += "    `section_" + this.section_id + "`";
+        result += "\t`section_" + this.section_id + "`\n";
+        result += "WHERE\n";
+        result += "\t`publish` = 1\n";
+        result += "ORDER BY\n";
+        result += "\t`sort`\n";
+        result += "ASC";
 
         return result;
     },
