@@ -1,33 +1,26 @@
-<!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<!DOCTYPE html>
+<html>
     {include file="include/common/head.tpl"}
 
     <body>
-        <div id="wrapper">
-        {include file="include/common/top.tpl"}
+        {include file="include/common/header.tpl"}
 
-        {include file="include/common/top_menu.tpl"}
-
-            <div id="content">
-                <div class="left_col">
-                    {include file="include/common/left_side_menu.tpl"}
-
-                    {include file="include/common/chart.tpl"}
-                </div>
-
-                <div class="right_col">
+        <div class="main-content limiter">
+            <div class="row">
+                <div class="twothird">
                     {include file="include/common/breadcrumbs.tpl"}
 
-                    <div class="page-header">
-                        <h1>{$core->page.h1}</h1>
-                    </div>
+                    <h1>{$core->page.h1}</h1>
+                    <hr>
 
-                    <div class="content_c">
-                        {$core->page.content}
-                    </div>
+                    {$core->page.content}
                 </div>
 
-                <div class="clear"></div>
+                <div class="third">
+                    {include file="include/common/price-demand.tpl"}
+                    {include file="include/common/events-shortlist.tpl"}
+                    {include file="include/common/news-shortlist.tpl"}
+                </div>
             </div>
         </div>
 

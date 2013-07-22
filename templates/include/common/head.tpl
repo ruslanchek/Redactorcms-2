@@ -25,4 +25,6 @@
     </script>
     <![endif]-->
     {/literal}
+
+    {$core->getConstant('scripts', 'head_code')}
 </head>

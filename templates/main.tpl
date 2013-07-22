@@ -3,48 +3,43 @@
     {include file="include/common/head.tpl"}
 
     <body>
-        {include file="include/common/header.tpl"}
+        <header class="header-mainpage">
+            <div class="inner-block limiter">
+                <div class="top">
+                    <span class="logo"></span>
+
+                    {include file="include/common/header-phone.tpl"}
+                    {include file="include/common/main_menu.tpl"}
+                </div>
+
+                {include file="include/common/slider.tpl"}
+
+                <div class="row">
+                    <div class="threefifth centered text-centered">
+                        {$core->getPage(67)}
+                    </div>
+                </div>
+            </div>
+        </header>
 
         <div class="main-content limiter">
             <div class="row">
                 <div class="third">
-                    <p><a href="#"><img src="img/art-1.jpg" class="rounded"></a>
+                    {$core->getPage(65)}
                 </div>
 
                 <div class="third">
-                    <p><a href="#"><img src="img/art-2.jpg" class="rounded"></a></p>
+                    {$core->getPage(66)}
                 </div>
 
                 <div class="third">
-                    <div class="textured rounded">
-                        <h2>Прайс-лист</h2>
-                        <a id="request-opener" href="#" class="button button-margin button-orange button-full">
-                            <i class="halflings envelope"></i>&nbsp; Заказать прайс-лист
-                        </a>
-                        <em class="gray">Прайс-лист будет выслан на ваш электронный адрес, в формате XLSX.</em>
-                    </div>
-
-                    <div class="rounded textured news-announcements">
-                        <h2><a href="#" class="black-link">Специальные предложения</a></h2>
-
-                        <div class="item">
-                            <div class="date gray">28 июня, 2013</div>
-                            <h3><a href="#">Снижены цены на продукцию российского производства. Спешите заказать!</a></h3>
-                        </div>
-
-                        <div class="item">
-                            <div class="date gray">28 июня, 2013</div>
-                            <h3><a href="#">Снижены цены на продукцию российского производства. Спешите заказать!</a></h3>
-                        </div>
-
-                        <div class="item">
-                            <div class="date gray">28 июня, 2013</div>
-                            <h3><a href="#">Снижены цены на продукцию российского производства. Спешите заказать!</a></h3>
-                        </div>
-                    </div>
+                    {include file="include/common/price-demand.tpl"}
+                    {include file="include/common/events-shortlist.tpl"}
+                    {include file="include/common/news-shortlist.tpl"}
                 </div>
             </div>
         </div>
+
         {include file="include/common/footer.tpl"}
     </body>
 </html>

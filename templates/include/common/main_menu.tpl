@@ -2,6 +2,9 @@
 <div class="top-nav">
     <nav>
         <div class="links">
+            <a href="/">Главная</a>
+            <i class="spacer"></i>
+
             {foreach from=$core->getInlineMenu(3, 1) item=item}
             <a href="{$item.path}" {if $item.id == $core->page.id} class="active"{/if}>{$item.name}</a>
             <i class="spacer"></i>

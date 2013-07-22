@@ -13,7 +13,7 @@
                 foreach($this->main->constants as $key_i => $value_i){
                     foreach($value_i as $key_ii => $value_ii){
                         if($key == $key_ii){
-                            $this->main->constants[$key_i][$key_ii][0] = $value;
+                            $this->main->constants[$key_i][$key_ii][0] = urlencode($value);
                         };
                     };
                 };
@@ -26,12 +26,12 @@
                 $tmp .= "[$section]\n";
                 foreach($values as $key => $val){
                     if(is_array($val)){
-                        foreach($val as $k =>$v){
+                        foreach($val as $k => $v){
                             $tmp .= "{$key}[$k] = \"$v\"\n";
                         }
-                    }
-                    else
+                    } else {
                         $tmp .= "$key = \"$val\"\n";
+                    }
                 }
                 $tmp .= "\n";
             };

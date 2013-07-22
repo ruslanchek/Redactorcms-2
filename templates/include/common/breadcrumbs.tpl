@@ -1,13 +1,9 @@
-<ul class="breadcrumb">
+<div class="breadcrumbs">
     {foreach from=$core->page.breadcrumbs item="crumb"}
         {if $crumb.current}
-            <li class="active">{$crumb.name}</li>
+            <span class="gray">{$crumb.name}</span>
         {else}
-            <li>
-                <a href="{$crumb.path}">{$crumb.name}</a> <span class="divider">/</span>
-            </li>
+            <a class="black-link" href="{$crumb.path}">{$crumb.name}</a> <span class="gray">&rarr;</span>
         {/if}
     {/foreach}
-</ul>
-
-<div class="clear"></div>
+</div>

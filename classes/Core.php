@@ -58,7 +58,7 @@
         /* Core utilities
         *****************************************************************************/
         public function getConstant($section, $name){
-            return $this->constants[$section][$name][0];
+            return stripcslashes(urldecode($this->constants[$section][$name][0]));
         }
 
         //Find value in array
@@ -359,12 +359,12 @@
 
                 case '2' : {
                     $data = new stdClass();
-                    $data->section_id       = 18;
-                    $data->limit            = 6;
-                    $data->text_col_id      = 126;
-                    $data->date_col_id      = 123;
-                    $data->announce_col_id  = 125;
-                    $data->image_col_id     = 122;
+                    $data->section_id       = 6;
+                    $data->limit            = 5;
+                    $data->text_col_id      = 31;
+                    $data->date_col_id      = 119;
+                    $data->announce_col_id  = 135;
+                    $data->image_col_id     = false;
                     $data->template_item    = 'modules/news_item.tpl';
                     $data->template_list    = 'modules/news_list.tpl';
 
@@ -373,12 +373,12 @@
 
                 case '3' : {
                     $data = new stdClass();
-                    $data->section_id       = 6;
-                    $data->limit            = 6;
-                    $data->text_col_id      = 31;
-                    $data->date_col_id      = 32;
-                    $data->announce_col_id  = 30;
-                    $data->image_col_id     = 78;
+                    $data->section_id       = 19;
+                    $data->limit            = 5;
+                    $data->text_col_id      = 134;
+                    $data->date_col_id      = 132;
+                    $data->announce_col_id  = 136;
+                    $data->image_col_id     = false;
                     $data->template_item    = 'modules/news_item.tpl';
                     $data->template_list    = 'modules/news_list.tpl';
 
@@ -388,12 +388,12 @@
 
                 case '4' : {
                     $data = new stdClass();
-                    $data->section_id       = 19;
-                    $data->limit            = 6;
-                    $data->text_col_id      = 133;
-                    $data->date_col_id      = 131;
-                    $data->announce_col_id  = 132;
-                    $data->image_col_id     = 130;
+                    $data->section_id       = 21;
+                    $data->limit            = 5;
+                    $data->text_col_id      = 150;
+                    $data->date_col_id      = 147;
+                    $data->announce_col_id  = 149;
+                    $data->image_col_id     = false;
                     $data->template_item    = 'modules/news_item.tpl';
                     $data->template_list    = 'modules/news_list.tpl';
 

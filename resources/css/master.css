@@ -39,11 +39,10 @@ img {
 
 blockquote {
     padding: 10px 15px;
-    margin-left: -20px;
     border: 1px solid #ddd;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    width: 100%;
+    background: rgba(0, 0, 0, 0.02);
 }
 
 /* =Misc
@@ -104,7 +103,7 @@ blockquote {
 .maps {
     padding: 4px;
     background: #eee;
-    height: 462px;
+    height: 500px;
 }
 
 /* =Layout
@@ -130,7 +129,7 @@ blockquote {
 
 .header-mainpage .inner-block,
 .header .inner-block {
-    background: url(../img/h1es.png) 55% 0 no-repeat;
+    background: url(../img/stripes.png) 55% 0 no-repeat;
 }
 
 header .top {
@@ -148,7 +147,7 @@ header .top .logo {
     top: 35px;
 }
 
-header .top .logo:hover {
+header .top a.logo:hover {
     opacity: 0.7;
 }
 
@@ -217,7 +216,7 @@ header .top .phone .desc {
 .top-nav nav .links a {
     float: left;
     height: 48px;
-    width: 110px;
+    width: 114px;
     text-align: center;
     line-height: 48px;
     font-weight: bold;
@@ -478,7 +477,7 @@ header .top .phone .desc {
 .feedback-window,
 .call-me-window,
 .request-window {
-    position: absolute;
+    position: fixed;
     text-shadow: 0 1px 0 #fff;
     top: -100%;
     margin-top: -300px;

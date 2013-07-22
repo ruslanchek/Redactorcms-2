@@ -64,7 +64,7 @@ var feedback = {
 
             '<li>' +
             '<label for="email" class="bold">Контактная информация</label>' +
-            '<input type="text" name="email" class="width-100" id="email">' +
+            '<input type="email" name="email" class="width-100" id="email">' +
             '<div class="descr">Телефон или e-mail</div>' +
             '</li>' +
 
@@ -89,7 +89,6 @@ var feedback = {
             if (e.keyCode == 27) {
                 feedback.closeWindow();
             }
-            ;
         });
 
         $('.feedback-window').show();
@@ -143,22 +142,21 @@ var request = {
             e.preventDefault();
 
             var data = {
-                contacts: $('#email').val(),
-                message: $('#message').val(),
-                name: $('#name').val()
+                email: $('#email').val(),
+                name: $('#name').val(),
+                type: $('input[type="radio"]:checked').val()
             };
 
             $.ajax({
-                url: '/send.php',
+                url: '/?ajax&action=priceDemand',
                 type: 'POST',
-                dataType: 'json',
                 data: data,
                 success: function (data) {
-                    if (data.status) {
+                    if (data == 'true') {
                         $('#request-form').hide(200);
-                        $('.request_message').html('<div id="ok_message"><b>' + data.message + '</b></div>');
-                    } else {
-                        $('.request_message').html('<div id="error_message"><b>' + data.message + '</b></div>');
+                        $('.request_message').html('<div id="ok_message"><b>Спасибо за обращение, ожидайте письмо с прайс-листом</b></div>');
+                    }else{
+                        $('.request_message').html('<div id="error_message"><b>Ошибка передачи данных!</b></div>');
                     }
                 },
                 error: function () {
@@ -195,6 +193,12 @@ var request = {
             '</li>' +
 
             '<li>' +
+            '<label class="bold">Категория</label>' +
+            '<label><input type="radio" name="type" value="1" id="type1" checked> Кабель</label>' +
+            '<label><input type="radio" name="type" value="2" id="type2"> Металлопрокат</label>' +
+            '</li>' +
+
+            '<li>' +
             '<input type="submit" class="button button-orange" value="Отправить">' +
             '</li>' +
             '</ul>' +
@@ -208,7 +212,7 @@ var request = {
 
         $('body').off().on('keyup', function (e) {
             if (e.keyCode == 27) {
-                feedback.closeWindow();
+                request.closeWindow();
             }
         });
 
@@ -229,7 +233,7 @@ var request = {
         $('#request-opener').on('click', function (e) {
             e.preventDefault();
 
-            if ($('.feedback-window').length > 0) {
+            if ($('.request-window').length > 0) {
                 request.closeWindow();
             } else {
                 request.openWindow();
@@ -418,6 +422,7 @@ var slider = {
     interval_delay: 6500,
 
     slideTo: function(num){
+
         this.num = parseInt(num);
 
         $('.slider .items-container').stop().animate({
@@ -466,18 +471,20 @@ var slider = {
     },
 
     drawPagination: function(){
-        var html = '', i = 0;
+        if(this.items_count > 1){
+            var html = '', i = 0;
 
-        while(i < this.items_count){
-            html += '<a href="#" data-num="'+(i + 1)+'" class="transform-linear-500' + ((i + 1 == 1) ? ' active' : '') +'"></a>';
-            i++;
+            while(i < this.items_count){
+                html += '<a href="#" data-num="'+(i + 1)+'" class="transform-linear-500' + ((i + 1 == 1) ? ' active' : '') +'"></a>';
+                i++;
+            }
+
+            $('.slider .pagination').html(html);
+            $('.slider .pagination a').on('click', function(e){
+                slider.slideTo($(this).data('num'));
+                e.preventDefault();
+            });
         }
-
-        $('.slider .pagination').html(html);
-        $('.slider .pagination a').on('click', function(e){
-            slider.slideTo($(this).data('num'));
-            e.preventDefault();
-        });
     },
 
     setSizes: function(){
