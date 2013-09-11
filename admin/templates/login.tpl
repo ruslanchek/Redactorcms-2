@@ -32,7 +32,7 @@
                         <label><input type="checkbox" class="checkbox" name="auth_attach_ip" tabindex="3">{$main->getText('login', 'form_attach_ip_label')}</label>
 
                         <div class="submit">
-                            <input type="submit" value="{$main->getText('login', 'form_button_enter_text')}" tabindex="4" />
+                            <input class="login-btn" type="submit" value="{$main->getText('login', 'form_button_enter_text')}" tabindex="4" />
                         </div>
                     </form>
                 </div>

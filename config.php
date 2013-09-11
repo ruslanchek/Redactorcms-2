@@ -32,7 +32,7 @@
 
 		//DB vars
 		'db_host'                   => 'localhost',
-		'db_base'                   => 'cables',
+		'db_base'                   => 'redactorcms2',
 		'db_user'                   => 'root',
 		'db_pass'                   => '123'
 	);
