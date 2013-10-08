@@ -373,6 +373,7 @@
                 '/admin/js/colorpicker.js',
                 '/admin/js/calendar.js',
                 '/admin/js/uploader.js',
+                '/admin/js/mask.js',
                 '/admin/js/form.js',
                 '/admin/js/ui.js',
                 '/admin/js/sections_actions.js',
