@@ -10,7 +10,11 @@
     <div id="tools_container">
         <div id="item_tools">
             <div class="tools_inner">
+                <a class="icon_action icon_copy_instance" href="javascript:void(0)" title="Дублировать" onclick="dublicateItem(this)" id="dublicateItem"></a>
+
                 <div class="upndown">
+
+
                     <a class="icon_action icon_move_up_instance" title="{$main->getText('structure', 'item_up')}" href="javascript:void(0)" onclick="turnUpItem($(this))" id="turnUpItem"></a>
                     <span class="icon_action icon_move_up_instance_unactive" id="turnUpItemUnactive"></span>
 

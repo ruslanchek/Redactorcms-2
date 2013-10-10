@@ -433,6 +433,14 @@ function publishItem(obj){
 	treeAjax(id, 'publish', false, false, true);
 };
 
+function dublicateItem(obj){
+    var id = obj.rel;
+
+    if(confirm('Создать копию?')){
+        treeAjax(id, 'dublicate');
+    };
+};
+
 function hideItem(obj){
 	var id = obj.rel;
     $('#hideItem').hide();

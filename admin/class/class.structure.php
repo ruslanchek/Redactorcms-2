@@ -319,7 +319,7 @@
                     if($key == 'part'){
                         $partupdate = true;
                         $dataline .= " `".$key."` = '".$this->checkPart($id, $value)."',";
-                    }else{
+                    }elseif($key != 'id' && $key != 'pid'){
                         $dataline .= " `".$key."` = '".$value."',";
                     };
                 };
@@ -497,6 +497,24 @@
 			return $result;
 		}
 
+
+        public function dublicateNode($id){
+            $data = $this->getItemData($id);
+
+            $new_id = $this->insertNode($data['pid']);
+
+            $new_data = array();
+
+            foreach($data as $key => $val){
+                if($key != 'id' || $key != 'path'){
+                    $new_data[] = array($key => $val);
+                }
+            }
+
+            $this->updateNode($new_id, $new_data);
+        }
+
+
         //Return a breadcrumbs
         public function getBreadCrumbs($id){
             $query = "
@@ -557,7 +575,13 @@
 				)));
 			};
 
-			if($mode == 'delete'){
+
+            if($mode == 'dublicate'){
+                $this->dublicateNode($id);
+            };
+
+
+            if($mode == 'delete'){
 				$this->deleteNode($id);
 			};
 
