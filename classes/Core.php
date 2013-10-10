@@ -729,7 +729,7 @@
                     `form_item` = '".$this->db->quote($form_item)."' &&
                     `type` = 1
                 ORDER BY
-                    `id`
+                    `sort`
                 ASC
             ";
 
