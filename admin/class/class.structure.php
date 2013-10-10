@@ -509,6 +509,14 @@
                 if($key != 'id' || $key != 'path'){
                     $new_data[] = array($key => $val);
                 }
+
+                if($key == 'name'){
+                    $new_data[] = array($key => $val . ' – копия');
+                }
+
+                if($key == 'sort'){
+                    $new_data[] = array($key => intval($val) + 1);
+                }
             }
 
             $this->updateNode($new_id, $new_data);

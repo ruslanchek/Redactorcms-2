@@ -8,13 +8,20 @@
             <option value="{$options.key}" {if $options.key == $item.value}selected="selected"{/if}>{$options.key}. {$options.value}</option>
         {/foreach}
     </select>
+
+    {if $item.link}
+        {if $item.value > 0}<span> &mdash; <a href="{$item.link}{$item.value}">Редактировать</a></span>{/if}
+    {/if}
 </div>
 {if $item.master}
     <script type="text/javascript">
         {foreach $item.master as $key => $val}
         {if $item.value == $key}
         $(window).load(function(){
-            $('#select_{$val}').show();
+            $('#select_{$val}').css({
+                position: 'static',
+                left: 0
+            });
             $('select').chosen();
         });
         {/if}

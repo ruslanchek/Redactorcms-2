@@ -155,7 +155,8 @@
             'slave_of'      => 'mode',
             'value' 		=> $main->item_data['page_id'],
             'help' 			=> 'Страница',
-            'options' 		=> $main->parseOptionsFromTable('section_3')
+            'options' 		=> $main->parseOptionsFromTable('section_3'),
+            'link'          => '/admin/?option=sections&suboption=edit_content&id=3&item='
         );
 
         //Form mode
