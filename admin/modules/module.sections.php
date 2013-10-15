@@ -51,18 +51,21 @@
         
         //Form save
         if($_POST){
+            $avp = '';
+
+
             if(isset($_REQUEST['save']) or isset($_REQUEST['ok'])){
                 $sections->saveFormFields($_POST);
                 
                 if(isset($_REQUEST['ok'])){
-                    header('Location: /admin/?option='.$main->module_name);
+                    header('Location: /admin/?option='.$main->module_name.$avp);
                 };
                 
                 if(isset($_REQUEST['save'])){
-                    header('Location: /admin/?option=sections&suboption=edit&id='.$_GET['id']);
+                    header('Location: /admin/?option=sections&suboption=edit&id='.$_GET['id'].$avp);
                 };
             }else{
-                header('Location: /admin/?option='.$main->module_name);
+                header('Location: /admin/?option='.$main->module_name.$avp);
             };
         };
         
@@ -195,10 +198,16 @@
                 case 'create' : {
                     $id = $sections->createContentItem($main->item_data['id']);
 
+                    $avp = '';
+
+                    if($_GET['ajax_viewport'] == 'true'){
+                        $avp = '&ajax_viewport=true';
+                    };
+
                     if($id){
-                        header('Location: /admin/?option=sections&suboption=edit_content&id='.$main->item_data['id'].'&item='.$id);
+                        header('Location: /admin/?option=sections&suboption=edit_content&id='.$main->item_data['id'].'&item='.$id.$avp);
                     }else{
-                        header('Location: /admin/?option=sections&suboption='.$main->module_mode.'&id='.$main->item_data['id']);
+                        header('Location: /admin/?option=sections&suboption='.$main->module_mode.'&id='.$main->item_data['id'].$avp);
                     };
                 }; break;
             }
@@ -224,6 +233,12 @@
 
     //Edit content item
     if($main->module_mode == 'edit_content'){
+        $avp = '';
+
+        if($_GET['ajax_viewport'] == 'true'){
+            $avp = '&ajax_viewport=true';
+        };
+
         if(isset($_GET['page'])){
             $page = '&page='.$_GET['page'];
         };
@@ -245,12 +260,10 @@
                 $main->dataset['params']['user_id'] = $sections->login->userdata['id'];
                 $main->saveItem($main->dataset['params']['item_params']['id'], 'section_'.$main->item_data['id'], $main->dataset, $_POST, false, true);
                 
-                if(isset($_REQUEST['ok'])){
+                if(isset($_REQUEST['ok']) && $avp == ''){
                     header('Location: /admin/?option=sections&suboption=content&id='.$main->item_data['id'].$page);
-                };
-
-                if(isset($_REQUEST['save'])){
-                    header('Location: /admin/?option=sections&suboption='.$main->module_mode.'&id='.$main->item_data['id'].'&item='.$main->dataset['params']['item_params']['id'].$page);
+                }else{
+                    header('Location: /admin/?option=sections&suboption='.$main->module_mode.'&id='.$main->item_data['id'].'&item='.$main->dataset['params']['item_params']['id'].$page.$avp);
                 };
             }else{
                 header('Location: /admin/?option=sections&suboption=content&id='.$main->item_data['id']);
@@ -268,6 +281,10 @@
                 'url'    => '/admin/?option=sections&suboption=edit&id='.$main->item_data['id']
             )
         );
+
+
+
+        $main->dataset['params']['form_action'] = '/admin/?option=sections&suboption=edit_content&id=' . $main->item_data['id'] . '&item=' . $main->dataset['params']['item_params']['id'] . $avp;
     };
 
     //Module actions

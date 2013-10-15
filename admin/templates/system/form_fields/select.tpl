@@ -10,7 +10,11 @@
     </select>
 
     {if $item.link}
-        {if $item.value > 0}<span> &mdash; <a href="{$item.link}{$item.value}">Редактировать</a></span>{/if}
+        {if $item.value > 0}<span class="select-action-btn"> <button data-action_header="Редактирование объекта" class="ajax_viewport_link" data-src="{$item.link}{$item.value}">Редактировать</button></span>{/if}
+    {/if}
+
+    {if $item.create_link}
+        <span class="select-action-btn"> <button data-action_header="Редактирование объекта" class="ajax_viewport_link" data-src="{$item.create_link}">Создать</button></span>
     {/if}
 </div>
 {if $item.master}

@@ -321,4 +321,14 @@ function colorizeTable(table_obj){
 $(function(){
     colorizeTable($('.list_table'));
     $('select:visible').chosen();
+
+    $('.ajax_viewport_link').on('click', function(e){
+        e.preventDefault();
+
+        var w = new Window();
+
+        var html = '<iframe src="' + $(this).data('src') + '&ajax_viewport=true" height="550" width="100%" frameborder="no"></iframe>';
+
+        w.createModal($(this).data('action_header'), html, 960);
+    });
 });

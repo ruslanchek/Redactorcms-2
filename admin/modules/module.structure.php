@@ -156,7 +156,8 @@
             'value' 		=> $main->item_data['page_id'],
             'help' 			=> 'Страница',
             'options' 		=> $main->parseOptionsFromTable('section_3'),
-            'link'          => '/admin/?option=sections&suboption=edit_content&id=3&item='
+            'link'          => '/admin/?option=sections&suboption=edit_content&id=3&item=',
+            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=3&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=page_id'
         );
 
         //Form mode

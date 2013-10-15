@@ -39,25 +39,29 @@
     				<textarea name="default**__**{if $new}{$new}{else}{$item.id}{/if}" id="default_{if $new}{$new}{else}{$item.id}{/if}">{$item.default}</textarea>
     			</td>
     		</tr>
-    		
-    		<tr>
-    			<td class="label_col">
-    				<label for="rows_{if $new}{$new}{else}{$item.id}{/if}">{$main->getText('sections', 'form_edit_item_rows')}</label>
-    			</td>
-    			<td class="content_col">
-    				<select class="select" name="rows**__**{if $new}{$new}{else}{$item.id}{/if}" id="rows_{if $new}{$new}{else}{$item.id}{/if}">
-						<option value="1" {if $item.rows == 1}selected="selected"{/if}>2</option>
-						<option value="3" {if $item.rows == 3}selected="selected"{elseif !$item.rows}selected="selected"{/if}>4</option>
-						<option value="5" {if $item.rows == 5}selected="selected"{/if}>6</option>
-						<option value="7" {if $item.rows == 7}selected="selected"{/if}>8</option>
-						<option value="9" {if $item.rows == 9}selected="selected"{/if}>10</option>
-						<option value="14" {if $item.rows == 14}selected="selected"{/if}>15</option>
-						<option value="19" {if $item.rows == 19}selected="selected"{/if}>20</option>
+
+            {*
+            <tr>
+                <td class="label_col">
+                    <label for="rows_{if $new}{$new}{else}{$item.id}{/if}">{$main->getText('sections', 'form_edit_item_rows')}</label>
+                </td>
+                <td class="content_col">
+                    <select class="select" name="rows**__**{if $new}{$new}{else}{$item.id}{/if}" id="rows_{if $new}{$new}{else}{$item.id}{/if}">
+                        <option value="1" {if $item.rows == 1}selected="selected"{/if}>2</option>
+                        <option value="3" {if $item.rows == 3}selected="selected"{elseif !$item.rows}selected="selected"{/if}>4</option>
+                        <option value="5" {if $item.rows == 5}selected="selected"{/if}>6</option>
+                        <option value="7" {if $item.rows == 7}selected="selected"{/if}>8</option>
+                        <option value="9" {if $item.rows == 9}selected="selected"{/if}>10</option>
+                        <option value="14" {if $item.rows == 14}selected="selected"{/if}>15</option>
+                        <option value="19" {if $item.rows == 19}selected="selected"{/if}>20</option>
                         <option value="19" {if $item.rows == 49}selected="selected"{/if}>50</option>
                         <option value="19" {if $item.rows == 99}selected="selected"{/if}>100</option>
-					</select>
+                    </select>
     			</td>
     		</tr>
+            *}
+
+            <input type="hidden" value="" name="rows**__**{if $new}{$new}{else}{$item.id}{/if}" id="rows_{if $new}{$new}{else}{$item.id}{/if}">
     		
     		<tr>
     			<td class="label_col">

@@ -35,6 +35,7 @@
     </head>
 
     <body>
+        {if $smarty.get.ajax_viewport != 'true'}
         <div id="wrapper">
             <header id="header">
                 {include file="inc.top.tpl"}
@@ -52,5 +53,11 @@
                 {include file="inc.footer.tpl"}
             </div>
         </footer>
+        {else}
+        <div class="ajax_viewport">
+            {assign var="module_name" value=$main->module_name}
+            {include file="modules/$module_name.tpl"}
+        </div>
+        {/if}
     </body>
 </html>

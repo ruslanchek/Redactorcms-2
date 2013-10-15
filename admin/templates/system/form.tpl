@@ -8,7 +8,9 @@
         {$main->form_error.message}
     </div>
     {/if}
-    
+
+    {$avp = ''}
+
     <form action="{$main->dataset.params.form_action}" method="{$main->dataset.params.method}" enctype="{$main->dataset.params.enctype}" id="form">
         {foreach from=$main->dataset.data item=item key=index}
             {if !$item.no_edit}

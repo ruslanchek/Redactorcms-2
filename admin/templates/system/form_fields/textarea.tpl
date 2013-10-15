@@ -6,7 +6,7 @@
     {/if}
     <div class="cl"></div>
 
-    <textarea class="textarea {if $item.required} required{/if}" id="{$item.name}" name="{$item.name}" rows="{$item.rows}" tabindex="{$index+1}">{$item.value}</textarea>
+    <textarea class="textarea {if $item.required} required{/if}" id="{$item.name}" name="{$item.name}" tabindex="{$index + 1}">{$item.value}</textarea>
     {if $item.use_editor}
         <script type="text/javascript">initEditor($('#{$item.name}'), '{$main->locale}', '{$item.name}')</script>
     {/if}

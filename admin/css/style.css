@@ -2375,3 +2375,38 @@ ul#tag_tree li {
 .form .paste_params_button:active {
     background-position: 0 -42px;
 }
+
+.ajax_viewport {
+    padding-right: 10px;
+}
+
+.ajax_viewport .right_col {
+    display: none;
+
+}
+
+.ajax_viewport .left_col {
+    width: 100%;
+}
+
+.ajax_viewport h1 {
+    display: none;
+}
+
+.ajax_viewport .button[name="ok"] {
+    display: none;
+}
+
+.select-action-btn {
+    position: relative;
+}
+
+.select-action-btn button {
+    position: relative;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    top: -8px;
+    padding: 0 5px;
+    margin: 0 0 0 6px;
+}
