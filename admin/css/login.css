@@ -7,7 +7,7 @@ html, body {
 }
 
 body {
-    background: #262626 url(../img/bg/pattern.png) center;
+    background: #262626 url(../img/bg/pattern.png) 0 0;
 
     font-family: Arial;
     font-size: 14px;

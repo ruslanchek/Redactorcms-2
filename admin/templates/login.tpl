@@ -44,5 +44,27 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function animate(p){
+                p = p + 1;
+
+                if(p > 368){
+                    p = 1;
+                }
+
+                $('body').css({
+                    backgroundPosition: -p + 'px ' + p + 'px'
+                });
+
+                setTimeout(function(){
+                    animate(p);
+                }, 40);
+            }
+
+            $(function(){
+                animate(0);
+            });
+        </script>
     </body>
 </html>
