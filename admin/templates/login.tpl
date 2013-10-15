@@ -12,35 +12,33 @@
     </head>
     
     <body>
-        <img src="/admin/img/bg/bg.jpg" id="bg" />
         <div class="content">
-            <div class="logo"></div>
-
-            <div class="login_form">
-                <div class="login_form_block rotation">
+            <div class="logo"><img src="/admin/img/logos/login_logo.png"></div>
+                <div class="login-form-block rotation">
                     {if $login->error}
-                    <div class="error">{$login->error}</div>
+                        <div class="error">{$login->error}</div>
                     {/if}
 
                     <form method="POST" action="/admin/?action=login">
-                        <label for="auth_login">{$main->getText('login', 'form_login_label')}</label><br>
-                        <input class="textinput" id="auth_login" name="auth_login" type="text" tabindex="1" />
+                        <input class="textinput" id="auth_login" name="auth_login" type="text" tabindex="1" placeholder="Логин" />
 
-                        <label for="auth_password">{$main->getText('login', 'form_password_label')}</label><br>
-                        <input class="textinput" id="auth_password" name="auth_password" type="password" tabindex="2" />
+                        <input class="textinput" id="auth_password" name="auth_password" type="password" tabindex="2" placeholder="Пароль" />
 
-                        <label><input type="checkbox" class="checkbox" name="auth_attach_ip" tabindex="3">{$main->getText('login', 'form_attach_ip_label')}</label>
+                        <label class="checkbox" title="Если авторизоваться с привязкой к IP, то никто больше не сможет авторизоваться с вашим лигином и паролем на время вашей сессии.">
+                            <input type="checkbox" checked name="auth_attach_ip" tabindex="3">
+                            Привязать сессию к IP-адресу
+                        </label>
 
                         <div class="submit">
-                            <input class="login-btn" type="submit" value="{$main->getText('login', 'form_button_enter_text')}" tabindex="4" />
+                            <input class="button big blue" type="submit" value="{$main->getText('login', 'form_button_enter_text')}" tabindex="4" />
                         </div>
                     </form>
                 </div>
 
                 <div class="footer">
                     <p>
-                        &copy; 2007&ndash;{$main->config['current_year']}
-                        {$main->getText('footer', 'copyright_text')}<br>
+                        &copy; 2009&ndash;{$main->config['current_year']}
+                        Система управления сайтом &laquo;Редактор&raquo;<br>
                         <em>{$main->getText('footer', 'version')} {$main->config['current_version']}</em>
                     </p>
                 </div>

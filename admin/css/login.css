@@ -1,153 +1,136 @@
-* { margin: 0; }
+* {
+    margin: 0;
+}
 
-html, body { height: 100%; }
+html, body {
+    height: 100%;
+}
 
 body {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	line-height: 1.5em;
-	background: #002e5a; }
+    background: #262626 url(../img/bg/pattern.png) center;
 
-a:link,
-a:visited { color: #fff; }
-
-a:hover,
-a:active { color: #ccc; }
-
-.content {
-	padding: 0 0 80px;
-	position: relative; }
+    font-family: Arial;
+    font-size: 14px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);
+}
 
 .logo {
-	position: absolute;
-	background: url(../img/logos/login_logo.png);
-	width: 469px;
-	height: 130px;
-	margin: 0 0 0 -234px;
-	left: 50%;
-	top: 20px;
-    opacity: 0.8;
+    width: 333px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    margin: 0 0 0 -166px;
+    z-index: 1;
 }
 
-.login_form {
-	position: absolute;
-	top: 200px;
-	left: 50%;
-	margin: 0 0 0 -255px; }
+.logo img {
+    display: block;
+    width: 100%;
+}
 
-.login_form_block {
-	background: #eee;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	width: 510px;
-	text-shadow: 0 1px 0 #ffffff; }
+.login-form-block {
+    background: rgba(255, 255, 255, 0.08);
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow:  -5px 5px 0px 0px rgba(0, 0, 0, 0.15);
+    box-shadow:  -5px 5px 0px 0px rgba(0, 0, 0, 0.15);
+    padding: 35px;
+    width: 400px;
+    top: 360px;
+    left: 50%;
+    position: absolute;
+    margin: 0 0 0 -235px;
+    color: #fff;
+    z-index: 2;
+}
 
-.login_form form { padding: 20px; }
+.login-form-block .error {
+    margin: 0 0 1em;
+    color: rgba(255, 50, 80, 0.8);
+}
 
-.login_form em { color: #777; }
+.login-form-block .textinput {
+    background: #fff;
+    padding: 8px 10px;
+    font-size: 18px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    display: block;
+    width: 378px;
+    border: none;
+    margin: 0 0 25px;
+    -webkit-box-shadow:  -5px 5px 0px 0px rgba(0, 0, 0, 0.2);
+    box-shadow:  -5px 5px 0px 0px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
 
-.login_form h1 {
-	font-size: 2.4em;
-	font-weight: normal;
-	color: #444;
-	margin: 0 0 0.5em; }
+.login-form-block .textinput:focus {
+    -webkit-box-shadow:  -5px 5px 0px 0px rgba(0, 0, 0, 0.2), 0 2px 30px 0px rgba(255, 255, 255, 0.75);
+    box-shadow:  -5px 5px 0px 0px  rgba(0, 0, 0, 0.2), 0 2px 30px 0px rgba(255, 255, 255, 0.75)
+}
+
+.button {
+    border: none;
+    font-size: 18px;
+    height: 38px;
+    line-height: 38px;
+    text-decoration: none;
+    display: inline-block;
+    padding: 0 3ex;
+    text-align: center;
+    text-shadow: -2px 2px 0px rgba( 0, 0, 0, 0.1 );
+    font-family: Arial;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: -2px 2px 0 0 rgba( 0, 0, 0, 0.25 );
+    -webkit-box-shadow: -2px 2px 0 0 rgba( 0, 0, 0, 0.25 );
+    outline: none;
+}
+
+.button:active {
+    line-height: 40px;
+}
+
+.button.blue {
+    color: #fff;
+    background: #3498db; /* Old browsers */
+    box-shadow: -4px 4px 0 0px rgba(52, 152, 219, 0.2);
+}
+
+.button.blue:hover {
+    background: #4ea0d7; /* Old browsers */
+}
+
+.button.blue:active {
+    background: #186faa; /* Old browsers */
+}
+
+label.checkbox {
+    position: absolute;
+    left: 160px;
+    margin-top: 10px;
+    cursor: help;
+}
+
+label.checkbox input {
+    margin-right: 4px;
+}
 
 .footer {
-	margin: 0;
-	height: 80px;
-	width: 470px;
-	color: #fff;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-	padding: 30px 20px 0; }
-
-	.footer em {
-		opacity: 0.55;
-		color: #fff; }
-
-.error {
-	background: #8F0000 url(../img/bg/light.png) repeat-x top;
-	border-bottom: 1px solid #710000;
-	text-shadow: 0 1px 0 #660000;
-	color: #fff;
-	padding: 15px 20px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	-moz-border-top-left-radius: 5px;
-	-moz-border-top-right-radius: 5px; }
-
-label { font-size: 1.1em; }
-
-.textinput {
-	display: block;
-	width: 99%;
-	font-size: 1.8em;
-	margin: 0 0 1em;
-    border-radius: 4px;
+    position: fixed;
+    bottom: 20px;
+    color: #fff;
+    width: 470px;
+    padding: 0;
+    left: 50%;
+    margin: 0 0 0 -235px;
+    opacity: 0.25;
+    text-align: center;
+    line-height: 1.6em;
 }
 
-.checkbox { margin: 0 5px 0 0; }
-
-.submit {
-    padding: 20px 0 0 0;
-    font-size: 1.2em; }
-
-	.submit input {
-		padding: 3px 8px;
-		text-shadow: 0 1px 0 #ffffff;
-		font-size: 1em; }
-
-#bg {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	z-index: 0; }
-
-.login-btn {
-    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-    box-shadow:inset 0px 1px 0px 0px #ffffff;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
-    background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
-    background-color:#ededed;
-    -webkit-border-top-left-radius:6px;
-    -moz-border-radius-topleft:6px;
-    border-top-left-radius:6px;
-    -webkit-border-top-right-radius:6px;
-    -moz-border-radius-topright:6px;
-    border-top-right-radius:6px;
-    -webkit-border-bottom-right-radius:6px;
-    -moz-border-radius-bottomright:6px;
-    border-bottom-right-radius:6px;
-    -webkit-border-bottom-left-radius:6px;
-    -moz-border-radius-bottomleft:6px;
-    border-bottom-left-radius:6px;
-    text-indent:0px;
-    border:2px solid #ccc;
-    display:inline-block;
-    color:#777777;
-    font-family:arial;
-    font-size:16px;
-    font-weight:normal;
-    font-style:normal;
-    height:39px;
-    line-height:28px;
-    width:127px;
-    text-decoration:none;
-    text-align:center;
-    text-shadow:1px 1px 0px #ffffff;
+.footer em {
+    font-size: 0.9em;
+    color: #eee;
 }
-
-.login-btn:hover {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
-    background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
-    background-color:#dfdfdf;
-}
-
-.login-btn:active {
-     position:relative;
-     top:1px;
- }
