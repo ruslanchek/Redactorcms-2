@@ -1,10 +1,13 @@
-<div class="rounded textured news-announcements">
-    <h2><a href="/news" class="black-link">Новости и статьи</a></h2>
+<div class="news-shortlist">
+    <h2 class="uppercase">Новости</h2>
 
-    {foreach $core->getNewsShort(2) as $item}
-    <div class="item">
-        <div class="date gray">{$item.date|date:"date"}</div>
-        <h3><a href="/news?item={$item.id}">{$item.name}</a></h3>
-    </div>
+    {foreach $core->getNewsShort(5) as $item}
+        <div class="item">
+            <div class="date color-gray">{$item.date|date:"date"} года</div>
+            <h3><a href="{$item.path}">{$item.name}</a></h3>
+            {$item.announce}
+        </div>
     {/foreach}
+
+    <a href="/news">Читать все новости</a>
 </div>

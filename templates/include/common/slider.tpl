@@ -1,33 +1,30 @@
-<div class="slider slider-height slider-width">
-    <div class="inner-block slider-height">
-        <nav class="pagination"></nav>
+<div class="slider">
+    <div class="horizontal-limiter">
+        <div class="items-viewport">
+            <div class="pager"><a href="#"></a></div>
 
-        <div class="items-container slider-height">
-            {$i = 0}
+            <div class="items-container">
+                {$i = 0}
 
-            {foreach $core->getSliderItems() as $item}
-            {$i = $i + 1}
+                {foreach $core->getSliderItems() as $item}
+                {$i = $i + 1}
+                {$image = $core->getItemSingleImage('section_18', $item.id, 'col_125')}
+                <div class="slider-block" style="background-image: url({$image.path|escape}{$image.name|escape}.{$image.extension|escape})" data-url="{$item.link|escape}">
+                    <div class="content-holder">
+                        <div class="content">
+                            <h2>{$item.name}</h2>
 
-            <div data-num="{$i}" class="item slider-height slider-width{if $i == 1} active{/if}">
-                <div class="info-panel slider-height transform-easeOutExpo-500">
-                    <div class="content-block">
-                        <h2>{$item.name}</h2>
-
-                        <p>
                             {$item.announce}
-                        </p>
+                        </div>
 
-                        {if $item.link}<a href="{$item.link}" class="button button-orange">Читать подробно</a>{/if}
+                        <div class="p-1"></div>
+                        <div class="p-2"></div>
+                        <div class="p-3"></div>
                     </div>
                 </div>
+                {/foreach}
 
-                {$image = $core->getItemSingleImage('section_18', $item.id, 'col_125')}
-                <img src="{$image.path}{$image.name}.{$image.extension}" alt="{$item.name|escape}" class="image slider-height slider-width">
             </div>
-            {/foreach}
-
         </div>
     </div>
-
-    <div class="shadow"></div>
 </div>

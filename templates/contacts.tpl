@@ -1,58 +1,38 @@
 <!DOCTYPE html>
 <html>
+<head>
     {include file="include/common/head.tpl"}
-
-    <body>
+</head>
+<body>
+<div class="wrapper">
+    <header class="header header">
         {include file="include/common/header.tpl"}
+    </header>
 
-        <div class="main-content limiter">
-            {include file="include/common/breadcrumbs.tpl"}
+    <div class="content">
+        {include file="include/common/breadcrumbs.tpl"}
 
-            <h1>{$core->page.h1}</h1>
-            <hr>
+        <div class="units-row">
+            <div class="unit-40">
+                <h1>{$core->page.h1}</h1>
 
-            <div class="row">
-                <div class="twothird">
-                    <div class="maps rounded">
-                        <script type="text/javascript" charset="utf-8" src="{$core->getConstant('yandex_maps', 'src')}&amp;width={$core->getConstant('yandex_maps', 'width')}&amp;height={$core->getConstant('yandex_maps', 'height')}"></script>
-                    </div>
+                {$core->page.content}
+            </div>
 
-                    <br>
-
-                    {$core->page.content}
-                </div>
-
-                <div class="third">
-                    <div class="textured rounded">
-                        <h2>Контактные данные</h2>
-
-                        <p>
-                            <strong>Телефон</strong>
-                            <br>
-                            {$core->getConstant('common', 'main_phone')}
-                            <br>&nbsp;<em class="gray">{$core->getConstant('common', 'main_phone_suffix')}</em>
-                        </p>
-
-                        <p>
-                            <strong>Электронная почта</strong>
-                            <br>
-                            <a href="mailto:{$core->getConstant('common', 'main_email')|escape}">{$core->getConstant('common', 'main_email')}</a>
-                        </p>
-
-                        <p>
-                            <strong>Адрес</strong>
-                            <br>
-                            {$core->getConstant('common', 'corporate_address')}
-                        </p>
-                    </div>
-
-                    {include file="include/common/price-demand.tpl"}
-                    {include file="include/common/events-shortlist.tpl"}
-                    {include file="include/common/news-shortlist.tpl"}
+            <div class="unit-60">
+                <div class="map-container" style="height: {$core->getConstant('yandex_maps', 'height')|escape}px">
+                    <script type="text/javascript" charset="utf-8" src="{$core->getConstant('yandex_maps', 'src')|escape}&width={$core->getConstant('yandex_maps', 'width')|escape}&height={$core->getConstant('yandex_maps', 'height')|escape}"></script>
                 </div>
             </div>
         </div>
+    </div>
 
+    <footer class="footer">
         {include file="include/common/footer.tpl"}
-    </body>
+    </footer>
+</div>
+
+{$core->getConstant('scripts', 'body_code')}
+
+</body>
 </html>

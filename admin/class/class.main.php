@@ -579,6 +579,7 @@
         public function parseOptionsFromTable($table){
             $query = "
                 SELECT `id`, `name` FROM `".DB::quote($table)."`
+                WHERE `publish` = 1
                 ORDER BY `id` ASC
             ";
             $sql = mysql_query($query);

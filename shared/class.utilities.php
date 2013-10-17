@@ -110,7 +110,7 @@
         //Translit an URL
         function convertUrl($str){
             $str = strtolower(Utilities::translit($str));
-            $str = preg_replace("/[^a-zA-Z0-9-\?]/", "_", $str);
+            $str = preg_replace("/[^a-zA-Z0-9-\?]/", "-", $str);
             return strtr($str, array(" " => "_", "__" => "_", "?" => ""));
         }
 

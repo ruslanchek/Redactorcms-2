@@ -42,9 +42,9 @@ function confirmMessage(message, url){
 };
 
 //Modal window class
-function Window(){
+function Window(class_add){
     this.prepareCode = function(header, html){
-        var code =  '<div class="window" id="modal_window">' +
+        var code =  '<div class="window '+class_add+'" id="modal_window">' +
                         '<a href="javascript:void(0)" id="modal_closer"></a>' +
                         '<h1>'+header+'</h1>' +
                         '<div class="message" title="Клик закроет это сообщение"></div>' +
@@ -291,13 +291,13 @@ function translit(str){
 
 function escapeUrl(str){
     var reg = new RegExp('/[^a-zA-Z0-9-\?]/', "g");
-    str = str.replace(reg, "_", str);
+    str = str.replace(reg, "-", str);
 
     var reg = new RegExp(' ', "g");
-    str = str.replace(reg, "_", str);
+    str = str.replace(reg, "-", str);
 
     var reg = new RegExp('__', "g");
-    str = str.replace(reg, "_", str);
+    str = str.replace(reg, "-", str);
 
     var reg = new RegExp('\\?', "g");
     str = str.replace(reg, "", str);
@@ -322,12 +322,12 @@ $(function(){
     colorizeTable($('.list_table'));
     $('select:visible').chosen();
 
-    $('.ajax_viewport_link').on('click', function(e){
+    $('a.ajax_viewport_link').on('click', function(e){
         e.preventDefault();
 
-        var w = new Window();
+        var w = new Window('no-padding');
 
-        var html = '<iframe src="' + $(this).data('src') + '&ajax_viewport=true" height="550" width="100%" frameborder="no"></iframe>';
+        var html = '<iframe src="' + $(this).data('src') + '&ajax_viewport=true" height="553" width="100%" frameborder="no"></iframe>';
 
         w.createModal($(this).data('action_header'), html, 960);
     });

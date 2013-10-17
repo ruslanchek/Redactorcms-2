@@ -10,6 +10,7 @@
     require $_SERVER['DOCUMENT_ROOT'].'/shared/class.database.php';
     require $_SERVER['DOCUMENT_ROOT'].'/classes/Login.php';
     require $_SERVER['DOCUMENT_ROOT'].'/classes/Project.php';
+    require $_SERVER['DOCUMENT_ROOT'].'/classes/Modules.php';
     require $_SERVER['DOCUMENT_ROOT'].'/classes/Core.php';
 
     //Init maintaince

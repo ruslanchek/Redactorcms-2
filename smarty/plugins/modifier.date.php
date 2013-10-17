@@ -10,7 +10,7 @@
 	function smarty_modifier_date($string, $format = 'datetime'){
 		global $Language;
 
-		$Language['global']['date_format']		    =	'%d %B, %Y';
+		$Language['global']['date_format']		    =	'%d %B %Y';
 		$Language['global']['time_format']		    =	'%H:%M';
 		$Language['global']['datetime_format']	    =	'%d %B, %Y, %H:%M';
         $Language['global']['datetimefull_format']	=	'%d %B, %Y, %H:%M:%S';

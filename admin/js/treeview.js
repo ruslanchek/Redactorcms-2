@@ -249,6 +249,9 @@ function parseTree(ul){
 
 function callItemTools(obj){
 	var id = obj.parent('li').attr('id').substr(5);
+
+    var url = obj.parent('li').data('url');
+
 	if(obj.parent('li').hasClass('root')){
 		$('#item_tools #turnUpItem, #item_tools #turnDownItem, #item_tools #delItem').hide();
 	}else{
@@ -270,6 +273,8 @@ function callItemTools(obj){
     obj.parent('li').parent('ul').find('li').each(function(){
         c_count++;
     });
+
+    $('#item_tools').find('.path-link').attr('href', url);
 
     obj.parent('li').parent('ul').find('li').find('#turnUpItemUnactive').hide();
     obj.parent('li').parent('ul').find('li').find('#turnDownItemUnactive').hide();
@@ -355,7 +360,7 @@ $(function(){
             };
 		}
 	});
-	
+
 	$("#tag_tree li.tree_item").not('li.root').draggable({
 		opacity: 0.7,
 		revert: true,
@@ -402,7 +407,7 @@ function createOrderLine(item){
 }
 
 function turnUpItem(obj){
-    var item = obj.parent().parent().parent().parent().parent().parent();
+    var item = obj.parent().parent().parent().parent().parent();
     var id = item.attr('id').substr(5, item.attr('id').length);
 
     item.insertBefore(item.prev());
@@ -414,7 +419,7 @@ function turnUpItem(obj){
 };
 
 function turnDownItem(obj){
-    var item = obj.parent().parent().parent().parent().parent().parent();
+    var item = obj.parent().parent().parent().parent().parent();
     var id = item.attr('id').substr(5, item.attr('id').length);
     
     item.insertAfter(item.next());

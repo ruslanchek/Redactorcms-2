@@ -232,9 +232,11 @@
                     </td>
                     {/if}
 
+                    {if $main->module_name == 'sections'}
                     <td>
                         <a href="{$main->content_list_copy_link}{$item.id}" class="icon_action icon_copy_instance" title="Копировать запись"></a>
                     </td>
+                    {/if}
 
                     {if !$main->vars.list_no_publish}
                     <td>

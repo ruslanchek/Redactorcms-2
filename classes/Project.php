@@ -45,35 +45,6 @@
             return 'Test ok!';
         }
 
-        private function priceDemand(){
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-
-            $query = "INSERT section_20 SET name = 'Заказ'";
-            $this->db->query($query);
-
-            $id = mysql_insert_id();
-
-            $query = "
-                UPDATE
-                    section_20
-                SET
-                    publish = 1,
-                    sort = ".intval($id).",
-                    name = 'Заказ №".intval($id)."',
-                    col_141 = '".$this->db->quote($name)."',
-                    col_142 = '".$this->db->quote($email)."',
-                    col_151 = ".intval($_POST['type'])."
-                WHERE
-                    id = ".intval($id);
-
-            $this->db->query($query);
-
-            $this->sendMail($this->getConstant('site', 'name'), 'price@'.$_SERVER['HTTP_HOST'], $email, 'Заказ прайс-листа', 'include/mailing/price-list.tpl', null);
-
-            print 'true';
-        }
-
         public function getInlineMenu($menu_id = false, $pid = false){
             $additional = '';
             $menu = '';
@@ -175,19 +146,32 @@
             return $this->db->assocMulti($query);
         }
 
-        //News item
-        public function getEventsShort($limit){
+
+        /************************************************************
+         * CUSTOM METHODS WRITE BELOW THIS BLOCK
+         ************************************************************/
+        //News short
+        public function getNewsShort($limit){
             $query = "
                 SELECT
-                    `id`,
-                    `name`,
-                    `col_119` AS `date`
+                    s.id AS structure_id,
+                    s.name AS structure_name,
+                    s.path AS path,
+                    s.publish AS publish,
+
+                    d.id AS id,
+                    d.name AS name,
+                    d.col_132 AS date,
+                    d.col_136 AS announce,
+                    d.col_134 AS text
                 FROM
-                    `section_6`
+                    structure_data s
+                LEFT JOIN
+                    section_19 d ON (d.id = s.content_id)
                 WHERE
-                    `publish` = 1
+                    s.publish = 1 && s.pid = 17
                 ORDER BY
-                    `sort`
+                    d.col_132
                 ASC
                 LIMIT ".intval($limit)."
             ";
@@ -195,22 +179,21 @@
             return $this->db->assocMulti($query);
         }
 
-        //News item
-        public function getNewsShort($limit){
+        //Makers short
+        public function getMakersShort(){
             $query = "
                 SELECT
-                    `id`,
-                    `name`,
-                    `col_134` AS `announce`,
-                    `col_132` AS `date`
+                    id AS id,
+                    name AS name,
+                    col_161 AS country,
+                    col_156 AS announce
                 FROM
-                    `section_19`
+                    section_22
                 WHERE
-                    `publish` = 1
+                    publish = 1
                 ORDER BY
-                    `sort`
+                    sort
                 ASC
-                LIMIT ".intval($limit)."
             ";
 
             return $this->db->assocMulti($query);

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Title</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" href="css/kube.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/master.css" />
+    <link rel="stylesheet" type="text/css" href="js/plugins/fancybox/jquery.fancybox.css" />
+
+    <script src="js/jquery-2.0.2.min.js"></script>
+    <script src="js/plugins/tree/jquery.cookie.js"></script>
+    <script src="js/plugins/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script src="js/plugins/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/plugins/tree/jquery.treeview.js"></script>
+    <script src="js/gts.core.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+        <header class="header">
+            <a class="logo" href="/"></a>
+            <div class="phone">+7 (499) 638-51-18</div>
+            <a class="callback-button btn btn-yellow" href="#">Обратный звонок</a>
+
+            <nav class="nav-top">
+                <a href="#">Каталог</a>
+                <a class="active" href="#">Производители</a>
+                <a href="#">Контакты</a>
+
+                <div class="shadow"></div>
+            </nav>
+
+            <div class="valutes">
+                <span class="item"><strong>USD</strong> 30,25</span>
+                <span class="item"><strong>EUR</strong> 41,56</span>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="breadcrumb">
+                <a href="#">Главная</a> <span class="color-gray">&gt;</span>
+                <a href="#">Каталог</a> <span class="color-gray">&gt;</span>
+                <a href="#">Автоматизация</a> <span class="color-gray">&gt;</span>
+                <a href="#">Компоненты и системы управления мониторинга</a> <span class="color-gray">&gt;</span>
+                Датчики
+            </div>
+
+            <div class="units-row">
+                <div class="unit-20">
+                    <nav class="nav-side">
+                        <h2>Каталог</h2>
+
+                        <ul class="catalog-map" id="tree">
+                            <li>
+                                <a href="#">Автоматизация</a>
+                                <ul>
+                                    <li><a href="#">Компоненты и системы управления мониторинга</a>
+                                        <ul>
+                                            <li>
+                                                <a href="#">Автоматизация</a>
+                                                <ul>
+                                                    <li><a href="#">Компоненты и системы управления мониторинга</a></li>
+                                                    <li><a href="#">Датчики</a></li>
+                                                    <li class="active"><a href="#">Преобразователи</a></li>
+                                                    <li><a href="#">Энкодеры</a></li>
+                                                    <li><a href="#">Контроллеры</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Датчики</a></li>
+                                    <li><a href="#">Преобразователи</a></li>
+                                    <li><a href="#">Энкодеры</a></li>
+                                    <li><a href="#">Контроллеры</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#">Автоматизация</a>
+                                <ul>
+                                    <li><a href="#">Компоненты и системы управления мониторинга</a></li>
+                                    <li><a href="#">Датчики</a></li>
+                                    <li><a href="#">Преобразователи</a></li>
+                                    <li><a href="#">Энкодеры</a></li>
+                                    <li><a href="#">Контроллеры</a></li>
+
+                                    <li>
+                                        <a href="#">Автоматизация</a>
+                                        <ul>
+                                            <li><a href="#">Компоненты и системы управления мониторинга</a></li>
+                                            <li><a href="#">Датчики</a></li>
+                                            <li><a href="#">Преобразователи</a></li>
+                                            <li><a href="#">Энкодеры</a></li>
+                                            <li><a href="#">Контроллеры</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <script type="text/javascript">
+                    $(function(){
+                        catalog_tree.init('#tree');
+                    });
+                </script>
+
+                <div class="unit-80">
+                    <h1>Датчики</h1>
+
+                    <p>
+                        В каталоге представлены категории промышленного оборудования и основные поставщики нашей компании.
+                        Вы так же можете легко найти интересующее Вас оборудование промышленного назначения, воспользовавшись поиском по сайту.
+                        Если Вас интересует определенное оборудование или комплектующие для промышленного оборудования, то вы можете заказать все необходимое
+                        Вам оборудование и уточнить цены на него с помощью удобной формы для оформления заказа.
+                    </p>
+
+                    <p>
+                        Компания GTS-Moscow имеет возможности поставки практически любых запасных частей и
+                        оборудование промышленного назначения иностранных производителей
+                        и даже тех производителей, которые работают на Российском рынке
+                        через свои официальные представительства.
+                    </p>
+
+                    <div class="catalog-cell-items cci-makers">
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-akg.png" alt="AKG"/>
+                                <h3>AKG</h3>
+                                <span class="info">
+                                    <div class="name">AKG</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-abrasivos-manhattan.png" alt="Abrasivos Manhattan, S.A."/>
+                                <h3>Abrasivos Manhattan, S.A.</h3>
+                                <span class="info">
+                                    <div class="name">Abrasivos Manhattan, S.A.</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-ace.png" alt="Ace Controls Inc."/>
+                                <h3>Ace Controls Inc.</h3>
+                                <span class="info">
+                                    <div class="name">Ace Controls Inc.</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-agilent.png" alt="Agilent Technologies"/>
+                                <h3>Agilent Technologies</h3>
+                                <span class="info">
+                                    <div class="name">Agilent Technologies</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-akg.png" alt="AKG"/>
+                                <h3>AKG</h3>
+                                <span class="info">
+                                    <div class="name">AKG</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-abrasivos-manhattan.png" alt="Abrasivos Manhattan, S.A."/>
+                                <h3>Abrasivos Manhattan, S.A.</h3>
+                                <span class="info">
+                                    <div class="name">Abrasivos Manhattan, S.A.</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-ace.png" alt="Ace Controls Inc."/>
+                                <h3>Ace Controls Inc.</h3>
+                                <span class="info">
+                                    <div class="name">Ace Controls Inc.</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-agilent.png" alt="Agilent Technologies"/>
+                                <h3>Agilent Technologies</h3>
+                                <span class="info">
+                                    <div class="name">Agilent Technologies</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-akg.png" alt="AKG"/>
+                                <h3>AKG</h3>
+                                <span class="info">
+                                    <div class="name">AKG</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-abrasivos-manhattan.png" alt="Abrasivos Manhattan, S.A."/>
+                                <h3>Abrasivos Manhattan, S.A.</h3>
+                                <span class="info">
+                                    <div class="name">Abrasivos Manhattan, S.A.</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-ace.png" alt="Ace Controls Inc."/>
+                                <h3>Ace Controls Inc.</h3>
+                                <span class="info">
+                                    <div class="name">Ace Controls Inc.</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="catalog-cell-item">
+                            <a href="#">
+                                <img src="img/makers/logo-agilent.png" alt="Agilent Technologies"/>
+                                <h3>Agilent Technologies</h3>
+                                <span class="info">
+                                    <div class="name">Agilent Technologies</div>
+                                    <div class="country">США</div>
+                                    <div class="desc">Описание бренда</div>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            &copy; 2013 &laquo;GTS Moscow&raquo;<br>
+            <a href="mailto:inbox@gts.ag">inbox@gts.ag</a>
+        </footer>
+	</div>
+</body>
+</html>

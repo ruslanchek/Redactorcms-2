@@ -14,6 +14,8 @@
     };
 
     if($main->module_mode == 'edit'){
+        $main->item_data['id'] = $_GET['id'];
+
         //Set submenu
         $main->submenu = array(
             array(
@@ -55,13 +57,13 @@
         );
 
         //Form checkbox
-        $main->dataset['data'][1] = array(
+        /*$main->dataset['data'][1] = array(
             'type' 			=> 'checkbox',
             'label' 		=> 'Закрытая страница',
             'name' 			=> 'private',
             'value' 		=> $main->item_data['private'],
             'help' 			=> 'Закрытая страница'
-        );
+        );*/
 
         //Form separator
         $main->dataset['data'][2] = array(
@@ -86,7 +88,7 @@
         //Form url
         if($main->item_data['id'] != 1 && $main->item_data['path'] != '/' && $main->item_data['part'] != ''){
             if($main->item_data['id'] > 0){
-                $main->dataset['data'][5] = array(
+                $main->dataset['data'][4] = array(
                     'type' 			=> 'text',
                     'label' 		=> $main->getText('structure', 'form_path_label'),
                     'name' 			=> 'part',
@@ -101,14 +103,14 @@
         };
 
         //Form separator
-        $main->dataset['data'][6] = array(
+        $main->dataset['data'][5] = array(
             'type' 			=> 'separator',
             'name' 			=> 'modules_separator',
             'label' 		=> $main->getText('structure', 'form_modules_separator_label')
         );
 
         //Form mode
-        $main->dataset['data'][7] = array(
+        $main->dataset['data'][6] = array(
             'type' 			=> 'select',
             'label' 		=> $main->getText('structure', 'form_menu_label'),
             'name' 			=> 'menu',
@@ -118,12 +120,30 @@
         );
 
         //Form mode
+        $main->dataset['data'][7] = array(
+            'type' 			=> 'select',
+            'label' 		=> 'Шаблон',
+            'name' 			=> 'template',
+            'value' 		=> $main->item_data['template'],
+            'help' 			=> 'Шаблон',
+            'options' 		=> $main->parseOptionsFromTable('templates')
+        );
+
+        //Form separator
+        $main->dataset['data'][8] = array(
+            'type' 			=> 'separator',
+            'name' 			=> 'seo_separator',
+            'label' 		=> $main->getText('structure', 'form_seo_separator_label')
+        );
+
+        //Form mode
         $main->dataset['data'][9] = array(
             'type' 			=> 'select',
             'label' 		=> 'Модуль',
             'name' 			=> 'mode',
             'master'        => array(
-                                1 => 'page_id'
+                                1 => 'page_id',
+                                3 => 'news_id'
                             ),
             'value' 		=> $main->item_data['mode'],
             'help' 			=> 'Модуль',
@@ -135,39 +155,49 @@
                                     ),
                                     array(
                                         'key' => 2,
-                                        'value' => 'Акции'
+                                        'value' => 'Все новости'
                                     ),
                                     array(
                                         'key' => 3,
-                                        'value' => 'Новости'
+                                        'value' => 'Новость'
                                     ),
                                     array(
-                                        'key' => 4,
-                                        'value' => 'Вакансии'
+                                        'key' => 10,
+                                        'value' => 'Поиск'
+                                    ),
+                                    array(
+                                        'key' => 11,
+                                        'value' => 'Карта сайта'
                                     )
                                )
         );
 
+        // TODO: Сделать как-то, чтобы page_id, news_id и пр были просто одним универсальным полем content_id
+
         $main->dataset['data'][10] = array(
+            'meta'          => 'page_id',
             'type' 			=> 'select',
             'label' 		=> 'Страница',
-            'name' 			=> 'page_id',
+            'name' 			=> 'content_id',
             'slave_of'      => 'mode',
-            'value' 		=> $main->item_data['page_id'],
+            'value' 		=> $main->item_data['content_id'],
             'help' 			=> 'Страница',
             'options' 		=> $main->parseOptionsFromTable('section_3'),
             'link'          => '/admin/?option=sections&suboption=edit_content&id=3&item=',
-            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=3&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=page_id'
+            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=3&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
         );
 
-        //Form mode
         $main->dataset['data'][11] = array(
+            'meta'          => 'news_id',
             'type' 			=> 'select',
-            'label' 		=> 'Шаблон',
-            'name' 			=> 'template',
-            'value' 		=> $main->item_data['template'],
-            'help' 			=> 'Шаблон',
-            'options' 		=> $main->parseOptionsFromTable('templates')
+            'label' 		=> 'Новость',
+            'name' 			=> 'content_id',
+            'slave_of'      => 'mode',
+            'value' 		=> $main->item_data['content_id'],
+            'help' 			=> 'Новость',
+            'options' 		=> $main->parseOptionsFromTable('section_19'),
+            'link'          => '/admin/?option=sections&suboption=edit_content&id=19&item=',
+            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=19&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
         );
 
         //Form separator

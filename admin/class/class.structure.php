@@ -224,19 +224,19 @@
                 INSERT INTO `structure`
                     (`pid`)
                 VALUES
-                    ('".$pid."')
+                    ('" . $pid . "')
             ";
             mysql_query($query);
-
 
             $id = mysql_insert_id();
 
             $query = "
                 INSERT INTO `structure_data`
-                    (`id`)
+                    (`id`, `pid`)
                 VALUES
-                    (".$id.")
+                    (" . intval($id) . ", " . intval($pid) . ")
             ";
+
             mysql_query($query);
 
             $part = $this->checkPart($id, $id);
@@ -248,15 +248,37 @@
                 $new_item_name = $this->root_node_name;
             };
 
+            //Get all neighbours
+            $query = "
+                SELECT `sort`, `id`
+                FROM `structure_data`
+                WHERE `pid` = ". intval($pid) ." && `id` != " . intval($id) . "
+                ORDER BY `sort` ASC
+            ";
+
+            $result = mysql_query($query);
+
+            $sort = 1;
+
+            while($row = mysql_fetch_assoc($result)){
+                $sort += 1;
+
+                $query = "UPDATE `structure_data` SET `sort` = " . intval($sort) . " WHERE `id` = " . intval($row['id']);
+
+                mysql_query($query);
+            }
+
             $query = "
                 UPDATE
                     `structure_data`
                 SET
                     `part` = '".$part."',
                     `path` = '".$path."',
-                    `name` = '".$new_item_name."'
+                    `name` = '".$new_item_name."',
+                    `sort` = 1
                 WHERE
                     `id` = ".$id;
+
             mysql_query($query);
 
             return $id;
@@ -292,6 +314,16 @@
                     ";
                     mysql_query($query);
 
+                    $query = "
+                        UPDATE
+                            `structure_data`
+                        SET
+                            `pid` = ".$pid."
+                        WHERE
+                            `id` = ".$id."
+                    ";
+                    mysql_query($query);
+
 
                     $query = "
                         UPDATE
@@ -314,6 +346,8 @@
             $dataline = '';
             $partupdate = false;
 
+            $dataline .= '`just_created` = 0, ';
+
             for($i=0, $l=count($data); $i<$l; $i++){
                 foreach($data[$i] as $key => $value){
                     if($key == 'part'){
@@ -324,7 +358,7 @@
                     };
                 };
             };
-            
+
             $dataline = substr($dataline, 0, strlen($dataline)-1).' ';
 
             $query = "
@@ -442,11 +476,9 @@
                     $class = ' hided';
                 };
 
-                $html .= '<li id="item_'.$row['id'].'" class="tree_item'.$class.'">';
+                $html .= '<li id="item_'.$row['id'].'" class="tree_item'.$class.'" data-url="'.$row['path'].'">';
                 $html .= '<div class="item_container"><div class="item_container_inner">';
                 $html .= '<a href="/admin/?option=structure&suboption=edit&id='.$row['id'].'">'.$row['name'].'</a>';
-                $html .= '<a href="'.$row['path'].'" target="_blank" class="path">'.$row['path'].'</a>';
-                $html .= '<span class="path">'.$row['path'].'</span>';
                 $html .= '</div></div>';
                 if($root){
                     $html .= $this->getRenderedBranch($row['id']);
@@ -479,7 +511,8 @@
 			        `structure_data`.`description`,
 			        `structure_data`.`keywords`,
 			        `structure_data`.`publish`,
-                    `structure_data`.`page_id`
+                    `structure_data`.`content_id`,
+                    `structure_data`.`just_created`
 			    FROM
 			        `structure`,
 			        `structure_data`

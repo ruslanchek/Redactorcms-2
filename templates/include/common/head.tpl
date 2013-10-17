@@ -1,30 +1,33 @@
-<head>
-    <title>{$core->page.title}</title>
+<title>{$core->page.title}</title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="{$core->page.description}" />
-    <meta name="keywords" content="{$core->page.keywords}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="{$core->page.description}" />
+<meta name="keywords" content="{$core->page.keywords}" />
 
-    <link rel="stylesheet" type="text/css" href="/resources/css/kube.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/master.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/halflings.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=900, maximum-scale=1"/>
 
-    <script type="text/javascript" src="/resources/js/jquery.js"></script>
-    <script type="text/javascript" src="/resources/js/core.js"></script>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-    {literal}
+<link rel="stylesheet" type="text/css" href="/resources/css/kube.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/css/master.css"/>
+
+<link rel="stylesheet" type="text/css" href="/resources/css/kube.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/css/master.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/js/plugins/fancybox/jquery.fancybox.css"/>
+
+<script src="/resources/js/jquery-2.0.2.min.js"></script>
+<script src="/resources/js/plugins/tree/jquery.cookie.js"></script>
+<script src="/resources/js/plugins/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+<script src="/resources/js/plugins/fancybox/jquery.fancybox.pack.js"></script>
+<script src="/resources/js/plugins/tree/jquery.treeview.js"></script>
+<script src="/resources/js/gts.core.js"></script>
+
+{literal}
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script>
-        var head = document.getElementsByTagName('head')[0], style = document.createElement('style');
-        style.type = 'text/css';
-        style.styleSheet.cssText = ':before,:after{content:none !important';
-        head.appendChild(style);
-        setTimeout(function(){ head.removeChild(style); }, 0);
-    </script>
     <![endif]-->
-    {/literal}
+{/literal}
 
-    {$core->getConstant('scripts', 'head_code')}
-</head>
+{$core->getConstant('scripts', 'head_code')}

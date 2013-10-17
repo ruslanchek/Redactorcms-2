@@ -1,47 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Ошибка 404</title>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="страница не найдена" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <link rel="stylesheet" type="text/css" href="/resources/css/kube.css">
-        <link rel="stylesheet" type="text/css" href="/resources/css/master.css">
-        <link rel="stylesheet" type="text/css" href="/resources/css/halflings.css">
-
-        <script type="text/javascript" src="/resources/js/jquery.js"></script>
-        <script type="text/javascript" src="/resources/js/core.js"></script>
-
-        {literal}
-        <!--[if lt IE 9]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <script>
-            var head = document.getElementsByTagName('head')[0], style = document.createElement('style');
-            style.type = 'text/css';
-            style.styleSheet.cssText = ':before,:after{content:none !important';
-            head.appendChild(style);
-            setTimeout(function(){ head.removeChild(style); }, 0);
-        </script>
-        <![endif]-->
-        {/literal}
-
-        {$core->getConstant('scripts', 'head_code')}
-    </head>
-
-    <body>
+<head>
+    {include file="include/common/head.tpl"}
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
         {include file="include/common/header.tpl"}
+    </header>
 
-        <div class="main-content limiter">
-            <h1>
-                Ошибка 404
-            </h1>
+    <div class="content">
+        <div class="units-row">
+            <div class="unit-20">
+                &nbsp;
+            </div>
 
-            <p>Страница не найдена.</p>
-            <p><a href="/">Вернуться на главную</a></p>
+            <div class="unit-80">
+                <h1>{$core->page.h1}</h1>
+
+                <p>{$core->page.title}</p>
+
+                &mdash; <a href="/">Перейти на главную</a><br>
+                &mdash; <a href="/sitemap">Карта сайта</a>
+            </div>
         </div>
+    </div>
 
+    <footer class="footer">
         {include file="include/common/footer.tpl"}
-    </body>
+    </footer>
+</div>
+
+{$core->getConstant('scripts', 'body_code')}
+
+</body>
 </html>

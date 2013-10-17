@@ -323,14 +323,16 @@ class Sections
                     `creator_id`,
                     `changer_id`,
                     `creation_date`,
-                    `change_date`
+                    `change_date`,
+                    `publish`
                 ) VALUES (
                     '',
                     '" . $min_sort . "',
                     " . intval($this->login->userdata['id']) . ",
                     " . intval($this->login->userdata['id']) . ",
                     NOW(),
-                    NOW()
+                    NOW(),
+                    1
             )";
 
         mysql_query($query);
@@ -338,7 +340,15 @@ class Sections
         $new_id = mysql_insert_id();
 
         if($_GET['structure_link_id'] && $_GET['structure_link_col_id']){
-            $query = "UPDATE `structure_data` SET `" . DB::quote($_GET['structure_link_col_id']) . "` = " . intval($new_id);
+            $query = "
+                UPDATE
+                    `structure_data`
+                SET
+                    `" . DB::quote($_GET['structure_link_col_id']) . "` = " . intval($new_id) . "
+                WHERE
+                    `structure_data`.`id` = " . intval($_GET['structure_link_id']) . "
+                ";
+
             mysql_query($query);
         }
 
