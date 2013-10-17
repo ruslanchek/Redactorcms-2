@@ -15,7 +15,7 @@
 		'session_time'              => 60*30, #seconds
 
         //From this url admin interface will starts when going to /admin/ dir
-        'start_location'            => '/admin/?option=sections',
+        'start_location'            => '/admin/?option=structure',
 
 		//Admin modules
 		'admin_modules'             => array(
