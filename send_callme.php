@@ -1,4 +1,6 @@
 <?php
+    date_default_timezone_set('Europe/Moscow');
+
     function send($from_name, $from_mail, $to, $subject, $content){
         $subj = "=?utf-8?b?" . base64_encode($subject) . "?=";
         $from = "=?utf-8?B?" . base64_encode($from_name) . "?= <".$from_mail.">";

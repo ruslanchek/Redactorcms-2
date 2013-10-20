@@ -24,6 +24,12 @@ body {
     z-index: 1;
 }
 
+.content {
+    position: relative;
+    min-height: 700px;
+    height: 100%;
+}
+
 .logo img {
     display: block;
     width: 100%;
@@ -118,7 +124,7 @@ label.checkbox input {
 }
 
 .footer {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     color: #fff;
     width: 470px;
