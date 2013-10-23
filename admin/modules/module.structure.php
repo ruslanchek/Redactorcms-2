@@ -182,6 +182,7 @@
             'slave_of'      => 'mode',
             'value' 		=> $main->item_data['content_id'],
             'help' 			=> 'Страница',
+            'section_id'    => 3,
             'options' 		=> $main->parseOptionsFromTable('section_3'),
             'link'          => '/admin/?option=sections&suboption=edit_content&id=3&item=',
             'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=3&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
@@ -195,6 +196,7 @@
             'slave_of'      => 'mode',
             'value' 		=> $main->item_data['content_id'],
             'help' 			=> 'Новость',
+            'section_id'    => 19,
             'options' 		=> $main->parseOptionsFromTable('section_19'),
             'link'          => '/admin/?option=sections&suboption=edit_content&id=19&item=',
             'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=19&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
