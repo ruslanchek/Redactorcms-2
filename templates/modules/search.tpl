@@ -1,3 +1,4 @@
+{*
 <div class="search">
     <form action="/search">
         <input type="text" name="sq" placeholder="Поиск" value="{$core->page.sq|escape}" />
@@ -22,3 +23,36 @@
 
     {include file="include/common/pager.tpl" pager=$core->page.result.pager}
 {/if}
+*}
+
+<script>
+    (function() {
+        var cx = '011641885441076172981:ve19zte-tew';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = false;
+        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                '//www.google.com/cse/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+    })();
+</script>
+<gcse:search></gcse:search>
+
+<script>
+    var intrvl = null;
+
+    function fill_input(){
+        var input = '{$core->page.sq|escape}';
+
+        $('.gsc-input').focus().val(input);
+
+        if($('.gsc-input').length > 0){
+            clearInterval(intrvl);
+
+            $('.gsc-search-button').trigger('click');
+        }
+    }
+
+    intrvl = setInterval(fill_input, 50);
+</script>

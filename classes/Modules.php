@@ -18,6 +18,30 @@
                     return $this->module_getNewsItem();
                 } break;
 
+                case '4' : {
+                    return $this->module_getMakers();
+                } break;
+
+                case '5' : {
+                    return $this->module_getMaker();
+                } break;
+
+                case '6' : {
+                    return $this->module_getCatalogGroups();
+                } break;
+
+                case '7' : {
+                    return $this->module_getCatalogSection();
+                } break;
+
+                case '8' : {
+                    return $this->module_getCatalogObject();
+                } break;
+
+                case '9' : {
+                    return $this->module_getCatalogGroup();
+                } break;
+
                 case '10' : {
                     return $this->module_getSearch();
                 } break;
@@ -32,7 +56,7 @@
             }
         }
 
-        private function module_GetPage(){
+        private function module_getPage(){
             $this->page = array(
                 'id'            => $this->item['data']['id'],
                 'path'          => $this->item['data']['path'],
@@ -105,12 +129,6 @@
         private function module_getSearch(){
             $sq = htmlspecialchars(strip_tags($_GET['sq']));
 
-            if($sq != ''){
-                $title = 'Поиск по запросу &laquo;' . $sq . '&raquo;';
-            }else{
-                $title = 'Поиск по сайту';
-            }
-
             $this->page = array(
                 'id'            => $this->item['data']['id'],
                 'path'          => $this->item['data']['path'],
@@ -118,41 +136,17 @@
                 'title'         => 'Поиск по сайту',
                 'description'   => $this->item['data']['description'],
                 'keywords'      => $this->item['data']['keywords'],
-                'h1'            => $title,
+                'h1'            => 'Поиск по сайту',
                 'mode'          => $this->item['data']['mode'],
                 'breadcrumbs'   => $this->getBreadCrumbs($this->item['data']['id']),
                 'sq'            => $sq,
-                'content'       => $this->smarty->fetch('modules/search.tpl')
+                'items'         => $this->getSearchItems($sq)
             );
+
+            $this->page['content'] = $this->smarty->fetch('modules/search.tpl');
         }
 
-        private function module_GetSitemap(){
-            function getBranch($pid){
-                $query = "
-                    SELECT
-                        `structure`.`id`,
-                        `structure_data`.`name`,
-                        `structure_data`.`path`
-                    FROM
-                        `structure`,
-                        `structure_data`
-                    WHERE
-                        `structure`.`pid` = ".intval($pid)." &&
-                        `structure`.`id` = `structure_data`.`id` &&
-                        `structure_data`.`mode` NOT IN(3)
-                    ORDER BY
-                        `structure_data`.`sort` ASC
-                ";
-                $result = mysql_query($query);
-
-                while($row = mysql_fetch_assoc($result)){
-                    $row['childrens'] = getBranch($row['id']);
-                    $rows[] = $row;
-                };
-
-                return $rows;
-            }
-
+        private function module_getMakers(){
             $this->page = array(
                 'id'            => $this->item['data']['id'],
                 'path'          => $this->item['data']['path'],
@@ -163,7 +157,99 @@
                 'h1'            => $this->item['data']['name'],
                 'mode'          => $this->item['data']['mode'],
                 'breadcrumbs'   => $this->getBreadCrumbs($this->item['data']['id']),
-                'data'          => getBranch(0)
+                'text'          => $this->getPage(74),
+                'items'         => $this->getMakers()
+            );
+
+            $this->page['content'] = $this->smarty->fetch('modules/makers-list.tpl');
+        }
+
+        private function module_getMaker(){
+            $this->page = array(
+                'id'            => $this->item['data']['id'],
+                'path'          => $this->item['data']['path'],
+                'pid'           => $this->item['data']['pid'],
+                'title'         => $this->item['data']['title'],
+                'description'   => $this->item['data']['description'],
+                'keywords'      => $this->item['data']['keywords'],
+                'h1'            => $this->item['data']['name'],
+                'mode'          => $this->item['data']['mode'],
+                'breadcrumbs'   => $this->getBreadCrumbs($this->item['data']['id']),
+                'item'          => $this->getMaker($this->item['data']['content_id'])
+            );
+
+            $this->page['content'] = $this->smarty->fetch('modules/makers-item.tpl');
+        }
+
+        private function module_getCatalogGroups(){
+            $this->page = array(
+                'id'            => $this->item['data']['id'],
+                'path'          => $this->item['data']['path'],
+                'pid'           => $this->item['data']['pid'],
+                'title'         => $this->item['data']['title'],
+                'description'   => $this->item['data']['description'],
+                'keywords'      => $this->item['data']['keywords'],
+                'h1'            => $this->item['data']['name'],
+                'mode'          => $this->item['data']['mode'],
+                'breadcrumbs'   => $this->getBreadCrumbs($this->item['data']['id']),
+                'text'          => $this->getPage(75),
+                'items'         => $this->getCatalog()
+            );
+
+            $this->page['content'] = $this->smarty->fetch('modules/catalog-groups.tpl');
+        }
+
+        private function module_getCatalogGroup(){
+            $this->page = array(
+                'id'            => $this->item['data']['id'],
+                'path'          => $this->item['data']['path'],
+                'pid'           => $this->item['data']['pid'],
+                'title'         => $this->item['data']['title'],
+                'description'   => $this->item['data']['description'],
+                'keywords'      => $this->item['data']['keywords'],
+                'h1'            => $this->item['data']['name'],
+                'mode'          => $this->item['data']['mode'],
+                'breadcrumbs'   => $this->getBreadCrumbs($this->item['data']['id']),
+                'item'          => $this->getCatalogSection($this->item['data']['content_id'])
+            );
+
+            $this->page['content'] = $this->smarty->fetch('modules/catalog-group.tpl');
+        }
+
+        private function module_getCatalogSection(){
+            $this->page = array(
+                'id'            => $this->item['data']['id'],
+                'path'          => $this->item['data']['path'],
+                'pid'           => $this->item['data']['pid'],
+                'title'         => $this->item['data']['title'],
+                'description'   => $this->item['data']['description'],
+                'keywords'      => $this->item['data']['keywords'],
+                'h1'            => $this->item['data']['name'],
+                'mode'          => $this->item['data']['mode'],
+                'breadcrumbs'   => $this->getBreadCrumbs($this->item['data']['id']),
+                'text'          => $this->getPage(75),
+                'items'         => $this->getCatalog()
+            );
+
+            $this->page['content'] = $this->smarty->fetch('modules/catalog-section.tpl');
+        }
+
+        private function module_getCatalogObject(){
+            $this->error404();
+        }
+
+        private function module_GetSitemap(){
+            $this->page = array(
+                'id'            => $this->item['data']['id'],
+                'path'          => $this->item['data']['path'],
+                'pid'           => $this->item['data']['pid'],
+                'title'         => $this->item['data']['title'],
+                'description'   => $this->item['data']['description'],
+                'keywords'      => $this->item['data']['keywords'],
+                'h1'            => $this->item['data']['name'],
+                'mode'          => $this->item['data']['mode'],
+                'breadcrumbs'   => $this->getBreadCrumbs($this->item['data']['id']),
+                'data'          => $this->getSitemapBranch(0)
             );
 
             $this->page['content'] = $this->smarty->fetch('modules/sitemap.tpl');

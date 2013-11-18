@@ -816,6 +816,14 @@ ul.catalog-map>li>ul li {
     display: block;
 }
 
+.photo-roll .picture .picture-container .info-block {
+    width: 582px;
+    float: left;
+}
+
+.ibc-padding {
+    padding: 20px;
+}
 
 
 

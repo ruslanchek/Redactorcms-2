@@ -1,18 +1,72 @@
 var slider = {
+    items_count: 0,
+    interval: null,
+    page: 0,
+
     showPage: function (page) {
-        this.page = parseInt(page);
+        page = parseInt(page);
+
+        if(this.page < page && page > 0){
+            var $next = $('.slider .slider-block:eq(' + page + ')');
+            var $a = $('.slider .slider-block.active');
+
+            $a.removeClass('active');
+            $a.addClass('right');
+
+            $next.addClass('active');
+        }else{
+            var $next = $('.slider .slider-block:eq(' + page + ')');
+            var $a = $('.slider .slider-block.active');
+
+            $('.slider .slider-block').removeClass('right');
+
+            $a.removeClass('active').removeClass('right');
+            $next.addClass('active').removeClass('right');
+        }
+
+        $('.slider .content').addClass('old');
+
+        setTimeout(function () {
+            $('.slider .content').removeClass('ready').removeClass('old');
+            $('.slider .content h2').html($('.slider .slider-block:eq(' + page + ') .h2').html());
+            $('.slider .content .text').html($('.slider .slider-block:eq(' + page + ') .announce').html());
+        }, 300);
 
         $('.slider .pager a').removeClass('active');
         $('.slider .pager a:eq(' + page + ')').addClass('active');
 
-        $('.slider .items-container').css({
-            top: -(page * 310)
-        });
+        slider.pause();
 
         setTimeout(function () {
-            $('.slider .items-container .slider-block .content').removeClass('ready');
-            $('.slider .items-container .slider-block:eq(' + page + ') .content').addClass('ready');
-        }, 620);
+            slider.start();
+            $('.slider .content').addClass('ready');
+        }, 600);
+
+        this.page = page;
+    },
+
+    nextPage: function () {
+        var page;
+
+        if (this.page == this.items_count - 1) {
+            page = 0;
+        } else {
+            page = parseInt(this.page) + 1;
+        }
+
+        this.showPage(page);
+    },
+
+    start: function () {
+        this.pause();
+
+        this.interval = setInterval(function () {
+            slider.nextPage();
+        }, 6000);
+    },
+
+    pause: function () {
+        clearInterval(this.interval);
     },
 
     createPager: function () {
@@ -32,31 +86,6 @@ var slider = {
         });
     },
 
-    interval: null,
-    page: 0,
-
-    nextPage: function () {
-        var page;
-
-        if (this.page == this.items_count - 1) {
-            page = 0;
-        } else {
-            page = parseInt(this.page) + 1;
-        }
-
-        this.showPage(page);
-    },
-
-    start: function () {
-        this.interval = setInterval(function () {
-            slider.nextPage();
-        }, 6000);
-    },
-
-    pause: function () {
-        clearInterval(this.interval);
-    },
-
     init: function () {
         this.items_count = $('.slider .slider-block').length;
         this.createPager();
@@ -74,7 +103,44 @@ var slider = {
             document.location.href = $(this).data('url');
         });
 
-        $('.slider .items-container .slider-block:eq(0) .content').addClass('ready');
+        $('.slider .slider-block:eq(0) .content').addClass('ready');
+    }
+};
+
+var order = {
+    send: function(){
+        var data = {
+            maker: $('#order-maker').val(),
+            name: $('#order-name').val(),
+            company: $('#order-company').val(),
+            phone: $('#order-phone').val()
+        };
+
+        $.ajax({
+            url: '/send.php',
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                if (data.status) {
+                    $('#order-form').hide(200);
+                    $('.order-form-message').html('<div class="ok_message"><b>' + data.message + '</b></div>');
+                } else {
+                    $('.order-form-message').html('<div class="error_message"><b>' + data.message + '</b></div>');
+                }
+            },
+            error: function () {
+                $('.order-form-message').html('<div class="error_message"><b>Ошибка передачи данных!</b></div>');
+            }
+        });
+    },
+
+    init: function () {
+        $('#order-form').on('submit', function(e){
+            order.send();
+
+            e.preventDefault();
+        });
     }
 };
 
@@ -113,7 +179,6 @@ var callback = {
              '<option>19:00</option>' +
              '</select>' +
 
-
              'До <select name="to" id="to">' +
              '<option>11:00</option>' +
              '<option>12:00</option>' +
@@ -126,9 +191,10 @@ var callback = {
              '<option selected="">19:00</option>' +
              '</select>' +*/
 
+            '<div class="callme-form-message"></div>' +
             '<form id="callme-form" action="#">' +
-            '<input type="text" placeholder="Ваше имя" />' +
-            '<input type="text" placeholder="Телефон" />' +
+            '<input type="text" placeholder="Ваше имя" id="name" />' +
+            '<input type="text" placeholder="Телефон" id="phone" />' +
 
             '<div class="units-row">' +
             '<div class="unit-40">' +
@@ -159,7 +225,7 @@ var callback = {
 
             '<div class="unit-30">' +
             '<br>' +
-            'До <select name="from" id="from">' +
+            'До <select name="to" id="to">' +
             '<option>10:00</option>' +
             '<option>11:00</option>' +
             '<option>12:00</option>' +
@@ -186,7 +252,7 @@ var callback = {
         $('#callme-form').on('submit', function (e) {
             e.preventDefault();
 
-            alert('x')
+            callback.send();
         });
 
         $('body').on('keyup.callme', function (e) {
@@ -197,6 +263,34 @@ var callback = {
 
         $('#callme-window .close-btn').on('click', function () {
             callback.hide();
+        });
+    },
+
+    send: function(){
+        var data = {
+            phone: $('#phone').val(),
+            name: $('#name').val(),
+            when: $('#when').val(),
+            from: $('#from').val(),
+            to: $('#to').val()
+        };
+
+        $.ajax({
+            url: '/send_callme.php',
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                if (data.status) {
+                    $('#callme-form').hide(200);
+                    $('.callme-form-message').html('<div class="ok_message"><b>' + data.message + '</b></div>');
+                } else {
+                    $('.callme-form-message').html('<div class="error_message"><b>' + data.message + '</b></div>');
+                }
+            },
+            error: function () {
+                $('.callme-form-message').html('<div class="error_message"><b>Ошибка передачи данных!</b></div>');
+            }
         });
     },
 
@@ -232,7 +326,7 @@ var photoroll = {
     },
 
     counts: function () {
-        this.pictures_count = this.$c.find('.picture .photo').length;
+        this.pictures_count = this.$c.find('.picture .photo, .picture .info-block').length;
     },
 
     rollTo: function (index) {
@@ -285,8 +379,16 @@ var photoroll = {
             marginLeft: pc_left
         }, 300);
 
+        var $item;
+
+        if(this.$c.find('.picture .info-block[rel="' + index + '"]').length > 0){
+            $item = this.$c.find('.picture .info-block[rel="' + index + '"]');
+        }else{
+            $item = this.$c.find('.picture .photo[rel="' + index + '"]');
+        }
+
         this.$c.find('.picture-viewport').animate({
-            height: this.$c.find('.picture .photo[rel="' + index + '"]').data('height')
+            height: $item.data('height')
         }, 300)
     },
 
@@ -308,7 +410,7 @@ var photoroll = {
 
     inits: function () {
         this.$c = $('.photo-roll');
-        this.$c.find('.picture .photo:first, .roll .photo:first').addClass('active');
+        this.$c.find('.roll .photo:first').addClass('active');
         this.$c.find('.arrow.left').addClass('unactive');
         this.picture_max_height = 0;
 
@@ -316,17 +418,36 @@ var photoroll = {
             $(this).attr('rel', i + 1);
         });
 
-        this.$c.find('.picture .photo').each(function (i) {
+        this.$c.find('.picture .photo, .picture .info-block').each(function (i) {
             $(this).attr('rel', i + 1);
-            $(this).data('height', $(this).find('img').height());
 
-            if(photoroll.picture_max_height < $(this).find('img').height()){
-                photoroll.picture_max_height = $(this).find('img').height();
+            if($(this).hasClass('info-block')){
+                $(this).data('height', $(this).height());
+
+                if(photoroll.picture_max_height < $(this).height()){
+                    photoroll.picture_max_height = $(this).height();
+                }
+            }else{
+                $(this).data('height', $(this).find('img').height());
+
+                if(photoroll.picture_max_height < $(this).find('img').height()){
+                    photoroll.picture_max_height = $(this).find('img').height();
+                }
             }
         });
 
+        var $fitem;
+
+        if(this.$c.find('.picture .picture-container').children(':first').hasClass('info-block')){
+            $fitem = this.$c.find('.picture .info-block:first');
+        }else{
+            $fitem = this.$c.find('.picture .photo:first');
+        }
+
+        $fitem.addClass('active');
+
         this.$c.find('.picture-viewport').css({
-            height: this.$c.find('.picture .photo:first').data('height')
+            height: $fitem.data('height')
         });
 
         this.$c.find('.picture .photo').on('click', function(e){
@@ -377,7 +498,7 @@ var catalog_tree = {
 };
 
 var to_the_top = {
-    init: function() {
+    init: function () {
         $('body').prepend('<div class="to-the-top" title="Прокрутить страницу наверх"></div>');
 
         $('.to-the-top').css({
@@ -403,7 +524,7 @@ var to_the_top = {
 };
 
 var fancybox_inits = {
-    init: function(){
+    init: function () {
         $('.fancybox').fancybox({
             padding: 5
         });
@@ -417,8 +538,8 @@ var core = {
         $('.overlay-global').css({
             display: 'block'
         }).animate({
-                opacity: 0.75
-            }, 300);
+            opacity: 0.75
+        }, 300);
     },
 
     removeOverlay: function () {
@@ -432,6 +553,7 @@ var core = {
     init: function () {
         slider.init();
         callback.init();
+        order.init();
         photoroll.init();
         to_the_top.init();
         fancybox_inits.init();

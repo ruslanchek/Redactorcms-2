@@ -1,0 +1,55 @@
+div.copyright {
+	color: #b7bfc7;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	margin-top: 20px;
+	text-align: center;
+}
+
+div.copyright a {
+	color: #b7bfc7;
+}
+
+div.pages {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	padding: 20px;
+}
+
+div.pages a {
+	color: #2222b2;
+}
+
+div.pages b {
+	background-color: #2222b2;
+	color: #ffffff;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div.result {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	padding: 20px;
+}
+
+div.result a {
+	color: #2222b2;
+}
+
+div.result a:hover {
+	color: #226cb2;
+}
+
+div.result span.date {
+	color: #006600;
+	font-size: 9pt;
+}
+
+div.result span.quotes {
+	font-size: 10pt;
+}
+
+form {
+	margin: 0px;
+}

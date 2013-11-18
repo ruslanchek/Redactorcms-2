@@ -232,7 +232,7 @@ var photoroll = {
     },
 
     counts: function () {
-        this.pictures_count = this.$c.find('.picture .photo').length;
+        this.pictures_count = this.$c.find('.picture .photo, .picture .info-block').length;
     },
 
     rollTo: function (index) {
@@ -285,8 +285,16 @@ var photoroll = {
             marginLeft: pc_left
         }, 300);
 
+        var $item;
+
+        if(this.$c.find('.picture .info-block[rel="' + index + '"]').length > 0){
+            $item = this.$c.find('.picture .info-block[rel="' + index + '"]');
+        }else{
+            $item = this.$c.find('.picture .photo[rel="' + index + '"]');
+        }
+
         this.$c.find('.picture-viewport').animate({
-            height: this.$c.find('.picture .photo[rel="' + index + '"]').data('height')
+            height: $item.data('height')
         }, 300)
     },
 
@@ -308,7 +316,7 @@ var photoroll = {
 
     inits: function () {
         this.$c = $('.photo-roll');
-        this.$c.find('.picture .photo:first, .roll .photo:first').addClass('active');
+        this.$c.find('.roll .photo:first').addClass('active');
         this.$c.find('.arrow.left').addClass('unactive');
         this.picture_max_height = 0;
 
@@ -316,17 +324,36 @@ var photoroll = {
             $(this).attr('rel', i + 1);
         });
 
-        this.$c.find('.picture .photo').each(function (i) {
+        this.$c.find('.picture .photo, .picture .info-block').each(function (i) {
             $(this).attr('rel', i + 1);
-            $(this).data('height', $(this).find('img').height());
 
-            if(photoroll.picture_max_height < $(this).find('img').height()){
-                photoroll.picture_max_height = $(this).find('img').height();
+            if($(this).hasClass('info-block')){
+                $(this).data('height', $(this).height());
+
+                if(photoroll.picture_max_height < $(this).height()){
+                    photoroll.picture_max_height = $(this).height();
+                }
+            }else{
+                $(this).data('height', $(this).find('img').height());
+
+                if(photoroll.picture_max_height < $(this).find('img').height()){
+                    photoroll.picture_max_height = $(this).find('img').height();
+                }
             }
         });
 
+        var $fitem;
+
+        if(this.$c.find('.picture .picture-container').children(':first').hasClass('info-block')){
+            $fitem = this.$c.find('.picture .info-block:first');
+        }else{
+            $fitem = this.$c.find('.picture .photo:first');
+        }
+
+        $fitem.addClass('active');
+
         this.$c.find('.picture-viewport').css({
-            height: this.$c.find('.picture .photo:first').data('height')
+            height: $fitem.data('height')
         });
 
         this.$c.find('.picture .photo').on('click', function(e){

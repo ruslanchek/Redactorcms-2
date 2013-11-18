@@ -9,6 +9,10 @@
 
 {include file="include/common/main-menu.tpl"}
 
+<div class="head-title">
+    Поставка импортного оборудования
+</div>
+
 <div class="valutes">
     <span class="item"><strong>USD</strong> {$core->getConstant('valutes', 'usd')}</span>
     <span class="item"><strong>EUR</strong> {$core->getConstant('valutes', 'eur')}</span>

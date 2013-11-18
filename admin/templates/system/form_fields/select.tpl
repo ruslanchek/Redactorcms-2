@@ -47,46 +47,46 @@
         {foreach $item.master as $key => $val}
 
 
-        {if $item.value == $key}
-        $(window).load(function(){
-            $('select.select[data-slave="true"]').removeAttr('name');
+            {if $item.value == $key}
+                $(window).load(function(){
+                    $('select.select[data-slave="true"]').removeAttr('name');
 
-            var $select = $('#select_' + '{$val}');
+                    var $select = $('#select_' + '{$val}');
 
-            $select.css({
-                position: 'static',
-                left: 0
-            }).find('select').attr('name', 'content_id');
+                    $select.css({
+                        position: 'static',
+                        left: 0
+                    }).find('select').attr('name', 'content_id');
 
-            $('select.select').chosen();
-        });
-        {/if}
+                    $('select.select').chosen();
+                });
+            {/if}
 
-        $('#' + '{$item.name}').change(function(){
-            var value = $(this).val(),
+            $('#' + '{$item.name}').change(function(){
+                var value = $(this).val(),
                     $select = $('#select_' + '{$val}');
 
-            $('select.select[data-slave="true"]').removeAttr('name');
+                $('select.select[data-slave="true"]').removeAttr('name');
 
-            if(value == '{$key}'){
-                $select.css({
-                    position: 'static',
-                    left: 0
-                });
+                if(value == '{$key}'){
+                    $select.css({
+                        position: 'static',
+                        left: 0
+                    });
 
-                $select.find('select').attr('name', 'content_id').val('0');
-                $select.find('select').find('option').removeAttr('selected');
-                $select.find('select').find('option:first').attr('selected', 'selected');
-                $select.find('select').trigger("liszt:updated");
-            }else{
-                $select.css({
-                    position: 'absolute',
-                    left: -10000
-                });
-            }
+                    $select.find('select').attr('name', 'content_id').val('0');
+                    $select.find('select').find('option').removeAttr('selected');
+                    $select.find('select').find('option:first').attr('selected', 'selected');
+                    $select.find('select').trigger("liszt:updated");
+                }else{
+                    $select.css({
+                        position: 'absolute',
+                        left: -10000
+                    });
+                }
 
-            $('select.select').chosen();
-        });
+                $('select.select').chosen();
+            });
         {/foreach}
     </script>
 {/if}

@@ -10,17 +10,17 @@
     </header>
 
     <div class="content">
+        {include file="include/common/breadcrumbs.tpl"}
+
         <div class="units-row">
             <div class="unit-80">
-                {include file="include/common/breadcrumbs.tpl"}
-
                 <h1>{$core->page.h1}</h1>
 
                 {$core->page.content}
             </div>
 
             <div class="unit-20">
-
+                {include file="include/common/order.tpl"}
             </div>
         </div>
     </div>

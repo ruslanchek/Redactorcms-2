@@ -63,7 +63,12 @@
 
                         echo stripslashes(json_encode($array));
                     }else{
-                        print '<a href="' . $target_path . $file_name . '.' . $file_ext . '">' . $file_name . '.' . $file_ext . '</a>';
+                        $array = array(
+                            'filelink' => $target_path . $file_name . '.' . $file_ext,
+                            'filename' => $file_name . '.' . $file_ext
+                        );
+
+                        echo stripslashes(json_encode($array));
                     };
                 };
             }else{

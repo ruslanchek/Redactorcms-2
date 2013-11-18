@@ -15,14 +15,14 @@ function initEditor(obj, locale, dom_id){
         id: id,
         obj: obj,
         instance: obj.redactor({
-            lang            : lang,
-            convertDivs     : false,
-            fileUpload      : '',
-            minHeight       : obj.attr('rows') * 22,
-            imageUpload     : '/admin/?action=upload&type=image',
-            fileUpload      : '/admin/?action=upload&type=file',
-            wym             : true,
-            css             : '/resources/css/kube.min.css'
+            imageUpload         : '/admin/?action=upload&type=imag',
+            clipboardUploadUrl  : '/admin/?action=upload&type=imag',
+            fileUpload          : '/admin/?action=upload&type=file',
+            convertVideoLinks   : true,
+            wym                 : true,
+            minHeight           : obj.attr('rows') * 22,
+            observeLinks        : true,
+            lang                : 'ru'
         })
     };
 

@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/js/plugins/fancybox/jquery.fancybox.css"/>
 
 <script src="/resources/js/jquery-2.0.2.min.js"></script>
+<script src="/resources/js/plugins/jquery.appear.js"></script>
 <script src="/resources/js/plugins/tree/jquery.cookie.js"></script>
 <script src="/resources/js/plugins/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
 <script src="/resources/js/plugins/fancybox/jquery.fancybox.pack.js"></script>

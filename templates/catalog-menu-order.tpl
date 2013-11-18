@@ -11,11 +11,21 @@
 
     <div class="content">
         <div class="units-row">
+            <div class="unit-20">
+                {include file="include/common/catalog-side-menu.tpl"}
+            </div>
+
+            <div class="unit-60">
                 {include file="include/common/breadcrumbs.tpl"}
 
                 <h1>{$core->page.h1}</h1>
 
                 {$core->page.content}
+            </div>
+
+            <div class="unit-20">
+                {include file="include/common/order.tpl"}
+            </div>
         </div>
     </div>
 

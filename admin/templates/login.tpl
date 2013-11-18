@@ -14,34 +14,34 @@
     <body>
         <div class="content">
             <div class="logo"><img src="/admin/img/logos/login_logo.png"></div>
-                <div class="login-form-block rotation">
-                    {if $login->error}
-                        <div class="error">{$login->error}</div>
-                    {/if}
 
-                    <form method="POST" action="/admin/?action=login">
-                        <input class="textinput" id="auth_login" name="auth_login" type="text" tabindex="1" placeholder="Логин" />
+            <div class="login-form-block rotation">
+                {if $login->error}
+                    <div class="error">{$login->error}</div>
+                {/if}
 
-                        <input class="textinput" id="auth_password" name="auth_password" type="password" tabindex="2" placeholder="Пароль" />
+                <form method="POST" action="/admin/?action=login">
+                    <input class="textinput" id="auth_login" name="auth_login" type="text" tabindex="1" placeholder="Логин" />
 
-                        <label class="checkbox" title="Если авторизоваться с привязкой к IP, то никто больше не сможет авторизоваться с вашим лигином и паролем на время вашей сессии.">
-                            <input type="checkbox" checked name="auth_attach_ip" tabindex="3">
-                            Привязать сессию к IP-адресу
-                        </label>
+                    <input class="textinput" id="auth_password" name="auth_password" type="password" tabindex="2" placeholder="Пароль" />
 
-                        <div class="submit">
-                            <input class="button big blue" type="submit" value="{$main->getText('login', 'form_button_enter_text')}" tabindex="4" />
-                        </div>
-                    </form>
-                </div>
+                    <label class="checkbox" title="Если авторизоваться с привязкой к IP, то никто больше не сможет авторизоваться с вашим лигином и паролем на время вашей сессии.">
+                        <input type="checkbox" checked name="auth_attach_ip" tabindex="3">
+                        Привязать сессию к IP-адресу
+                    </label>
 
-                <div class="footer">
-                    <p>
-                        &copy; 2009&ndash;{$main->config['current_year']}
-                        Система управления сайтом &laquo;Редактор&raquo;<br>
-                        <em>{$main->getText('footer', 'version')} {$main->config['current_version']}</em>
-                    </p>
-                </div>
+                    <div class="submit">
+                        <input class="button big blue" type="submit" value="{$main->getText('login', 'form_button_enter_text')}" tabindex="4" />
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer">
+                <p>
+                    &copy; 2009&ndash;{$main->config['current_year']}
+                    Система управления сайтом &laquo;Редактор&raquo;<br>
+                    <em>{$main->getText('footer', 'version')} {$main->config['current_version']}</em>
+                </p>
             </div>
         </div>
 

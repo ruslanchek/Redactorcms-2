@@ -1,5 +1,5 @@
 <?php
-    date_default_timezone_set('Europe/Moscow');
+date_default_timezone_set('Europe/Moscow');
 
     function send($from_name, $from_mail, $to, $subject, $content){
         $subj = "=?utf-8?b?" . base64_encode($subject) . "?=";
@@ -24,8 +24,8 @@
         return mail($to, $subj, $content, $headers);
     }
 
-    if(isset($_POST['phone'])){
-        if($_POST['phone']){
+    if(isset($_POST['phone']) && isset($_POST['name'])){
+        if($_POST['phone'] && $_POST['name']){
 
             $message = "";
 
@@ -44,12 +44,17 @@
             $result = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/constants.ini', true);
 
             send('Сайт '.$result['site']['name'][0], 'callme@'.$_SERVER['HTTP_HOST'], $result['common']['send_email'][0], 'Заполнена форма обратного звонка на сайте «'.$result['site']['name'][0].'»', $message);
-        };
 
-        print json_encode(array(
-            'status' => true,
-            'message' => 'Спасибо за обращение, ожидайте звонка'
-        ));
+            print json_encode(array(
+                'status' => true,
+                'message' => 'Спасибо за обращение, ожидайте звонка!'
+            ));
+        }else{
+            print json_encode(array(
+                'status' => false,
+                'message' => 'Заполните пожалуйста все поля!'
+            ));
+        }
 
         die();
     };
