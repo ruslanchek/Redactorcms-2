@@ -15,8 +15,8 @@ function initEditor(obj, locale, dom_id){
         id: id,
         obj: obj,
         instance: obj.redactor({
-            imageUpload         : '/admin/?action=upload&type=imag',
-            clipboardUploadUrl  : '/admin/?action=upload&type=imag',
+            imageUpload         : '/admin/?action=upload&type=image',
+            clipboardUploadUrl  : '/admin/?action=upload&type=image',
             fileUpload          : '/admin/?action=upload&type=file',
             convertVideoLinks   : true,
             wym                 : true,
