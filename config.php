@@ -32,7 +32,7 @@
 
 		//DB vars
 		'db_host'                   => 'localhost',
-		'db_base'                   => 'gts',
+		'db_base'                   => 'redactorcms',
 		'db_user'                   => 'root',
 		'db_pass'                   => '123'
 	);

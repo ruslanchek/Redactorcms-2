@@ -9,37 +9,67 @@ function initEditor(obj, locale, dom_id){
 		var lang = 'ru';
 	}else{
 		var lang = 'en';
-	};
+	}
+
+    tinymce.PluginManager.add('typograph', function(editor, url) {
+        // Add a button that opens a window
+        editor.addButton('typograph', {
+            text: 'Оттипографить',
+            icon: false,
+            onclick: function() {
+                $.ajax({
+                    url: '/admin/?action=typo',
+                    type: 'post',
+                    data: {
+                        redactor: tinymce.activeEditor.getContent()
+                    },
+                    success: function(data){
+                        tinymce.activeEditor.setContent(data);
+                    }
+                });
+            }
+        });
+
+        // Adds a menu item to the tools menu
+        editor.addMenuItem('typograph', {
+            text: 'Оттипографить',
+            context: 'tools',
+            onclick: function() {
+                $.ajax({
+                    url: '/admin/?action=typo',
+                    type: 'post',
+                    data: {
+                        redactor: tinymce.activeEditor.getContent()
+                    },
+                    success: function(data){
+                        tinymce.activeEditor.setContent(data);
+                    }
+                });
+            }
+        });
+    });
 
     editors[editors_index] = {
-        id: id,
-        obj: obj,
-        instance: obj.redactor({
-            imageUpload         : '/admin/?action=upload&type=image',
-            clipboardUploadUrl  : '/admin/?action=upload&type=image',
-            fileUpload          : '/admin/?action=upload&type=file',
-            convertVideoLinks   : true,
-            wym                 : true,
-            minHeight           : obj.attr('rows') * 22,
-            observeLinks        : true,
-            lang                : 'ru'
-        })
+         id: id,
+         obj: obj,
+         instance: tinymce.init({
+             selector:'#col_' + id,
+             language_url : '/admin/tinymce/langs/ru.js',
+             language : 'ru',
+             browser_spellcheck : true,
+             plugins : 'advlist autolink link image lists charmap print table hr preview code insertdatetime preview visualblocks visualchars paste searchreplace wordcount anchor autoresize link typograph codemirror',
+             toolbar: 'undo redo | styleselect | removeformat |  pastetext | bold italic strikethrough | bullist numlist | outdent indent | blockquote hr charmap | link image | typograph | code ',
+             content_css : '/admin/css/tinymce.css',
+             insertdatetime_formats: ["%d.%m.%Y", "%H:%M", "%H:%M:%S"],
+             autoresize_min_height: 250,
+             autoresize_max_height: 600,
+             convert_urls: false,
+             link_list: '/admin/?option=structure&action=generateLinksBranchForTinyMCE',
+             codemirror: {
+                 path: '/admin/codemirror'
+             }
+         })
     };
-
-    $('.typo[rel="'+dom_id+'"]').attr('index', editors_index).click(function(){
-        var editor = editors[$(this).attr('index')].instance;
-
-        $.ajax({
-            url: '/admin/?action=typo',
-            type: 'post',
-            data: {
-                redactor: editor.getCode()
-            },
-            success: function(data){
-                editor.setCode(data);
-            }
-        })
-    });
 
     editors_index++;
 };

@@ -843,4 +843,3 @@
         	$this->db->query($query);
         }
 	}
-?>

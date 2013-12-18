@@ -8,6 +8,12 @@
             $this->root_node_name = $this->main->getText('structure', 'root_name');
             //$this->resetStructure();
             //$this->createRandomStructure(50);
+
+            if($_GET['action'] == 'generateLinksBranchForTinyMCE'){
+                header('Content-type: application/json');
+                $this->generateLinksBranchForTinyMCE();
+                exit;
+            }
 		}
 
         //Create ramdom structure
@@ -56,7 +62,7 @@
                 return false;
             }else{
                 return true;
-            };
+            }
         }
 
         //Check for path part existance linear by AJAX
@@ -78,7 +84,7 @@
                 return 'false';
             }else{
                 return 'true';
-            };
+            }
         }
 
         //Check for path part existance special
@@ -121,7 +127,7 @@
                         `structure_data`.`part` = '".$part."' &&
                         `structure`.`id` = `structure_data`.`id`
                 ";
-            };
+            }
 
             if(mysql_num_rows(mysql_query($query)) > 0){
                 $newpart = $part.'_'.rand();
@@ -133,7 +139,7 @@
                 return $newpart;
             }else{
                 return $part;
-            };
+            }
         }
 
         //Returns a full node path
@@ -156,13 +162,13 @@
                 $path .= $this->getNodePath($result['pid'], $path);
             }else{
                 $path .= '/';
-            };
+            }
 
             if($part){
                 $path .= $part.'/';
             }else{
                 $path .= $result['part'].'/';
-            };
+            }
 
             return Utilities::removePathDoubleSlashes($path);
         }
@@ -215,7 +221,7 @@
                     $this->setPath($item['node']['id']);
                     $this->setPathR($item['node']['id']);
                 };
-            };
+            }
         }
 
         //Creates a node in the tree, with specified parent
@@ -246,7 +252,7 @@
                 $new_item_name = $this->new_node_prefix." ".$id;
             }else{
                 $new_item_name = $this->root_node_name;
-            };
+            }
 
             //Get all neighbours
             $query = "
@@ -337,8 +343,8 @@
 
                     $this->setPath($id);
                     $this->setPathR($id);
-                };
-            };
+                }
+            }
         }
 
         //Updates a node data
@@ -355,9 +361,9 @@
                         $dataline .= " `".$key."` = '".$this->checkPart($id, $value)."',";
                     }elseif($key != 'id' && $key != 'pid'){
                         $dataline .= " `".$key."` = '".$value."',";
-                    };
-                };
-            };
+                    }
+                }
+            }
 
             $dataline = substr($dataline, 0, strlen($dataline)-1).' ';
 
@@ -408,7 +414,12 @@
         }
 
         //Returns array of specified branch
-        public function getBranchArray($id = 1){
+        public function getBranchArray($id = 1, $publish_only = false){
+            $pubwhere = '';
+
+            if($publish_only === true){
+                $pubwhere = ' && `structure_data`.`publish` = 1';
+            }
 
             $query = "
                 SELECT
@@ -421,8 +432,8 @@
                     `structure`,
                     `structure_data`
                 WHERE
-                    `structure`.`pid` = ".$id." &&
-                    `structure`.`id` = `structure_data`.`id`
+                    `structure`.`pid` = ".intval($id)." &&
+                    `structure`.`id` = `structure_data`.`id` " . $pubwhere . "
                 ORDER BY
                     `structure_data`.`sort` ASC
             ";
@@ -434,7 +445,7 @@
             while($row = mysql_fetch_assoc($result)){
                 array_push($array, array(
                         'node' => $row,
-                        'childrens' => $this->getBranch($row['id'])
+                        'childrens' => $this->getBranchArray($row['id'], $publish_only)
                     )
                 );
             }
@@ -474,7 +485,7 @@
                     $class = ' active';
                 }else{
                     $class = ' hided';
-                };
+                }
 
                 $html .= '<li id="item_'.$row['id'].'" class="tree_item'.$class.'" data-url="'.$row['path'].'">';
                 $html .= '<div class="item_container"><div class="item_container_inner">';
@@ -484,11 +495,11 @@
                     $html .= $this->getRenderedBranch($row['id']);
                 };
                 $html .= '</li>';
-            };
+            }
 
             if(mysql_num_rows($result) > 0){
                 $html .= '</ul>';
-            };
+            }
 
             return $html;
         }
@@ -523,7 +534,7 @@
 
             if($sql){
 			    $result = mysql_fetch_assoc($sql);
-            };
+            }
 
 			$this->main->item_data = $result;
 
@@ -582,7 +593,7 @@
                 $result = mysql_fetch_assoc(mysql_query($query.intval($pid)));
                 array_push($breadcrumbs, $result);
                 $pid = $result['pid'];
-            };
+            }
 
             return array_reverse($breadcrumbs);
         }
@@ -604,39 +615,39 @@
 		public function operateNode($id, $mode, $parent = false, $data = false){
 		    $id = DB::quote($id);
 
-			if($mode == 'publish'){
-				$this->updateNode($id, array(array(
-					'publish' => '1'
-				)));
-			};
-
-			if($mode == 'hide'){
-				$this->updateNode($id, array(array(
-					'publish' => '0'
-				)));
-			};
-
-
-            if($mode == 'dublicate'){
-                $this->dublicateNode($id);
-            };
-
-
-            if($mode == 'delete'){
-				$this->deleteNode($id);
-			};
-
-			if($mode == 'addchild'){
-				$this->insertNode($id);
-			};
-
-			if($mode == 'move'){
-				$this->moveBranch($id, $parent);
-			};
-
             if(($mode == 'up' || $mode == 'down') && $data){
-				$this->orderNode($id, $data);
-			};
+                $this->orderNode($id, $data);
+            }else{
+                switch($mode){
+                    case 'publish' : {
+                        $this->updateNode($id, array(array(
+                            'publish' => '1'
+                        )));
+                    } break;
+
+                    case 'hide' : {
+                        $this->updateNode($id, array(array(
+                            'publish' => '0'
+                        )));
+                    } break;
+
+                    case 'dublicate' : {
+                        $this->dublicateNode($id);
+                    } break;
+
+                    case 'delete' : {
+                        $this->deleteNode($id);
+                    } break;
+
+                    case 'addchild' : {
+                        $this->insertNode($id);
+                    } break;
+
+                    case 'move' : {
+                        $this->moveBranch($id, $parent);
+                    } break;
+                }
+            }
 		}
 
         //Returns specified node data col
@@ -663,7 +674,48 @@
                 $this->updateNode($order_item[0], array(array(
 					'sort' => $order_item[1]
 				)));
-            };
+            }
         }
-	};
-?>
+
+        private function makeList($tmp_a, $res_a, $level){
+            $pad = '';
+            $i = $level;
+
+            while($i > 0){
+                $pad .= '–';
+                $i--;
+            }
+
+            if($pad != ''){
+                $pad = $pad . ' ';
+            }
+
+            foreach($tmp_a as $item){
+                array_push($res_a, array(
+                    'title' => $pad . $item['node']['name'],
+                    'value' => $item['node']['path']
+                ));
+
+                if($item['childrens']){
+                    $res_a = $this->makeList($item['childrens'], $res_a, $level + 1);
+                }
+            }
+
+            return $res_a;
+        }
+
+        private function generateLinksBranchForTinyMCE(){
+            $res_a = $this->makeList(
+                array(
+                    array(
+                        'node' => array('name' => 'Главная', 'path' => '/'),
+                        'childrens' => $this->getBranchArray(1, true)
+                    )
+                ),
+                array(),
+                0
+            );
+
+            print_r(json_encode($res_a));
+        }
+	}

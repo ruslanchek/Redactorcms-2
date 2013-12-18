@@ -420,4 +420,3 @@
     };
 
 	$smarty->assign('structure', $structure);
-?>

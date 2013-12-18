@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty 3.1.4, created on 2013-10-08 22:17:19
+<?php /* Smarty version Smarty 3.1.4, created on 2013-12-17 21:30:45
          compiled from "/Users/ruslan/Sites/redactorcms2/templates/404.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:153960765452544c2fdcf669-89696655%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:62914258652b08a4528dff6-80053724%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'd045ed4997c361bfe81f3e466f7e0cfbd40bd3e5' => 
     array (
       0 => '/Users/ruslan/Sites/redactorcms2/templates/404.tpl',
-      1 => 1379944938,
+      1 => 1381971321,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '153960765452544c2fdcf669-89696655',
+  'nocache_hash' => '62914258652b08a4528dff6-80053724',
   'function' => 
   array (
   ),
@@ -21,55 +21,48 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty 3.1.4',
-  'unifunc' => 'content_52544c2fef417',
+  'unifunc' => 'content_52b08a45391a9',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_52544c2fef417')) {function content_52544c2fef417($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_52b08a45391a9')) {function content_52b08a45391a9($_smarty_tpl) {?><!DOCTYPE html>
 <html>
-    <head>
-        <title>Ошибка 404</title>
+<head>
+    <?php echo $_smarty_tpl->getSubTemplate ("include/common/head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="страница не найдена" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <link rel="stylesheet" type="text/css" href="/resources/css/kube.css">
-        <link rel="stylesheet" type="text/css" href="/resources/css/master.css">
-        <link rel="stylesheet" type="text/css" href="/resources/css/halflings.css">
-
-        <script type="text/javascript" src="/resources/js/jquery.js"></script>
-        <script type="text/javascript" src="/resources/js/core.js"></script>
-
-        
-        <!--[if lt IE 9]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <script>
-            var head = document.getElementsByTagName('head')[0], style = document.createElement('style');
-            style.type = 'text/css';
-            style.styleSheet.cssText = ':before,:after{content:none !important';
-            head.appendChild(style);
-            setTimeout(function(){ head.removeChild(style); }, 0);
-        </script>
-        <![endif]-->
-        
-
-        <?php echo $_smarty_tpl->tpl_vars['core']->value->getConstant('scripts','head_code');?>
-
-    </head>
-
-    <body>
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
         <?php echo $_smarty_tpl->getSubTemplate ("include/common/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 
+    </header>
 
-        <div class="main-content limiter">
-            <h1>
-                Ошибка 404
-            </h1>
+    <div class="content">
+        <div class="units-row">
+            <div class="unit-20">
+                &nbsp;
+            </div>
 
-            <p>Страница не найдена.</p>
-            <p><a href="/">Вернуться на главную</a></p>
+            <div class="unit-80">
+                <h1><?php echo $_smarty_tpl->tpl_vars['core']->value->page['h1'];?>
+</h1>
+
+                <p><?php echo $_smarty_tpl->tpl_vars['core']->value->page['title'];?>
+</p>
+
+                &mdash; <a href="/">Перейти на главную</a><br>
+                &mdash; <a href="/sitemap">Карта сайта</a>
+            </div>
         </div>
+    </div>
 
+    <footer class="footer">
         <?php echo $_smarty_tpl->getSubTemplate ("include/common/footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 
-    </body>
+    </footer>
+</div>
+
+<?php echo $_smarty_tpl->tpl_vars['core']->value->getConstant('scripts','body_code');?>
+
+
+</body>
 </html><?php }} ?>
