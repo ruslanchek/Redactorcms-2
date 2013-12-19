@@ -14,7 +14,7 @@ function initEditor(obj, locale, dom_id){
     tinymce.PluginManager.add('typograph', function(editor, url) {
         // Add a button that opens a window
         editor.addButton('typograph', {
-            text: 'Оттипографить',
+            text: 'Типограф',
             icon: false,
             onclick: function() {
                 $.ajax({
@@ -32,7 +32,7 @@ function initEditor(obj, locale, dom_id){
 
         // Adds a menu item to the tools menu
         editor.addMenuItem('typograph', {
-            text: 'Оттипографить',
+            text: 'Типограф',
             context: 'tools',
             onclick: function() {
                 $.ajax({
@@ -57,8 +57,8 @@ function initEditor(obj, locale, dom_id){
              language_url : '/admin/tinymce/langs/ru.js',
              language : 'ru',
              browser_spellcheck : true,
-             plugins : 'advlist autolink link image lists charmap print table hr preview code insertdatetime preview visualblocks visualchars paste searchreplace anchor autoresize link typograph codemirror',
-             toolbar: 'undo redo | styleselect | removeformat | pastetext | bold italic strikethrough | bullist numlist | outdent indent | blockquote hr charmap | link image | typograph | code ',
+             plugins : 'advlist autolink link image lists charmap print table hr preview code insertdatetime preview visualblocks visualchars paste searchreplace anchor autoresize link typograph codemirror media moxiemanager',
+             toolbar: 'undo redo | styleselect | removeformat | pastetext | bold italic strikethrough | bullist numlist | outdent indent | blockquote hr charmap | link image media | code ',
              content_css : '/admin/css/tinymce.css',
              insertdatetime_formats: ["%d.%m.%Y", "%H:%M", "%H:%M:%S"],
              autoresize_min_height: 250,
