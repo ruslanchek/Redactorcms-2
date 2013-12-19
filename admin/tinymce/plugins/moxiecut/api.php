@@ -1,4 +1,34 @@
 <?php
+
+//Load config
+require($_SERVER['DOCUMENT_ROOT'].'/config.php');
+
+//Utilities
+require($_SERVER['DOCUMENT_ROOT'].'/shared/class.utilities.php');
+
+//Database class
+require($_SERVER['DOCUMENT_ROOT'].'/shared/class.database.php');
+$db = new DB(
+    $config['db_base'],
+    $config['db_host'],
+    $config['db_user'],
+    $config['db_pass']
+);
+
+//Main class
+require($_SERVER['DOCUMENT_ROOT'].'/admin/class/class.main.php');
+$main = new Main($config, $db);
+
+//Login class
+require($_SERVER['DOCUMENT_ROOT'].'/admin/class/class.login.php');
+$login = new Login($main);
+
+
+if($login->active !== true){
+    die();
+};
+
+
 $max_uploaded_size = "50M";
 
 error_reporting(7);
