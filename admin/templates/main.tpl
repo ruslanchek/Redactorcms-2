@@ -12,7 +12,6 @@
 
         <link rel="stylesheet" type="text/css" href="/admin/css/style.css" media="all" />
         <link rel="stylesheet" type="text/css" href="/admin/css/chosen.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="/admin/codemirror/lib/codemirror.css" media="all" />
         <link rel="stylesheet" href="/admin/css/fontello/css/fontello.css" />
 
         <script type="text/javascript" src="/admin/js/jquery.js"></script>
