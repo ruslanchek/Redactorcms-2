@@ -5,6 +5,9 @@ var editors = new Array(),
 function initHTMLEditor(obj, dom_id){
     var editor = CodeMirror.fromTextArea(document.getElementById(dom_id), {
         lineNumbers: true,
+        smartyVersion: 3,
+        tabSize: 4,
+        indentUnit     : 4,
         mode: "smartymixed",
         extraKeys: {"Ctrl-Space": "autocomplete"},
         value: document.documentElement.innerHTML
