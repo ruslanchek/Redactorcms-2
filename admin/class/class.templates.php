@@ -30,17 +30,23 @@
             };
         }
 
+        public function getTemplateHtml($name){
+            return file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/templates/' . $name);
+        }
+
         public function templates(){
             $this->main->vars['list_no_sortable'] = true;
             
             $this->main->content_list_delete_link       = Utilities::getParamstring('action,id').'&action=delete&id=';
             $this->main->content_list_show_link         = Utilities::getParamstring('action,id').'&action=show&id=';
             $this->main->content_list_hide_link         = Utilities::getParamstring('action,id').'&action=hide&id=';
+
             $this->main->content_list_edit_link         = '/admin/?option=templates&suboption='.$this->main->module_mode.'&action=edit&id=';
             $this->main->new_item_link                  = '/admin/?option=templates&suboption='.$this->main->module_mode.'&action=create';
             $this->main->multiple_link                  = '/admin/?option=templates&suboption='.$this->main->module_mode.'&action=multiple';
             $this->main->autocomplete_search_link       = '/admin/?ajax=true&option=templates&suboption='.$this->main->module_mode.'&action=autocomplete_search';
-            $this->main->content_list_table    = $this->current_module_table;
+
+            $this->main->content_list_table             = $this->current_module_table;
 
             $this->main->createDatasetParams($this->current_module_table, $this->main->item_data['id']);
             $this->main->createDatasetField(array(
@@ -70,10 +76,6 @@
             ));
 
             $this->main->createDatasetField(array(
-                'type' 			=> 'separator'
-            ));
-
-            $this->main->createDatasetField(array(
                 'type' 			=> 'template_file',
                 'label' 		=> 'Файл шаблона',
                 'name' 			=> 'file',
@@ -83,6 +85,21 @@
                 'required'		=> true,
                 'list'          => true,
                 'root_dir'      => '/templates/'
+            ));
+
+            $this->main->createDatasetField(array(
+                'type' 			=> 'separator'
+            ));
+
+            $this->main->createDatasetField(array(
+                'type' 			=> 'html',
+                'label' 		=> 'Редактировать',
+                'name' 			=> 'contents',
+                'file'          => '/templates/' . $this->main->item_data['file'],
+                'value' 		=> $this->getTemplateHtml($this->main->item_data['file']),
+                'help' 			=> 'Редактировать HTML',
+                'required'		=> false,
+                'list'          => false
             ));
             
             if(!$_GET['action']){

@@ -373,6 +373,11 @@
 
                 if(!$item_1['no_edit']){
                     switch($item_1['type']){
+                        case 'html' : {
+
+                            file_put_contents($_SERVER['DOCUMENT_ROOT'] . $item_1['file'], stripcslashes($_POST[$item_1['name']]));
+                        }; break;
+
                         case 'checkbox' : {
                             $result = Utilities::getCbValue($value);
                             array_push($data, array($item_1['name'] => $result));

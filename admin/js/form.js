@@ -1,14 +1,24 @@
 //Text editor init
-var editors = new Array();
-var editors_index = 0;
+var editors = new Array(),
+    editors_index = 0;
+
+function initHTMLEditor(obj, dom_id){
+    var editor = CodeMirror.fromTextArea(document.getElementById(dom_id), {
+        lineNumbers: true,
+        mode: "smartymixed",
+        extraKeys: {"Ctrl-Space": "autocomplete"},
+        value: document.documentElement.innerHTML
+    });
+}
 
 function initEditor(obj, locale, dom_id){
-    var id = dom_id.substr(4, dom_id.length);
+    var id = dom_id.substr(4, dom_id.length),
+        lang = '';
 
 	if(locale == 'ru_RU'){
-		var lang = 'ru';
+		lang = 'ru';
 	}else{
-		var lang = 'en';
+		lang = 'en';
 	}
 
     tinymce.PluginManager.add('typograph', function(editor, url) {

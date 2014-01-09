@@ -19,10 +19,10 @@
 
 		//Admin modules
 		'admin_modules'             => array(
-                                        //array('main',       'modules/module.main.php',      true),
+                                        array('main',       'modules/module.main.php',      true),
                                         array('structure',  'modules/module.structure.php', true),
                                         array('sections',   'modules/module.sections.php',  true),
-                                        //array('shop',       'modules/module.shop.php',      true),
+                                        array('shop',       'modules/module.shop.php',      true),
                                         array('templates',  'modules/module.templates.php', true),
                                         array('users',      'modules/module.users.php',     true),
                                         array('config',     'modules/module.config.php',    true),
@@ -32,7 +32,7 @@
 
 		//DB vars
 		'db_host'                   => 'localhost',
-		'db_base'                   => 'redactorcms',
+		'db_base'                   => 'redactorcms2',
 		'db_user'                   => 'root',
 		'db_pass'                   => '123'
 	);
