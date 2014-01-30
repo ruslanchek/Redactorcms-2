@@ -2,37 +2,65 @@
 <html>
 <head>
     {include file="include/common/head.tpl"}
+
+    <link href='//api.tiles.mapbox.com/mapbox.js/v1.5.0/mapbox.css' rel='stylesheet' />
+    <script src='//api.tiles.mapbox.com/mapbox.js/v1.5.0/mapbox.js'></script>
 </head>
+
 <body>
-<div class="wrapper">
-    <header class="header header">
-        {include file="include/common/header.tpl"}
+<div class="limiter">
+    <header class="header">
+        {include file="include/common/header.tpl" mainpage=false}
     </header>
 
-    <div class="content">
-        {include file="include/common/breadcrumbs.tpl"}
+    <div class="page-banner pb-{rand(1, 5)}">
+        <h1>{$core->page.h1}</h1>
+    </div>
 
-        <div class="units-row">
-            <div class="unit-40">
-                <h1>{$core->page.h1}</h1>
-
+    <div class="inner-content">
+        <div class="units-row-end">
+            <div class="unit-66">
                 {$core->page.content}
             </div>
 
-            <div class="unit-60">
-                <div class="map-container" style="height: {$core->getConstant('yandex_maps', 'height')|escape}px">
-                    <script type="text/javascript" charset="utf-8" src="{$core->getConstant('yandex_maps', 'src')|escape}&width={$core->getConstant('yandex_maps', 'width')|escape}&height={$core->getConstant('yandex_maps', 'height')|escape}"></script>
+            <div class="unit-33">
+                <div class="form contacts-form" id="feedback-form-contacts">
+                    <h2>Написать письмо</h2>
+
+                    <div class="form-message"></div>
+
+                    <form action="#" id="feedback-form">
+                        <div class="form-items">
+                            <input type="text" name="feedback_name" placeholder="Имя" />
+                            <input type="email" name="feedback_email" placeholder="Электронная почта" />
+                            <input type="tel" name="feedback_phone" placeholder="Телефон" />
+
+                            <textarea name="feedback_message" rows="5" placeholder="Сообщение"></textarea>
+
+                            <p><small>Все поля обязательны для заполнения</small></p>
+
+                            <div class="submit-block">
+                                <input class="button" type="submit" value="Отправить письмо" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <footer class="footer">
-        {include file="include/common/footer.tpl"}
-    </footer>
 </div>
 
-{$core->getConstant('scripts', 'body_code')}
+<div class="map" id="map"></div>
 
+<script>
+    $(function(){
+        feedback.init();
+        map.init();
+    });
+</script>
+
+<footer class="footer">
+    {include file="include/common/footer.tpl"}
+</footer>
 </body>
 </html>

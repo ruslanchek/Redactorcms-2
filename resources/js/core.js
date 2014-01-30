@@ -1,274 +1,168 @@
-var feedback = {
-    closeWindow: function () {
-        $('body').off('keyup');
-        $('.feedback-window .close').off('click');
+var slider = {
+	delay: 8000,
+	interval: null,
+	current: 0,
+	total: 0,
 
-        $('.feedback-window').animate({
-            top: '-100%'
-        }, 600, function () {
-            $('.feedback-window').remove();
-        });
+	next: function () {
+		var next;
+		
+		if(this.current + 1 <= this.total){
+			next = this.current + 1;
+		}else{
+			next = 1;
+		}
+		
+		this.goTo(next);
+	},
+	
+	goTo: function (id) {
+		if(id === this.current){
+			return;
+		}
+	
+		this.pause();
+	
+		$('.slider .pager a').removeClass('active');
+		$('.slider .pager a[data-id="' + id + '"]').addClass('active');
+		
+		$next = $('.slider .slide[data-id="' + id + '"]');
+		$prev = $('.slider .slide.active');
+		
+		$('.slider .slide').css({
+			zIndex: 1
+		});
+		
+		$next.css({
+			zIndex: 3
+		});
+		
+		$next.fadeIn(500, function() {
+			$prev.removeClass('active').fadeOut(300);
+			$next.addClass('active');
+			slider.start();
+		});
+		
+		this.current = id;
+	},
+	
+	start: function () {
+        this.pause();
+        this.interval = setInterval(function () {
+            slider.next();
+        }, this.delay);
     },
 
-    formActions: function () {
-        $('#feedback-form').off('submit').on('submit', function (e) {
-            e.preventDefault();
-
-            var data = {
-                contacts: $('#email').val(),
-                message: $('#message').val(),
-                name: $('#name').val()
-            };
-
-            $.ajax({
-                url: '/send.php',
-                type: 'POST',
-                dataType: 'json',
-                data: data,
-                success: function (data) {
-                    if (data.status) {
-                        $('#feedback-form').hide(200);
-                        $('.feedback_message').html('<div id="ok_message"><b>' + data.message + '</b></div>');
-                    } else {
-                        $('.feedback_message').html('<div id="error_message"><b>' + data.message + '</b></div>');
-                    }
-                    ;
-                },
-                error: function () {
-                    $('.feedback_message').html('<div id="error_message"><b>Ошибка передачи данных!</b></div>');
-                }
-            });
+    pause: function () {
+        clearInterval(this.interval);
+    },
+	
+	init: function() {
+		this.start();
+		this.total = $('.slider .slide').length;
+		
+		$('.slider').on('mouseenter', function () {
+            slider.pause();
         });
+
+        $('.slider').on('mouseleave', function () {
+            slider.start();
+        });
+        
+        $('.slider .pager a').on('click', function (e) {
+        	slider.goTo($(this).data('id'));
+        
+        	e.preventDefault();
+        });
+        
+        $('.slider .slide').on('click', function () {
+        	document.location.href = $(this).data('gourl');
+        });
+	}
+}
+
+var map = {
+	map: null,
+	
+	init: function () {
+		this.map = L.mapbox.map('map', 'stackdatanetwork.ge2hgiko', {scrollWheelZoom: false}).setView([60.073932214200794, 30.252914428710938], 10);
+	}
+}
+
+var main_menu = {
+	init: function () {
+		$('nav.main span.item').hover(function(){
+			$(this).find('nav.sub').slideDown(125);
+			$(this).find('>a').addClass('active');
+		}, function(){
+			$(this).find('nav.sub').fadeOut(75);
+			$(this).find('>a').removeClass('active');
+		});
+	}
+};
+
+
+var tariffs = {
+    selectGroup: function (id) {
+
     },
 
-    openWindow: function () {
-        this.closeWindow();
-        request.closeWindow();
-        callme.closeWindow();
-
-        var html = '<div class="feedback-window">' +
-            '<a class="close btn" href="javascript:void(0)">X</a>' +
-            '<h2>Разместить заявку</h2>' +
-
-            '<hr>' +
-
-            '<div class="feedback_message"></div>' +
-
-            '<form method="post" action="" id="feedback-form" class="forms">' +
-            '<fieldset class="liner">' +
-            '<ul>' +
-            '<li>' +
-            '<label for="name" class="bold">Имя</label>' +
-            '<input class="width-100" type="text" name="name" id="name">' +
-            '</li>' +
-
-            '<li>' +
-            '<label for="email" class="bold">Контактная информация</label>' +
-            '<input type="email" name="email" class="width-100" id="email">' +
-            '<div class="descr">Телефон или e-mail</div>' +
-            '</li>' +
-
-            '<li>' +
-            '<label for="message" class="bold">Вопрос или пожелание</label>' +
-            '<textarea id="message" name="message" class="width-100" style="height: 100px;"></textarea>' +
-            '</li>' +
-
-            '<li>' +
-            '<input type="submit" class="button button-orange" value="Отправить">' +
-            '</li>' +
-            '</ul>' +
-            '</fieldset>' +
-            '</form>' +
-            '</div>';
-
-        $('body').prepend(html);
-
-        this.formActions();
-
-        $('body').off().on('keyup', function (e) {
-            if (e.keyCode == 27) {
-                feedback.closeWindow();
-            }
-        });
-
-        $('.feedback-window').show();
-
-        $('.feedback-window').animate({
-            top: '50%',
-            marginTop: '-' + ($('.feedback-window').height() / 2) - 20 + 'px'
-        }, 600);
-
-        $('.feedback-window .close').on('click', function (e) {
-            e.preventDefault();
-            feedback.closeWindow();
-        });
-    },
-
-    binds: function () {
-        $('#feedback-opener').on('click', function (e) {
-            e.preventDefault();
-
-            if ($('.feedback-window').length > 0) {
-                feedback.closeWindow();
-            } else {
-                feedback.openWindow();
-            }
-        });
-
-        if (document.location.hash == '#feedback') {
-            this.openWindow();
-        }
+    order: function(name) {
+        order.openWindow(name);
     },
 
     init: function () {
-        this.binds();
+        $('.tariffs .tariff-col').hover(function () {
+            $('.tariffs .blue').addClass('hover');
+        }, function () {
+            $('.tariffs .blue').removeClass('hover');
+        });
+
+        $('.tariff-order').on('click', function (e) {
+            var name = $(this).data('tariff');
+
+            tariffs.order(name);
+
+            e.preventDefault();
+        });
+
+        $('.tariffs nav a.item').on('click', function(e) {
+            tariffs.selectGroup($(this).data('id'));
+
+            $('.tariffs nav a.item').removeClass('active');
+            $(this).addClass('active');
+
+            $('.tariffs .groups .group').removeClass('active');
+            $('.tariffs .groups .group[data-id="' + $(this).data('id') + '"]').addClass('active');
+
+            e.preventDefault();
+        });
     }
-};
-
-var request = {
-    closeWindow: function () {
-        $('body').off('keyup');
-        $('.request-window .close').off('click');
-
-        $('.request-window').animate({
-            top: '-100%'
-        }, 600, function () {
-            $('.request-window').remove();
-        });
-    },
-
-    formActions: function () {
-        $('#request-form').off('submit').on('submit', function (e) {
-            e.preventDefault();
-
-            var data = {
-                email: $('#email').val(),
-                name: $('#name').val(),
-                type: $('input[type="radio"]:checked').val()
-            };
-
-            $.ajax({
-                url: '/?ajax&action=priceDemand',
-                type: 'POST',
-                data: data,
-                success: function (data) {
-                    if (data == 'true') {
-                        $('#request-form').hide(200);
-                        $('.request_message').html('<div id="ok_message"><b>Спасибо за обращение, ожидайте письмо с прайс-листом</b></div>');
-                    }else{
-                        $('.request_message').html('<div id="error_message"><b>Ошибка передачи данных!</b></div>');
-                    }
-                },
-                error: function () {
-                    $('.request_message').html('<div id="error_message"><b>Ошибка передачи данных!</b></div>');
-                }
-            });
-        });
-    },
-
-    openWindow: function () {
-        this.closeWindow();
-        feedback.closeWindow();
-        callme.closeWindow();
-
-        var html = '<div class="request-window">' +
-            '<a class="close btn" href="javascript:void(0)">X</a>' +
-            '<h2>Форма заказа прайс-листа</h2>' +
-
-            '<hr>' +
-
-            '<div class="request_message"></div>' +
-
-            '<form method="post" action="" id="request-form" class="forms">' +
-            '<fieldset class="liner">' +
-            '<ul>' +
-            '<li>' +
-            '<label for="name" class="bold">Имя</label>' +
-            '<input class="width-100" type="text" name="name" id="name">' +
-            '</li>' +
-
-            '<li>' +
-            '<label for="email" class="bold">E-mail</label>' +
-            '<input type="email" name="email" class="width-100" id="email">' +
-            '</li>' +
-
-            '<li>' +
-            '<label class="bold">Категория</label>' +
-            '<label><input type="radio" name="type" value="1" id="type1" checked> Кабель</label>' +
-            '<label><input type="radio" name="type" value="2" id="type2"> Металлопрокат</label>' +
-            '</li>' +
-
-            '<li>' +
-            '<input type="submit" class="button button-orange" value="Отправить">' +
-            '</li>' +
-            '</ul>' +
-            '</fieldset>' +
-            '</form>' +
-            '</div>';
-
-        $('body').prepend(html);
-
-        this.formActions();
-
-        $('body').off().on('keyup', function (e) {
-            if (e.keyCode == 27) {
-                request.closeWindow();
-            }
-        });
-
-        $('.request-window').show();
-
-        $('.request-window').animate({
-            top: '50%',
-            marginTop: '-' + ($('.request-window').height() / 2) - 20 + 'px'
-        }, 600);
-
-        $('.request-window .close').on('click', function (e) {
-            e.preventDefault();
-            request.closeWindow();
-        });
-    },
-
-    binds: function () {
-        $('#request-opener').on('click', function (e) {
-            e.preventDefault();
-
-            if ($('.request-window').length > 0) {
-                request.closeWindow();
-            } else {
-                request.openWindow();
-            }
-        });
-    },
-
-    init: function () {
-        this.binds();
-    }
-};
+}
 
 var callme = {
     closeWindow: function () {
         $('body').off('keyup');
-        $('.call-me-window .close').off('click');
+        $('.close-window').off('click');
 
-        $('.call-me-window').animate({
+        $('.window').animate({
             top: '-100%'
         }, 600, function () {
-            $('.call-me-window').remove();
+            $('.overlay').fadeOut();
+            $('.window').remove();
         });
     },
 
     formActions: function () {
-        $('#call-me-form').off('submit').on('submit', function (e) {
+        $('.window form').off('submit').on('submit', function (e) {
             e.preventDefault();
 
             var data = {
-                phone: $('#phone').val(),
-                reason: $('#reason').val(),
-                name: $('#name').val(),
-                when: $('#when').val(),
-                from: $('#from').val(),
-                to: $('#to').val()
+                phone: $('.window input[name="phone"]').val(),
+                name: $('.window  input[name="name"]').val(),
+                when: $('.window  select[name="when"]').val(),
+                from: $('.window  select[name="from"]').val(),
+                to: $('.window  select[name="to"]').val()
             };
 
             $.ajax({
@@ -276,61 +170,68 @@ var callme = {
                 type: 'POST',
                 dataType: 'json',
                 data: data,
+                beforeSend: function(){
+                    $('.window .form-message').removeClass('success error').slideUp(100);
+                    $('.window input[type="submit"]').attr('disabled', 'disabled').prop('disabled', 'disabled');
+                },
                 success: function (data) {
                     if (data.status) {
-                        $('#call-me-form').hide(200);
-                        $('.feedback_message').html('<div id="ok_message"><b>' + data.message + '</b></div>');
+                        $('.window .form-items').slideUp(200);
+                        $('.window .form-message').addClass('success').html(data.message).slideDown(100);
+                        $('.window .content').css({
+                            padding: '20px 20px 0',
+                            height: 0
+                        });
+
+                        setTimeout(function(){
+                            callme.closeWindow();
+                        }, 1000);
                     } else {
-                        $('.feedback_message').html('<div id="error_message"><b>' + data.message + '</b></div>');
+                        $('.window .form-message').addClass('error').html(data.message).slideDown(100);
+                        $('.window input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
                     }
                 },
                 error: function () {
-                    $('.feedback_message').html('<div id="error_message"><b>Ошибка передачи данных!</b></div>');
+                    $('.window .form-message').addClass('error').html('Ошибка сервера!').slideDown(100);
+                    $('.window input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
                 }
             });
         });
     },
 
     openWindow: function () {
-        feedback.closeWindow();
-        request.closeWindow();
         this.closeWindow();
+        order.closeWindow();
+        visit.closeWindow();
 
-        var html = '<div class="call-me-window">' +
-            '<a class="close btn" href="javascript:void(0)">X</a>' +
-            '<h2>Заказать обратный звонок</h2>' +
+        var html = '<div class="overlay"></div>' +
+            '<div class="window">' +
+            '<div class="head">' +
+            '<h1>Заказ обратного звонка</h1>' +
+            '<a class="close-window" href="#">Закрыть <span class="close"></span></a>' +
+            '</div>' +
 
-            '<hr>' +
+            '<div class="content">' +
+            '<form action="">' +
+            '<div class="form-message"></div>' +
 
-            '<div class="feedback_message"></div>' +
+            '<div class="form-items">'+
+            '<input type="text" placeholder="Имя" name="name" />' +
+            '<input type="tel" placeholder="Телефон" name="phone">' +
 
-            '<form method="post" action="" id="call-me-form" class="forms">' +
-            '<fieldset class="liner">' +
-            '<ul>' +
-            '<li>' +
-            '<label for="name" class="bold">Имя</label>' +
-            '<input class="width-100" type="text" name="name" id="name">' +
-            '</li>' +
-
-            '<li>' +
-            '<label for="name" class="bold">Телефон</label>' +
-            '<input class="width-100" type="text" name="phone" id="phone">' +
-            '</li>' +
-
-            '<div class="row">' +
-
-            '<div class="twothird">' +
-            '<ul class="multicolumn">' +
-            '<label for="when" class="bold">Когда вам позвонить?</label>' +
-            '<li>' +
+            '<div class="units-row">' +
+            '<div class="unit-30 color-gray-light">' +
+            'Когда<br>' +
             '<select name="when" id="when">' +
             '<option value="0">Сегодня</option>' +
             '<option value="1">Завтра</option>' +
             '<option value="2">Послезавтра</option>' +
             '</select>' +
-            '</li>' +
-            '<li>' +
-            'С <select name="from" id="from">' +
+            '</div>' +
+
+
+            '<div class="unit-20 color-gray-light">' +
+            'С<br><select name="from">' +
             '<option>10:00</option>' +
             '<option>11:00</option>' +
             '<option>12:00</option>' +
@@ -342,9 +243,10 @@ var callme = {
             '<option>18:00</option>' +
             '<option>19:00</option>' +
             '</select>' +
-            '</li>' +
-            '<li>' +
-            'До <select name="to" id="to">' +
+            '</div>' +
+
+            '<div class="unit-30 color-gray-light">' +
+            'До<br><select name="to">' +
             '<option>11:00</option>' +
             '<option>12:00</option>' +
             '<option>13:00</option>' +
@@ -356,20 +258,20 @@ var callme = {
             '<option>19:00</option>' +
             '<option selected>20:00</option>' +
             '</select>' +
-            '</li>' +
-            '</ul>' +
             '</div>' +
             '</div>' +
 
-            '<li>' +
-            '<input type="submit" class="button button-orange" value="Отправить">' +
-            '</li>' +
-            '</ul>' +
-            '</fieldset>' +
+            '<small>Все поля обязательны для заполнения</small>' +
+
+            '<input class="button" type="submit" value="Отправить заявку" />' +
+            '</div>'+
             '</form>' +
+            '</div>' +
             '</div>';
 
         $('body').prepend(html);
+
+        $('input[type="tel"]').mask("+7 (999) 999-99-99");
 
         this.formActions();
 
@@ -379,21 +281,20 @@ var callme = {
             }
         });
 
-        $('.call-me-window').show();
-
-        $('.call-me-window').animate({
+        $('.window').show().animate({
+            opacity: 1,
             top: '50%',
-            marginTop: '-' + ($('.call-me-window').height() / 2) - 20 + 'px'
+            marginTop: '-' + ($('.window').height() / 2) - 20 + 'px'
         }, 600);
 
-        $('.call-me-window .close').on('click', function (e) {
+        $('.window .close-window').on('click', function (e) {
             e.preventDefault();
             callme.closeWindow();
         });
     },
 
     binds: function () {
-        $('#call-me-opener').on('click', function (e) {
+        $('.call-me-opener').on('click', function (e) {
             e.preventDefault();
 
             if ($('.call-me-window').length > 0) {
@@ -413,113 +314,593 @@ var callme = {
     }
 };
 
-var slider = {
-    item_width: 0,
-    items_count: 0,
-    overlall_width: 0,
-    num: 1,
-    interval: null,
-    interval_delay: 6500,
+var order = {
+    closeWindow: function () {
+        $('body').off('keyup');
+        $('.close-window').off('click');
 
-    slideTo: function(num){
-
-        this.num = parseInt(num);
-
-        $('.slider .items-container').stop().animate({
-            marginLeft: -slider.item_width * (slider.num - 1)
-        }, 500, function(){
-            $('.slider .item').removeClass('active');
-            $('.slider .item[data-num="'+num+'"]').addClass('active');
-
-            $('.slider .pagination a').removeClass('active');
-            $('.slider .pagination a[data-num="'+num+'"]').addClass('active');
+        $('.window').animate({
+            top: '-100%'
+        }, 600, function () {
+            $('.overlay').fadeOut();
+            $('.window').remove();
         });
     },
 
-    slideLeft: function(){
-        var n = this.num - 1;
+    formActions: function () {
+        $('.window form').off('submit').on('submit', function (e) {
+            e.preventDefault();
 
-        if(n < 1){
-            n = this.items_count - 1;
-        }
+            var data = {
+                phone: $('.window input[name="phone"]').val(),
+                name: $('.window  input[name="name"]').val(),
+                email: $('.window  input[name="email"]').val(),
+                tariff: $('.window  input[name="tariff"]').val()
+            };
 
-        this.slideTo(n);
+            $.ajax({
+                url: '/send_order.php',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                beforeSend: function(){
+                    $('.window .form-message').removeClass('success error').slideUp(100);
+                    $('.window input[type="submit"]').attr('disabled', 'disabled').prop('disabled', 'disabled');
+                },
+                success: function (data) {
+                    if (data.status) {
+                        $('.window .form-items').slideUp(200);
+                        $('.window .form-message').addClass('success').html(data.message).slideDown(100);
+                        $('.window .content').css({
+                            padding: '20px 20px 0',
+                            height: 0
+                        });
+
+                        setTimeout(function(){
+                            order.closeWindow();
+                        }, 1000);
+                    } else {
+                        $('.window .form-message').addClass('error').html(data.message).slideDown(100);
+                        $('.window input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
+                    }
+                },
+                error: function () {
+                    $('.window .form-message').addClass('error').html('Ошибка сервера!').slideDown(100);
+                    $('.window input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
+                }
+            });
+        });
     },
 
-    slideRight: function(){
-        var n = this.num + 1;
+    openWindow: function (tariff) {
+        callme.closeWindow();
+        visit.closeWindow();
 
-        if(n > this.items_count){
-            n = 1
-        }
+        var html = '<div class="overlay"></div>' +
 
-        this.slideTo(n);
+            '<div class="window">' +
+            '<div class="head">' +
+            '<h1>Заказ тарифа</h1>' +
+            '<a class="close-window" href="#">Закрыть <span class="close"></span></a>' +
+            '</div>' +
+
+            '<div class="content">' +
+            '<form action="">' +
+            '<div class="form-message"></div>' +
+
+            '<div class="form-items">'+
+            '<input type="text" placeholder="Имя" name="name" />' +
+
+            '<div class="units-row-end">' +
+            '<div class="unit-50">' +
+            '<input type="tel" placeholder="Телефон" name="phone">' +
+            '</div>' +
+
+            '<div class="unit-50">' +
+            '<input type="email" placeholder="E-mail" name="email">' +
+            '</div>' +
+            '</div>' +
+
+            '<input type="text" readonly placeholder="Тариф" name="tariff" value="' + tariff + '" />' +
+
+            '<small>Все поля обязательны для заполнения</small>' +
+
+            '<input class="button" type="submit" value="Заказать" />' +
+            '</div>'+
+            '</form>' +
+            '</div>' +
+            '</div>';
+
+        $('body').prepend(html);
+
+        $('input[type="tel"]').mask("+7 (999) 999-99-99");
+
+        this.formActions();
+
+        $('body').off().on('keyup', function (e) {
+            if (e.keyCode == 27) {
+                order.closeWindow();
+            }
+        });
+
+        $('.window').show().animate({
+            opacity: 1,
+            top: '50%',
+            marginTop: '-' + ($('.window').height() / 2) - 20 + 'px'
+        }, 600);
+
+        $('.window .close-window').on('click', function (e) {
+            e.preventDefault();
+            order.closeWindow();
+        });
     },
 
-    startInt: function(){
-        if(this.interval){
-            clearInterval(this.interval);
-        }
+    init: function () {
+        this.binds();
+    }
+};
 
-        this.interval = setInterval(function(){
-            slider.slideRight();
-        }, this.interval_delay);
+var visit = {
+    closeWindow: function () {
+        $('body').off('keyup');
+        $('.close-window').off('click');
+
+        $('.window').animate({
+            top: '-100%'
+        }, 600, function () {
+            $('.overlay').fadeOut();
+            $('.window').remove();
+        });
     },
 
-    clearInt: function(){
-        clearInterval(this.interval);
+    formActions: function () {
+        $('.window form').off('submit').on('submit', function (e) {
+            e.preventDefault();
+
+            var data = {
+                phone: $('.window input[name="phone"]').val(),
+                name: $('.window  input[name="name"]').val(),
+                email: $('.window  input[name="email"]').val(),
+                message: $('.window  textarea[name="message"]').val()
+            };
+
+            $.ajax({
+                url: '/send_visit.php',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                beforeSend: function(){
+                    $('.window .form-message').removeClass('success error').slideUp(100);
+                    $('.window input[type="submit"]').attr('disabled', 'disabled').prop('disabled', 'disabled');
+                },
+                success: function (data) {
+                    if (data.status) {
+                        $('.window .form-items').slideUp(200);
+                        $('.window .form-message').addClass('success').html(data.message).slideDown(100);
+                        $('.window .content').css({
+                            padding: '20px 20px 0',
+                            height: 0
+                        });
+
+                        setTimeout(function(){
+                            visit.closeWindow();
+                        }, 1000);
+                    } else {
+                        $('.window .form-message').addClass('error').html(data.message).slideDown(100);
+                        $('.window input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
+                    }
+                },
+                error: function () {
+                    $('.window .form-message').addClass('error').html('Ошибка сервера!').slideDown(100);
+                    $('.window input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
+                }
+            });
+        });
     },
 
-    drawPagination: function(){
-        if(this.items_count > 1){
-            var html = '', i = 0;
+    openWindow: function () {
+        callme.closeWindow();
+        order.closeWindow();
 
-            while(i < this.items_count){
-                html += '<a href="#" data-num="'+(i + 1)+'" class="transform-linear-500' + ((i + 1 == 1) ? ' active' : '') +'"></a>';
-                i++;
+        var html = '<div class="overlay"></div>' +
+
+                    '<div class="window">' +
+                        '<div class="head">' +
+                            '<h1>Запись на посещение датацентра</h1>' +
+                            '<a class="close-window" href="#">Закрыть <span class="close"></span></a>' +
+                        '</div>' +
+
+                        '<div class="content">' +
+                            '<form action="">' +
+                                '<div class="form-message"></div>' +
+
+                                '<div class="form-items">'+
+                                    '<input type="text" placeholder="Имя" name="name" />' +
+
+                                    '<div class="units-row-end">' +
+                                        '<div class="unit-50">' +
+                                            '<input type="tel" placeholder="Телефон" name="phone">' +
+                                        '</div>' +
+
+                                        '<div class="unit-50">' +
+                                            '<input type="email" placeholder="E-mail" name="email">' +
+                                        '</div>' +
+                                    '</div>' +
+
+                                    '<textarea name="message">Здравствуйте, я хотел бы записаться на экскурсию в МДЦ СДН</textarea>'+
+
+                                    '<small>Все поля обязательны для заполнения</small>' +
+
+                                    '<input class="button" type="submit" value="Отправить заявку" />' +
+                                '</div>'+
+                            '</form>' +
+                        '</div>' +
+                    '</div>';
+
+        $('body').prepend(html);
+
+        $('input[type="tel"]').mask("+7 (999) 999-99-99");
+
+        this.formActions();
+
+        $('body').off().on('keyup', function (e) {
+            if (e.keyCode == 27) {
+                visit.closeWindow();
+            }
+        });
+
+        $('.window').show().animate({
+            opacity: 1,
+            top: '50%',
+            marginTop: '-' + ($('.window').height() / 2) - 20 + 'px'
+        }, 600);
+
+        $('.window .close-window').on('click', function (e) {
+            e.preventDefault();
+            visit.closeWindow();
+        });
+    },
+
+    binds: function () {
+        $('.visit-opener').on('click', function (e) {
+            e.preventDefault();
+            visit.openWindow();
+        });
+    },
+
+    init: function () {
+        this.binds();
+    }
+};
+
+var feedback_window = {
+    closeWindow: function () {
+        $('body').off('keyup');
+        $('.close-window').off('click');
+
+        $('.window').animate({
+            top: '-100%'
+        }, 600, function () {
+            $('.overlay').fadeOut();
+            $('.window').remove();
+        });
+    },
+
+    formActions: function () {
+        $('.window form').off('submit').on('submit', function (e) {
+            e.preventDefault();
+
+            var data = {
+                phone: $('.window input[name="phone"]').val(),
+                name: $('.window  input[name="name"]').val(),
+                email: $('.window  input[name="email"]').val(),
+                message: $('.window  textarea[name="message"]').val()
+            };
+
+            $.ajax({
+                url: '/send.php',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                beforeSend: function(){
+                    $('.window .form-message').removeClass('success error').slideUp(100);
+                    $('.window input[type="submit"]').attr('disabled', 'disabled').prop('disabled', 'disabled');
+                },
+                success: function (data) {
+                    if (data.status) {
+                        $('.window .form-items').slideUp(200);
+                        $('.window .form-message').addClass('success').html(data.message).slideDown(100);
+                        $('.window .content').css({
+                            padding: '20px 20px 0',
+                            height: 0
+                        });
+
+                        setTimeout(function(){
+                            visit.closeWindow();
+                        }, 1000);
+                    } else {
+                        $('.window .form-message').addClass('error').html(data.message).slideDown(100);
+                        $('.window input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
+                    }
+                },
+                error: function () {
+                    $('.window .form-message').addClass('error').html('Ошибка сервера!').slideDown(100);
+                    $('.window input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
+                }
+            });
+        });
+    },
+
+    openWindow: function () {
+        callme.closeWindow();
+        order.closeWindow();
+
+        var html = '<div class="overlay"></div>' +
+
+            '<div class="window">' +
+            '<div class="head">' +
+            '<h1>Письмо</h1>' +
+            '<a class="close-window" href="#">Закрыть <span class="close"></span></a>' +
+            '</div>' +
+
+            '<div class="content">' +
+            '<form action="">' +
+            '<div class="form-message"></div>' +
+
+            '<div class="form-items">'+
+            '<input type="text" placeholder="Имя" name="name" />' +
+
+            '<div class="units-row-end">' +
+            '<div class="unit-50">' +
+            '<input type="tel" placeholder="Телефон" name="phone">' +
+            '</div>' +
+
+            '<div class="unit-50">' +
+            '<input type="email" placeholder="E-mail" name="email">' +
+            '</div>' +
+            '</div>' +
+
+            '<textarea name="message" placeholder="Сообщение"></textarea>'+
+
+            '<small>Все поля обязательны для заполнения</small>' +
+
+            '<input class="button" type="submit" value="Отправить" />' +
+            '</div>'+
+            '</form>' +
+            '</div>' +
+            '</div>';
+
+        $('body').prepend(html);
+
+        $('input[type="tel"]').mask("+7 (999) 999-99-99");
+
+        this.formActions();
+
+        $('body').off().on('keyup', function (e) {
+            if (e.keyCode == 27) {
+                feedback_window.closeWindow();
+            }
+        });
+
+        $('.window').show().animate({
+            opacity: 1,
+            top: '50%',
+            marginTop: '-' + ($('.window').height() / 2) - 20 + 'px'
+        }, 600);
+
+        $('.window .close-window').on('click', function (e) {
+            e.preventDefault();
+            feedback_window.closeWindow();
+        });
+    },
+
+    binds: function () {
+        $('.feedback-opener').on('click', function (e) {
+            e.preventDefault();
+            feedback_window.openWindow();
+        });
+    },
+
+    init: function () {
+        this.binds();
+    }
+};
+
+var visit_clients = {
+    formProcessing: function(){
+        var data = {},
+            $form = $('form#visit-client-form');
+
+        $form.find('input[type="text"], input[type="email"], input[type="tel"], input[type="checkbox"], textarea').each(function(){
+            if($(this).attr('type') == 'checkbox'){
+                if($(this).prop('checked') == true){
+                    data[$(this).attr('name')] = '1';
+                }else{
+                    data[$(this).attr('name')] = '0';
+                }
+            }else{
+                data[$(this).attr('name')] = $(this).val();
             }
 
-            $('.slider .pagination').html(html);
-            $('.slider .pagination a').on('click', function(e){
-                slider.slideTo($(this).data('num'));
-                e.preventDefault();
-            });
-        }
-    },
-
-    setSizes: function(){
-        this.item_width     = $('.slider').width();
-        this.overall_width  = (this.items_count * this.item_width) + this.items_count;
-
-        var $itemsholder = $('.slider .items-container');
-
-        $itemsholder.css({
-            width: this.overall_width
+            //output += 'if($' + $(this).attr('name') + ' && $' + $(this).attr('name') + ' != \'\'){ $message .= \'<p><b>' + $(this).prev().text() + "</b>: ' . " + $(this).attr('name') + " . '</p>'; };\n";
         });
 
-        $itemsholder.css({
-            marginLeft: -slider.item_width * (slider.num - 1)
+        //console.log(output)
+
+        $.ajax({
+            url: '/?ajax&action=visit',
+            data: data,
+            type: 'POST',
+            beforeSend: function(){
+                $form.find('.form-message').slideUp(100);
+                $form.find('input[type="submit"]').attr('disabled', 'disabled');
+                $form.find('input, textarea').removeClass('input-error');
+            },
+            success: function(data){
+                var classname = '',
+                    message = '';
+
+                if(data.status == true){
+                    classname = 'success';
+                    message = 'Спасибо, заявка принята!';
+                    $form.find('.form-items').hide();
+                }else{
+                    classname = 'error';
+                    message = 'Проверьте правильность заполнения формы';
+                }
+
+                if(data.fields.length > 0){
+                    for(var i = 0, l = data.fields.length; i < l; i++){
+                        if($('#' + data.fields[i]).data('req') == true){
+                            $('#' + data.fields[i]).addClass('input-error');
+                        }
+                    }
+                }
+
+                $form.find('input[type="submit"]').removeAttr('disabled');
+                $form.find('.form-message').addClass(classname).html(message).slideDown(100);
+            },
+            error: function(){
+                $form.find('.form-message').addClass('error').html('Внутренняя ошибка сервера').slideDown(100);
+                $form.find('input[type="submit"]').removeAttr('disabled');
+            }
         });
     },
 
     init: function(){
-        this.items_count = $('.slider .item').length;
+        var date = new Date();
 
-        this.drawPagination();
-        this.setSizes();
-        this.startInt();
+        date.setDate(date.getDate() + 1);
 
-        $('.slider').on('mouseenter', function(){
-            slider.clearInt();
-        }).on('mouseleave', function(){
-            slider.startInt();
+        var d = date.getDate(),
+            m = date.getMonth(),
+            y = date.getFullYear();
+
+        if(d < 10) {
+            d = '0' + d.toString();
+        }
+
+        m = m + 1;
+
+        if(m < 10) {
+            m = '0' + m.toString();
+        }
+
+        $('#form_date').attr('placeholder', d + '.' + m + '.' + y).mask("99.99.9999");
+        $('#form_time').mask("99:99");
+
+        $('form#visit-client-form').on('submit', function(e){
+            e.preventDefault();
+            visit_clients.formProcessing();
         });
     }
 };
 
+var subscribe_form = {
+    init: function(){
+        $('form#subscribe').on('submit', function(e){
+            e.preventDefault();
+
+            $.ajax({
+                url: '/?ajax&action=subscribe',
+                data: {
+                    email: $('input[name="subscribe_email"]').val()
+                },
+                type: 'POST',
+                beforeSend: function(){
+                    $('form#subscribe .form-message').slideUp(100);
+                    $('form#subscribe input[type="submit"]').attr('disabled', 'disabled');
+                },
+                success: function(data){
+                    var classname = '';
+
+                    if(data.status == true){
+                        classname = 'success';
+                    }else{
+                        classname = 'error';
+                    }
+
+                    $('form#subscribe input[type="submit"]').removeAttr('disabled');
+                    $('form#subscribe .form-message').addClass(classname).html(data.message).slideDown(100);
+                    $('form#subscribe .fields').hide();
+                },
+                error: function(){
+                    $('form#subscribe .form-message').addClass('error').html('Внутренняя ошибка сервера').slideDown(100);
+                    $('form#subscribe input[type="submit"]').removeAttr('disabled');
+                }
+            });
+        });
+    }
+};
+
+var feedback = {
+    formActions: function () {
+        $('#feedback-form').on('submit', function (e) {
+            e.preventDefault();
+
+            var data = {
+                phone: $('.contacts-form input[name="feedback_phone"]').val(),
+                name: $('.contacts-form input[name="feedback_name"]').val(),
+                email: $('.contacts-form input[name="feedback_email"]').val(),
+                message: $('.contacts-form textarea[name="feedback_message"]').val()
+            };
+
+            $.ajax({
+                url: '/send.php',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                beforeSend: function(){
+                    $('.contacts-form .form-message').removeClass('success error').slideUp(100);
+                    $('.contacts-form input[type="submit"]').attr('disabled', 'disabled').prop('disabled', 'disabled');
+                },
+                success: function (data) {
+                    if (data.status) {
+                        $('.contacts-form .form-items').slideUp(200);
+                        $('.contacts-form .form-message').addClass('success').html(data.message).slideDown(100);
+                        $('.contacts-form .content').css({
+                            padding: '20px 20px 0',
+                            height: 0
+                        });
+                    } else {
+                        $('.contacts-form .form-message').addClass('error').html(data.message).slideDown(100);
+                        $('.contacts-form input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
+                    }
+                },
+                error: function () {
+                    $('.contacts-form .form-message').addClass('error').html('Ошибка сервера!').slideDown(100);
+                    $('.contacts-form input[type="submit"]').removeAttr('disabled').removeProp('disabled', 'disabled');
+                }
+            });
+        });
+    },
+
+    init: function () {
+        this.formActions();
+    }
+}
+
 $(function(){
-    slider.init();
-    feedback.init();
+    main_menu.init();
+    
+    $('input[type="tel"]').mask("+9 (999) 999-99-99");
+    $('.fancybox').fancybox({
+        padding: 0,
+        helpers: {
+            overlay : {
+                closeClick : true,  // if true, fancyBox will be closed when user clicks on the overlay
+                speedOut   : 200,   // duration of fadeOut animation
+                showEarly  : true,  // indicates if should be opened immediately or wait until the content is ready
+                css        : {},    // custom CSS properties
+                locked     : true   // if true, the content will be locked into overlay
+            },
+            title : {
+                type : 'outside' // 'float', 'inside', 'outside' or 'over'
+            }
+        }
+    });
+
     callme.init();
-    request.init();
+    visit.init();
+    feedback_window.init();
 });

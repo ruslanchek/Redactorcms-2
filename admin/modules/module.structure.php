@@ -144,9 +144,11 @@
             'master'        => array(
                                 1 => 'page_id',
                                 3 => 'news_id',
-                                5 => 'maker_id',
-                                9 => 'catalog_section_id',
-                                8 => 'catalog_object_id'
+                                4 => 'line_id',
+                                6 => 'article_id',
+                                8 => 'vacancy_id',
+                                9 => 'gallery_id',
+                                13 => 'service_id'
                             ),
             'value' 		=> $main->item_data['mode'],
             'help' 			=> 'Модуль',
@@ -166,28 +168,41 @@
                                     ),
                                     array(
                                         'key' => 4,
-                                        'value' => 'Производители'
+                                        'value' => 'Новостная линейка'
                                     ),
                                     array(
                                         'key' => 5,
-                                        'value' => 'Производитель'
+                                        'value' => 'Статьи'
                                     ),
                                     array(
                                         'key' => 6,
-                                        'value' => 'Группы каталога'
+                                        'value' => 'Статья'
                                     ),
+
                                     array(
                                         'key' => 7,
-                                        'value' => 'Раздел каталога'
+                                        'value' => 'Вакансии'
                                     ),
                                     array(
                                         'key' => 8,
-                                        'value' => 'Объект каталога'
+                                        'value' => 'Вакансия'
                                     ),
+
                                     array(
                                         'key' => 9,
-                                        'value' => 'Группа каталога'
+                                        'value' => 'Галерея'
                                     ),
+
+                                    array(
+                                        'key' => 12,
+                                        'value' => 'Услуги'
+                                    ),
+
+                                    array(
+                                        'key' => 13,
+                                        'value' => 'Услуга'
+                                    ),
+
                                     array(
                                         'key' => 10,
                                         'value' => 'Поиск'
@@ -223,63 +238,92 @@
             'slave_of'      => 'mode',
             'value' 		=> $main->item_data['content_id'],
             'help' 			=> 'Новость',
-            'section_id'    => 3,
+            'section_id'    => 19,
             'options' 		=> $main->parseOptionsFromTable('section_19'),
             'link'          => '/admin/?option=sections&suboption=edit_content&id=19&item=',
             'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=19&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
         );
 
         $main->dataset['data'][12] = array(
-            'meta'          => 'maker_id',
+            'meta'          => 'line_id',
             'type' 			=> 'select',
-            'label' 		=> 'Производитель',
+            'label' 		=> 'Новостная линейка',
             'name' 			=> 'content_id',
             'slave_of'      => 'mode',
             'value' 		=> $main->item_data['content_id'],
-            'help' 			=> 'Производитель',
-            'section_id'    => 22,
-            'options' 		=> $main->parseOptionsFromTable('section_22'),
-            'link'          => '/admin/?option=sections&suboption=edit_content&id=22&item=',
-            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=22&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
-        );
-
-        $main->dataset['data'][13] = array(
-            'meta'          => 'catalog_section_id',
-            'type' 			=> 'select',
-            'label' 		=> 'Раздел каталога',
-            'name' 			=> 'content_id',
-            'slave_of'      => 'mode',
-            'value' 		=> $main->item_data['content_id'],
-            'help' 			=> 'Раздел каталога',
+            'help' 			=> 'Новостная линейка',
             'section_id'    => 23,
             'options' 		=> $main->parseOptionsFromTable('section_23'),
             'link'          => '/admin/?option=sections&suboption=edit_content&id=23&item=',
             'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=23&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
         );
 
-        $main->dataset['data'][14] = array(
-            'meta'          => 'catalog_object_id',
+        $main->dataset['data'][13] = array(
+            'meta'          => 'article_id',
             'type' 			=> 'select',
-            'label' 		=> 'Объект каталога',
+            'label' 		=> 'Статья',
             'name' 			=> 'content_id',
             'slave_of'      => 'mode',
             'value' 		=> $main->item_data['content_id'],
-            'help' 			=> 'Объект каталога',
-            'section_id'    => 24,
-            'options' 		=> $main->parseOptionsFromTable('section_24'),
-            'link'          => '/admin/?option=sections&suboption=edit_content&id=24&item=',
-            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=24&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
+            'help' 			=> 'Статья',
+            'section_id'    => 26,
+            'options' 		=> $main->parseOptionsFromTable('section_26'),
+            'link'          => '/admin/?option=sections&suboption=edit_content&id=26&item=',
+            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=26&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
         );
 
-        //Form separator
+        $main->dataset['data'][14] = array(
+            'meta'          => 'vacancy_id',
+            'type' 			=> 'select',
+            'label' 		=> 'Вакансия',
+            'name' 			=> 'content_id',
+            'slave_of'      => 'mode',
+            'value' 		=> $main->item_data['content_id'],
+            'help' 			=> 'Вакансия',
+            'section_id'    => 25,
+            'options' 		=> $main->parseOptionsFromTable('section_25'),
+            'link'          => '/admin/?option=sections&suboption=edit_content&id=25&item=',
+            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=25&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
+        );
+
         $main->dataset['data'][15] = array(
+            'meta'          => 'gallery_id',
+            'type' 			=> 'select',
+            'label' 		=> 'Вакансия',
+            'name' 			=> 'content_id',
+            'slave_of'      => 'mode',
+            'value' 		=> $main->item_data['content_id'],
+            'help' 			=> 'Вакансия',
+            'section_id'    => 27,
+            'options' 		=> $main->parseOptionsFromTable('section_27'),
+            'link'          => '/admin/?option=sections&suboption=edit_content&id=27&item=',
+            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=27&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
+        );
+
+        $main->dataset['data'][16] = array(
+            'meta'          => 'service_id',
+            'type' 			=> 'select',
+            'label' 		=> 'Услуга',
+            'name' 			=> 'content_id',
+            'slave_of'      => 'mode',
+            'value' 		=> $main->item_data['content_id'],
+            'help' 			=> 'Услуга',
+            'section_id'    => 30,
+            'options' 		=> $main->parseOptionsFromTable('section_30'),
+            'link'          => '/admin/?option=sections&suboption=edit_content&id=30&item=',
+            'create_link'   => '/admin/?option=sections&suboption=content&action=create&id=30&structure_link_id=' . $_GET['id'] . '&structure_link_col_id=content_id'
+        );
+
+
+        //Form separator
+        $main->dataset['data'][17] = array(
             'type' 			=> 'separator',
             'name' 			=> 'seo_separator',
             'label' 		=> $main->getText('structure', 'form_seo_separator_label')
         );
 
         //Form title
-        $main->dataset['data'][16] = array(
+        $main->dataset['data'][18] = array(
             'type' 			=> 'text',
             'label' 		=> $main->getText('structure', 'form_title_label'),
             'name' 			=> 'title',
@@ -292,7 +336,7 @@
         );
 
         //Form description
-        $main->dataset['data'][17] = array(
+        $main->dataset['data'][19] = array(
             'type' 			=> 'textarea',
             'label' 		=> $main->getText('structure', 'form_description_label'),
             'name' 			=> 'description',
@@ -304,7 +348,7 @@
         );
 
         //Form description
-        $main->dataset['data'][18] = array(
+        $main->dataset['data'][20] = array(
             'type' 			=> 'textarea',
             'label' 		=> $main->getText('structure', 'form_keywords_label'),
             'name' 			=> 'keywords',

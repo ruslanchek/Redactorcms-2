@@ -12,27 +12,27 @@
 
         //Admin system vars
 		'counter'                   => false,
-		'session_time'              => 60*30, #seconds
+		'session_time'              => 60 * 60 * 24, #seconds
 
         //From this url admin interface will starts when going to /admin/ dir
         'start_location'            => '/admin/?option=structure',
 
 		//Admin modules
 		'admin_modules'             => array(
-                                        array('main',       'modules/module.main.php',      true),
                                         array('structure',  'modules/module.structure.php', true),
                                         array('sections',   'modules/module.sections.php',  true),
-                                        array('shop',       'modules/module.shop.php',      true),
+                                        //array('shop',       'modules/module.shop.php',      true),
                                         array('templates',  'modules/module.templates.php', true),
                                         array('users',      'modules/module.users.php',     true),
                                         array('config',     'modules/module.config.php',    true),
+                                        array('search',     'modules/module.search.php',    true),
 
                                         array('personal',   'modules/module.personal.php',  false)
                                     ),
 
 		//DB vars
 		'db_host'                   => 'localhost',
-		'db_base'                   => 'redactorcms2',
+		'db_base'                   => 'sdn',
 		'db_user'                   => 'root',
 		'db_pass'                   => '123'
 	);

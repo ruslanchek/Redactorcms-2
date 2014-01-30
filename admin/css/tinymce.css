@@ -2164,6 +2164,67 @@ select.unit-100 {
 .block-first {
     clear: both;
 }
+
+
+.file {
+    display: inline-block;
+    height: 48px;
+    padding: 5px 8px 0 60px;
+    margin: 0 30px 1em 0;
+    position: relative;
+    text-decoration: none;
+    font-size: 14px;
+    color: #000 !important;
+    border: 1px dotted #ccc;
+    line-height: 1.3em;
+}
+
+.file:hover {
+    color: #EE7D3F !important;
+}
+
+.file:before {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+}
+
+.file:after {
+    display: block;
+    text-decoration: none;
+    color: #999;
+    font-style: italic;
+    font-size: 11px;
+}
+
+
+.file.pdf:before {
+    background: url(/resources/img/file-icons/pdf.png) no-repeat;
+}
+
+.file.pdf:after {
+    content: "PDF-файл";
+}
+
+.file.word:before {
+    background: url(/resources/img/file-icons/word.png) no-repeat;
+}
+
+.file.word:after {
+    content: "Word-файл";
+}
+
+.file.excel:before {
+    background: url(/resources/img/file-icons/excel.png) no-repeat;
+}
+
+.file.excel:after {
+    content: "Excel-файл";
+}
+
 /* =Tablet and Desktop
 -----------------------------------------------------------------------------*/
 @media (min-width: 768px) {
@@ -2389,3 +2450,4 @@ audio {
         margin-left: 0;
     }
 }
+

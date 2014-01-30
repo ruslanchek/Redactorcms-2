@@ -126,7 +126,9 @@ class qqFileUploader{
             foreach(explode(';', $this->copies_params_str) as $item){
                 $item_a = explode(',', $item);
 
-                $this->images->sourceFile = $dir . $filename . '.' . $ext;
+                copy($dir . $filename . '.' . $ext,  $dir . $filename . '_' . $item_a[2] . '.' . $ext);
+
+                $this->images->sourceFile =  $dir . $filename . '_' . $item_a[2] . '.' . $ext;
                 $this->images->targetFile = $dir . $filename . '_' . $item_a[2] . '.' . $ext;
 
                 switch($item_a[3]){

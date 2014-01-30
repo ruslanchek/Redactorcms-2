@@ -1,19 +1,28 @@
 {if !$mainpage}
-    <a class="logo" href="/" title="{$core->getConstant('common', 'brand_name')|escape}"></a>
+    <a href="/" class="logo">SDN</a>
 {else}
-    <span class="logo" title="{$core->getConstant('common', 'brand_name')|escape}"></span>
+    <a href="/" class="logo">SDN</a>
 {/if}
 
-<div class="phone">{$core->getConstant('common', 'main_phone')}</div>
-<a class="callback-button btn btn-yellow" href="#">Обратный звонок</a>
-
-{include file="include/common/main-menu.tpl"}
-
-<div class="head-title">
-    Поставка импортного оборудования
+<div class="hello">
+    Модульный дата-центр SDN в Парголово, Санкт-Петербург
+    <div class="bottom">Новый уровень сервиса</div>
 </div>
 
-<div class="valutes">
-    <span class="item"><strong>USD</strong> {$core->getConstant('valutes', 'usd')}</span>
-    <span class="item"><strong>EUR</strong> {$core->getConstant('valutes', 'eur')}</span>
+<div class="contact">
+    <div class="phones">
+        <div class="phone">{$core->getConstant('common', 'main_phone')}</div>
+        <div class="phone">{$core->getConstant('common', 'addtional_phone')}</div>
+    </div>
+
+    <a href="#" class="link call-me-opener">Заказать обратный звонок</a>
+    <a href="#" class="link feedback-opener">Написать письмо</a>
+
+    <a href="#" class="gray-block-button"><span>Личный кабинет</span></a>
 </div>
+
+<nav class="main">
+    {include file="include/common/main-menu.tpl"}
+
+    <a class="right-side-button" href="/contacts/visit">Заявка на посещение</a>
+</nav>

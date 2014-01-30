@@ -40,7 +40,6 @@ Class Core extends Modules
         $this->smarty->setCacheDir($sd . '/cache/');
 
         //Smarty settings
-        $this->smarty->force_compile = true;
         $this->smarty->debugging = false;
         $this->smarty->caching = false;
         $this->smarty->cache_lifetime = 120;
@@ -713,6 +712,12 @@ Class Core extends Modules
             $w .= $where;
         }
 
+        if($pid){
+            $_pid = "`sd`.`pid` = " . intval($pid) . " && ";
+        }else{
+            $_pid = '';
+        }
+
         if ($limit) {
             if ($current_page < 1) {
                 $current_page = 1;
@@ -728,7 +733,7 @@ Class Core extends Modules
                 ON
                     `d`.`id` = `sd`.`content_id`
                 WHERE
-                    `sd`.`pid` = " . intval($pid) . " &&
+                    ".$_pid."
                     `sd`.`mode` = " . intval($mode) . " &&
                     `sd`.`publish` = 1 &&
                     `sd`.`content_id` > 0 &&
@@ -801,7 +806,7 @@ Class Core extends Modules
             LEFT JOIN
                 `" . $this->db->quote($module_table) . "` `d` ON (`d`.`id` = `sd`.`content_id`)
             WHERE
-                `sd`.`pid` = " . intval($pid) . " &&
+                ".$_pid."
                 `sd`.`mode` = " . intval($mode) . " &&
                 `sd`.`publish` = 1 &&
                 `sd`.`content_id` > 0 &&
@@ -810,6 +815,7 @@ Class Core extends Modules
                 `d`.`" . $this->db->quote($order_col) . "` " . $this->db->quote($order_vector) . "
             " . $l . "
         ";
+
 
         $result['items'] = $this->db->assocMulti($query);
 

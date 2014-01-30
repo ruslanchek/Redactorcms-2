@@ -3,35 +3,37 @@
 <head>
     {include file="include/common/head.tpl"}
 </head>
+
 <body>
-<div class="wrapper">
+<div class="limiter">
     <header class="header">
-        {include file="include/common/header.tpl"}
+        {include file="include/common/header.tpl" mainpage=false}
     </header>
 
-    <div class="content">
-        <div class="units-row">
-            <div class="unit-20">
-                &nbsp;
+    <div class="page-banner pb-{rand(1, 5)}">
+        {include file="include/common/breadcrumbs.tpl"}
+        <h1>{$core->page.h1}</h1>
+    </div>
+
+    <div class="inner-content">
+        <div class="units-row-end">
+            <div class="unit-25">
+                <nav class="nav-side">
+                    <a href="/">Главная страница</a>
+                    <a href="/search">Поиск по сайту</a>
+                    <a href="/sitemap">Карта сайта</a>
+                </nav>
             </div>
 
-            <div class="unit-80">
-                <h1>{$core->page.h1}</h1>
-
-                <p>{$core->page.title}</p>
-
-                &mdash; <a href="/">Перейти на главную</a><br>
-                &mdash; <a href="/sitemap">Карта сайта</a>
+            <div class="unit-75">
+                Запрашиваемая вами страница не найдена. Возможно ее удалили, или же вы перешли по некорректной ссылке.
             </div>
         </div>
     </div>
-
-    <footer class="footer">
-        {include file="include/common/footer.tpl"}
-    </footer>
 </div>
 
-{$core->getConstant('scripts', 'body_code')}
-
+<footer class="footer">
+    {include file="include/common/footer.tpl"}
+</footer>
 </body>
 </html>

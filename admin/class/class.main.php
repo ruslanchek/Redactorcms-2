@@ -589,7 +589,7 @@
             ";
             $sql = mysql_query($query);
 
-            while($req = mysql_fetch_assoc($sql)){
+            while($req = @mysql_fetch_assoc($sql)){
                 $rows[] = array(
                     'key' => $req['id'],
                     'value' => $req['name']

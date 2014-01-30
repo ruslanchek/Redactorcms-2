@@ -1,13 +1,14 @@
-<div class="news-shortlist">
-    <h2 class="uppercase">Новости</h2>
+<div class="news">
+    <div class="limiter">
+        <h1>Пресс-центр</h1>
 
-    {foreach $core->getNewsShort(5) as $item}
-        <div class="item">
-            <div class="date color-gray">{$item.date|date:"date"} года</div>
-            <h3><a href="{$item.path}">{$item.name}</a></h3>
-            {$item.announce}
+        <div class="units-row-end">
+            {foreach $core->getNewsShort(3) as $item}
+            <div class="unit-33 item">
+                <a class="black-link" href="{$item.path}">{$item.name}</a>
+                <span class="date">{$item.date|date:"date"}</span>
+            </div>
+            {/foreach}
         </div>
-    {/foreach}
-
-    <a href="/news">Читать все новости</a>
+    </div>
 </div>

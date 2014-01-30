@@ -3,28 +3,25 @@
 <head>
     {include file="include/common/head.tpl"}
 </head>
+
 <body>
-<div class="wrapper">
+<div class="limiter">
     <header class="header">
-        {include file="include/common/header.tpl"}
+        {include file="include/common/header.tpl" mainpage=false}
     </header>
 
-    <div class="content">
-        <div class="units-row">
-                {include file="include/common/breadcrumbs.tpl"}
-
-                <h1>{$core->page.h1}</h1>
-
-                {$core->page.content}
-        </div>
+    <div class="page-banner pb-{rand(1, 5)}">
+        {include file="include/common/breadcrumbs.tpl"}
+        <h1>{$core->page.h1}</h1>
     </div>
 
-    <footer class="footer">
-        {include file="include/common/footer.tpl"}
-    </footer>
+    <div class="inner-content">
+        {$core->page.content}
+    </div>
 </div>
 
-{$core->getConstant('scripts', 'body_code')}
-
+<footer class="footer">
+    {include file="include/common/footer.tpl"}
+</footer>
 </body>
 </html>

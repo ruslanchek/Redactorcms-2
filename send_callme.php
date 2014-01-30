@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Europe/Moscow');
+	date_default_timezone_set('Europe/Moscow');
 
     function send($from_name, $from_mail, $to, $subject, $content){
         $subj = "=?utf-8?b?" . base64_encode($subject) . "?=";
@@ -26,7 +26,6 @@ date_default_timezone_set('Europe/Moscow');
 
     if(isset($_POST['phone']) && isset($_POST['name'])){
         if($_POST['phone'] && $_POST['name']){
-
             $message = "";
 
             if($_POST['phone']){
@@ -37,13 +36,13 @@ date_default_timezone_set('Europe/Moscow');
             $when = intval(strip_tags($_POST['when']));
 
             $date = new DateTime();
-            $date->modify('+'.$when.' day');
+            $date->modify('+' . $when . ' day');
 
             $message .= '<p><b>Когда позвонить</b><br>'.$date->format('d-m-Y').', с '.strip_tags($_POST['from']).' до '.strip_tags($_POST['to']).'</p>';
 
             $result = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/constants.ini', true);
 
-            send('Сайт '.$result['site']['name'][0], 'callme@'.$_SERVER['HTTP_HOST'], $result['common']['send_email'][0], 'Заполнена форма обратного звонка на сайте «'.$result['site']['name'][0].'»', $message);
+            send('Сайт SDN (обратный звонок)', 'callme@'.$_SERVER['HTTP_HOST'], urldecode($result['common']['send_email'][0]), 'Заполнена форма обратного звонка на сайте «SDN»', $message);
 
             print json_encode(array(
                 'status' => true,

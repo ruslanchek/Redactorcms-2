@@ -24,21 +24,21 @@
     }
 
     if(
-        isset($_POST['maker']) && $_POST['maker'] != '' &&
+        isset($_POST['email']) && $_POST['email'] != '' &&
         isset($_POST['name']) && $_POST['name'] != '' &&
-        isset($_POST['company']) && $_POST['company'] != '' &&
+        isset($_POST['message']) && $_POST['message'] != '' &&
         isset($_POST['phone']) && $_POST['phone'] != ''
     ){
         $message = "";
 
-        $message .= '<p><b>Производитель, маркировка</b><br>'.strip_tags($_POST['maker']).'</p>';
         $message .= '<p><b>Имя</b><br>'.strip_tags($_POST['name']).'</p>';
-        $message .= '<p><b>Компания</b><br>'.strip_tags($_POST['company']).'</p>';
+        $message .= '<p><b>E-mail</b><br>'.strip_tags($_POST['email']).'</p>';
         $message .= '<p><b>Телефон</b><br>'.strip_tags($_POST['phone']).'</p>';
+        $message .= '<p><b>Сообщение</b><br>'.strip_tags($_POST['message']).'</p>';
 
         $result = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/constants.ini', true);
-
-        send('Сайт '.$result['site']['name'][0], 'callme@'.$_SERVER['HTTP_HOST'], $result['common']['send_email'][0], 'Заказ от посетителя сайта «'.$result['site']['name'][0].'»', $message);
+        
+        send('Сайт SDN (контакты)', 'contact@'.$_SERVER['HTTP_HOST'], urldecode($result['common']['send_email'][0]), 'Заполнена форма обратной связи на сайте «SDN»', $message);
 
         print json_encode(array(
             'status' => true,
