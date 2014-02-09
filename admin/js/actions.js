@@ -327,7 +327,7 @@ $(function(){
 
         var w = new Window('no-padding');
 
-        var html = '<iframe src="' + $(this).data('src') + '&ajax_viewport=true" height="553" width="100%" frameborder="no"></iframe>';
+        var html = '<iframe src="' + $(this).data('src') + '&ajax_viewport=true" height="650" width="100%" frameborder="no"></iframe>';
 
         w.createModal($(this).data('action_header'), html, 960);
     });
