@@ -346,8 +346,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $copyto = $_GET["path"];
             $muf = iconv('utf-8', $charset, $workdir.$copyto."/".$name);
-            if(move_uploaded_file($file, $muf) == true)
-            $OUT = refreshdirs();
+            if(move_uploaded_file($file, $muf) == true){
+                chmod($muf, 0664);   
+                $OUT = refreshdirs();
+            }
         }
         $OUT["id"] = $id;
     }
@@ -374,6 +376,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     if($method == "createDirectory")  // �������� ����������
     {
         mkdir($workdir.$path);
+        chmod($workdir.$path, 0775);  
         $OUT["jsonrpc"] = $jsrpc;
         $OUT = refreshdirs();
         $OUT["id"] = $id;

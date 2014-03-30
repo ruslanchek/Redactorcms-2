@@ -40,6 +40,17 @@
         
         send('Сайт SDN (контакты)', 'contact@'.$_SERVER['HTTP_HOST'], urldecode($result['common']['send_email'][0]), 'Заполнена форма обратной связи на сайте «SDN»', $message);
 
+        $message = '
+            <p>Благодарим Вас за обращение в нашу компанию.
+            После обработки заявки Вам будет дана обратная связь.</p>
+
+            <p>Команда модульного дата-центра SDN <a hre="http://stackdata.net">stackdata.net</a></p>
+
+            <h2>Ваши данные</h2>
+        ' . $message;
+
+        send('SDN', 'robot@'.$_SERVER['HTTP_HOST'], $_POST['email'], 'Обратная связь сайта stackdata.net', $message);
+
         print json_encode(array(
             'status' => true,
             'message' => 'Спасибо за обращение!'
@@ -50,4 +61,3 @@
             'message' => 'Заполните пожалуйста все поля!'
         ));
     }
-?>

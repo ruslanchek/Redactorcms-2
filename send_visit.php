@@ -40,6 +40,18 @@
         
         send('Сайт SDN (экскурсия)', 'contact@'.$_SERVER['HTTP_HOST'], urldecode($result['common']['send_email'][0]), 'Клиент сделал запрос на экскурию в «SDN»', $message);
 
+        $message = '
+            <p>
+                Уточняющие вопросы Вы можете задать дежурым операторам по телефону  +7 (812) 319-00-03
+            </p>
+
+            <p>Команда модульного дата-центра SDN <a hre="http://stackdata.net">stackdata.net</a></p>
+            
+            <h2>Ваши данные</h2>
+        ' . $message;
+
+        send('SDN', 'robot@'.$_SERVER['HTTP_HOST'], $_POST['email'], 'Подтверждение заказа с сайта stackdata.net', $message);
+
         print json_encode(array(
             'status' => true,
             'message' => 'Спасибо за обращение!'

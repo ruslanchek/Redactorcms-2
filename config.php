@@ -1,7 +1,5 @@
 <?php
     #error_reporting(E_ALL | E_STRICT);
-
-    session_start();
     date_default_timezone_set('Europe/Moscow');
 
 	$config = array(
@@ -12,7 +10,7 @@
 
         //Admin system vars
 		'counter'                   => false,
-		'session_time'              => 60 * 60 * 24, #seconds
+		'session_time'              => 60 * 60 * 1, #seconds
 
         //From this url admin interface will starts when going to /admin/ dir
         'start_location'            => '/admin/?option=structure',
@@ -32,7 +30,7 @@
 
 		//DB vars
 		'db_host'                   => 'localhost',
-		'db_base'                   => 'sdn',
+		'db_base'                   => 'rdc',
 		'db_user'                   => 'root',
 		'db_pass'                   => '123'
 	);

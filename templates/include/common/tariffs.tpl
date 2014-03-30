@@ -13,8 +13,8 @@
         <nav>
             <h1>Пакеты тарифов</h1>
 
-            <a class="item active" data-id="1" href="#">{$pack_1.name}</a>
-            <a class="item" data-id="2" href="#">{$pack_2.name}</a>
+            <a class="item" data-id="1" href="#">{$pack_1.name}</a>
+            <a class="item active" data-id="2" href="#">{$pack_2.name}</a>
             <a class="item" data-id="3" href="#">{$pack_3.name}</a>
 
             <a data-tariff="Индивидуальная конфигурация" class="button tariff-order" href="#">Индивидуальная конфигурация</a>
@@ -22,7 +22,7 @@
 
         <div class="groups">
 
-            <div class="group active" data-id="1">
+            <div class="group" data-id="1">
                 <div class="tariff-desc">
                     {$pack_1.text}
                 </div>
@@ -30,7 +30,7 @@
                 <div class="units-row">
                     {foreach from=$tariffs_1 item=item key=i name=tariffs_1}
                         <div class="{if count($tariffs_1) > 3}unit-25{else}unit-33{/if}">
-                            <div class="tariff-col">
+                            <div class="tariff-col" style="margin-right: 10px;">
                                 <div class="header">{$item.name}</div>
                                 <div class="subheader">{$item.price} <span class="rub">&#8399;</span></div>
                                 <div class="tariff-content">
@@ -40,7 +40,7 @@
                                         {foreach $p as $param}
                                             <tr>
                                                 <th>{$param->key}</th>
-                                                <td><span class="big">{$param->val}</span></td>
+                                                <td><span class="big">{urldecode($param->val)}</span></td>
                                             </tr>
                                         {/foreach}
                                     </table>
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="group" data-id="2">
+            <div class="group active" data-id="2">
                 <div class="tariff-desc">
                     {$pack_2.text}
                 </div>

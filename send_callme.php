@@ -1,5 +1,5 @@
 <?php
-	date_default_timezone_set('Europe/Moscow');
+    date_default_timezone_set('Europe/Moscow');
 
     function send($from_name, $from_mail, $to, $subject, $content){
         $subj = "=?utf-8?b?" . base64_encode($subject) . "?=";
@@ -43,6 +43,15 @@
             $result = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/constants.ini', true);
 
             send('Сайт SDN (обратный звонок)', 'callme@'.$_SERVER['HTTP_HOST'], urldecode($result['common']['send_email'][0]), 'Заполнена форма обратного звонка на сайте «SDN»', $message);
+
+            /*$message = '
+                <p>Благодарим Вас за обращение в нашу компанию.
+                После обработки заявки Вам будет дана обратная связь.</p>
+
+                <p>Команда модульного дата-центра SDN <a hre="http://stackdata.net">stackdata.net</a></p>
+            ';
+
+            send('SDN', 'robot@'.$_SERVER['HTTP_HOST'], $_POST['email'], 'Заказ обратного звонка с сайта stackdata.net', $message);*/
 
             print json_encode(array(
                 'status' => true,

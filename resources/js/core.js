@@ -1,3 +1,12 @@
+var utils = {
+    callFrame: function(url){
+        var ifrm = document.createElement('IFRAME');
+        ifrm.setAttribute("src", url);
+        ifrm.className = 'hidden-frame';
+        document.body.appendChild(ifrm);
+    }
+};
+
 var slider = {
 	delay: 8000,
 	interval: null,
@@ -104,7 +113,11 @@ var main_menu = {
 
 var tariffs = {
     selectGroup: function (id) {
+        $('.tariffs nav a.item').removeClass('active');
+        $('.tariffs nav a.item[data-id="' + id + '"]').addClass('active');
 
+        $('.tariffs .groups .group').removeClass('active');
+        $('.tariffs .groups .group[data-id="' + id + '"]').addClass('active');
     },
 
     order: function(name) {
@@ -129,14 +142,23 @@ var tariffs = {
         $('.tariffs nav a.item').on('click', function(e) {
             tariffs.selectGroup($(this).data('id'));
 
-            $('.tariffs nav a.item').removeClass('active');
-            $(this).addClass('active');
-
-            $('.tariffs .groups .group').removeClass('active');
-            $('.tariffs .groups .group[data-id="' + $(this).data('id') + '"]').addClass('active');
-
             e.preventDefault();
         });
+
+        $('.tariffs .tariff-content').find('td, th').each(function () {
+            $(this).html($(this).html().replace('&#8399;', '<span class="rub">&#8399;</span>'));
+            $(this).html($(this).html().replace('⃏', '<span class="rub">&#8399;</span>'));
+            $(this).html($(this).html().replace('руб.', '<span class="rub">&#8399;</span>'));
+            $(this).html($(this).html().replace('руб', '<span class="rub">&#8399;</span>'));
+        });
+
+        var h = document.location.hash.replace('#', '');
+
+        console.log(h)
+
+        if(h > 0){
+            tariffs.selectGroup(h);
+        }
     }
 }
 
@@ -176,6 +198,8 @@ var callme = {
                 },
                 success: function (data) {
                     if (data.status) {
+                        utils.callFrame('/form-callme.html');
+
                         $('.window .form-items').slideUp(200);
                         $('.window .form-message').addClass('success').html(data.message).slideDown(100);
                         $('.window .content').css({
@@ -349,6 +373,8 @@ var order = {
                 },
                 success: function (data) {
                     if (data.status) {
+                        utils.callFrame('/form-order.html');
+
                         $('.window .form-items').slideUp(200);
                         $('.window .form-message').addClass('success').html(data.message).slideDown(100);
                         $('.window .content').css({
@@ -475,6 +501,8 @@ var visit = {
                 },
                 success: function (data) {
                     if (data.status) {
+                        utils.callFrame('/form-visit.html');
+
                         $('.window .form-items').slideUp(200);
                         $('.window .form-message').addClass('success').html(data.message).slideDown(100);
                         $('.window .content').css({
@@ -608,6 +636,8 @@ var feedback_window = {
                 },
                 success: function (data) {
                     if (data.status) {
+                        utils.callFrame('/form-contact.html');
+
                         $('.window .form-items').slideUp(200);
                         $('.window .form-message').addClass('success').html(data.message).slideDown(100);
                         $('.window .content').css({
@@ -741,6 +771,8 @@ var visit_clients = {
                     message = '';
 
                 if(data.status == true){
+                    utils.callFrame('/form-visit.html');
+
                     classname = 'success';
                     message = 'Спасибо, заявка принята!';
                     $form.find('.form-items').hide();
@@ -786,7 +818,8 @@ var visit_clients = {
             m = '0' + m.toString();
         }
 
-        $('#form_date').attr('placeholder', d + '.' + m + '.' + y).mask("99.99.9999");
+        $('#form_date')//.attr('placeholder', d + '.' + m + '.' + y)
+        .mask("99.99.9999");
         $('#form_time').mask("99:99");
 
         $('form#visit-client-form').on('submit', function(e){
@@ -856,6 +889,8 @@ var feedback = {
                 },
                 success: function (data) {
                     if (data.status) {
+                        utils.callFrame('/form-contact.html');
+
                         $('.contacts-form .form-items').slideUp(200);
                         $('.contacts-form .form-message').addClass('success').html(data.message).slideDown(100);
                         $('.contacts-form .content').css({

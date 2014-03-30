@@ -22,7 +22,7 @@
 
 
             <form action="#" id="visit-client-form" class="forms forms-columnar">
-                <div class="form-message" style="margin: 0; width: auto"></div>
+
                 <div class="form-items">
                     <div class="units-row-end">
                         <div class="unit-50">
@@ -40,6 +40,11 @@
                             <p>
                                 <label for="form_sender_name">Ф.И.О. отправителя <i class="req">*</i></label>
                                 <input type="text" name="form_sender_name" id="form_sender_name" data-req="true" />
+                            </p>
+
+                            <p>
+                                <label for="form_email">E-mail <i class="req">*</i></label>
+                                <input type="text" name="form_email" id="form_email" data-req="true" />
                             </p>
                         </div>
 
@@ -106,7 +111,7 @@
 
                             <p>
                                 <label for="form_time">Время прибытия <i class="req">*</i></label>
-                                <input type="text" name="form_time" id="form_time" data-req="true" placeholder="12:00" />
+                                <input type="text" name="form_time" id="form_time" data-req="true"/>
                             </p>
                         </div>
 
@@ -166,10 +171,14 @@
                         <input class="button" style="width: 1000px" type="submit" value="Отправить заявку" />
                     </div>
                 </div>
+
+                <div class="form-message" style="margin: 0; width: auto"></div>
             </form>
         </div>
     </div>
 </div>
+
+{include file="include/common/news-shortlist.tpl"}
 
 <script>
     $(function(){

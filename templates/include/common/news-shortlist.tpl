@@ -1,6 +1,6 @@
 <div class="news">
     <div class="limiter">
-        <h1>Пресс-центр</h1>
+        <h1>Новости и события</h1>
 
         <div class="units-row-end">
             {foreach $core->getNewsShort(3) as $item}

@@ -20,7 +20,21 @@
     <div class="inner-content">
         <div class="units-row-end">
             <div class="unit-66">
-                {$core->page.content}
+                <nav class="nav-tabs" data-toggle="tabs" data-height="equal">
+                    <ul>
+                        <li><a id="msk-tab" href="#MSK">Москва</a></li>
+                        <li><a id="spb-tab" class="active" href="#SPB">Санкт-Перербург</a></li>
+                        
+                    </ul>
+                </nav>
+
+                <div id="SPB">
+                    {$core->getPage(73)}
+                </div>
+
+                <div id="MSK">
+                    {$core->getPage(114)}
+                </div>
             </div>
 
             <div class="unit-33">
@@ -45,19 +59,40 @@
                         </div>
                     </form>
                 </div>
+
+                {*<br/>
+                <img src="/resources/img/sdn-building.jpg" alt="Фасад">
+                <em>Так выглядит наше здание</em>*}
             </div>
         </div>
     </div>
 </div>
 
-<div class="map" id="map"></div>
+<div class="map" id="spb-map">
+    <script type="text/javascript" charset="utf-8" src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid=k8kybgnBaK7IBIitcEy87s3uztJdDMbU&width=100%&height=450"></script>
+</div>
+
+<div class="map" style="display: none" id="msk-map">
+    <script type="text/javascript" charset="utf-8" src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid=dZ-2ypScRi2atTk2_ftd54rxLPBs_EFI&width=100%&height=450"></script>
+</div>
 
 <script>
     $(function(){
         feedback.init();
-        map.init();
+
+        $('#spb-tab').on('click.map', function(){
+            $('#spb-map').show();
+            $('#msk-map').hide();
+        });
+
+        $('#msk-tab').on('click.map', function(){
+            $('#msk-map').show();
+            $('#spb-map').hide();
+        });
     });
 </script>
+
+{include file="include/common/news-shortlist.tpl"}
 
 <footer class="footer">
     {include file="include/common/footer.tpl"}

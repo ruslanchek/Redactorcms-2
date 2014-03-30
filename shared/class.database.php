@@ -60,12 +60,7 @@
         //Perform a query
         public function query($query){
             $result = mysql_query($query, $this->link) or die(
-                Utilities::debug('
-                    <b>MySQL Error:</b><br>
-                    '.mysql_error().'<br><br>
-                    <b>Query that been requested:</b><br>
-                    <code>'.$query.'</code>
-                ')
+                Utilities::debug('MySQL Error')
             );
 
             return $result;

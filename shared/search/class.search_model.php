@@ -104,6 +104,10 @@ class SearchModel
 
     function w3s_addToBlacklist($url)
     {
+        if($url == '/') {
+            return true;
+        }
+
         if (file_exists($this->BLACKLIST)) @chmod($this->BLACKLIST, 0777);
 
         $f = @fopen($this->BLACKLIST, 'a+');
@@ -366,7 +370,7 @@ class SearchModel
                 // Перекодировываем результат ;)
                 if ($charset != 'windows-1251' and $charset != 'win-1251') {
                     if ($this->DECODE_METHOD == 'iconv') {
-                        $fileData = iconv(strtoupper($charset), 'UTF-8', $fileData);
+                        $fileData = @iconv(strtoupper($charset), 'UTF-8', $fileData);
                     } else {
                         if ($charset == 'cp866') $charset = 'a';
                         if ($charset == 'koi8-r') $charset = 'k';
@@ -378,7 +382,7 @@ class SearchModel
                         if ($charset == 'iso8859-5') $charset = 'i';
                         if ($charset == 'x-mac-cyrillic') $charset = 'm';
 
-                        $fileData = convert_cyr_string($charset, 'w', $fileData);
+                        $fileData = @convert_cyr_string($charset, 'w', $fileData);
                     }
                 }
 

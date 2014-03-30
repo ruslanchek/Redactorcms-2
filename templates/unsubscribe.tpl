@@ -63,6 +63,8 @@
     </div>
 </div>
 
+{include file="include/common/news-shortlist.tpl"}
+
 <footer class="footer">
     {include file="include/common/footer.tpl"}
 </footer>

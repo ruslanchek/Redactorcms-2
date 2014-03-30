@@ -21,7 +21,7 @@
             {/if}
         {/foreach}
 
-        {if $h1_ == ''}
+        {if $h1 == ''}
             {foreach $core->getInlineMenu(3, $pid) as $item}
                 {if $item.id == $core->page.pid}
                     {$h1 = $item.name}
@@ -47,6 +47,8 @@
         </div>
     </div>
 </div>
+
+{include file="include/common/news-shortlist.tpl"}
 
 <footer class="footer">
     {include file="include/common/footer.tpl"}

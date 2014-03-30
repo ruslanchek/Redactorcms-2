@@ -157,21 +157,22 @@ Class Project extends Utilities
     public function getSitemapBranch($pid)
     {
         $query = "
-                    SELECT
-                        `structure`.`id`,
-                        `structure_data`.`name`,
-                        `structure_data`.`path`
-                    FROM
-                        `structure`,
-                        `structure_data`
-                    WHERE
-                        `structure`.`pid` = " . intval($pid) . " &&
-                        `structure`.`id` = `structure_data`.`id` &&
-                        `structure_data`.`publish` = 1 &&
-                        `structure_data`.`mode` NOT IN(3, 8)
-                    ORDER BY
-                        `structure_data`.`sort` ASC
-                ";
+                SELECT
+                    `structure`.`id`,
+                    `structure_data`.`name`,
+                    `structure_data`.`path`,
+                    `structure_data`.`mode`
+                FROM
+                    `structure`,
+                    `structure_data`
+                WHERE
+                    `structure`.`pid` = " . intval($pid) . " &&
+                    `structure`.`id` = `structure_data`.`id` &&
+                    `structure_data`.`publish` = 1 &&
+                    `structure_data`.`mode` NOT IN(3)
+                ORDER BY
+                    `structure_data`.`sort` ASC
+            ";
         $result = mysql_query($query);
 
         while ($row = mysql_fetch_assoc($result)) {
@@ -224,7 +225,7 @@ Class Project extends Utilities
                 LEFT JOIN
                     section_19 d ON (d.id = s.content_id)
                 WHERE
-                    s.publish = 1 && s.mode = 3
+                    s.publish = 1 && s.mode = 3 && d.col_166 = 4
                 ORDER BY
                     d.col_132
                 DESC
@@ -340,6 +341,7 @@ Class Project extends Utilities
         $form_car_make = $_POST['form_car_make'];
         $form_car_colour = $_POST['form_car_colour'];
         $form_car_id = $_POST['form_car_id'];
+        $form_email = $_POST['form_email'];
         $visitor_name_1 = $_POST['visitor_name_1'];
         $visitor_name_2 = $_POST['visitor_name_2'];
         $visitor_word_1 = $_POST['visitor_word_1'];
@@ -356,6 +358,7 @@ Class Project extends Utilities
         if(!$form_company){ $result->status = false; array_push($result->fields, 'form_company'); };
         if(!$form_doc){ $result->status = false; array_push($result->fields, 'form_doc'); };
         if(!$form_sender_name){ $result->status = false; array_push($result->fields, 'form_sender_name'); };
+        if(!$form_email){ $result->status = false; array_push($result->fields, 'form_email'); };
 
         if(!$visitor_name_1){ $result->status = false; array_push($result->fields, 'visitor_name_1'); };
         if(!$visitor_word_1){ $result->status = false; array_push($result->fields, 'visitor_word_1'); };
@@ -372,6 +375,7 @@ Class Project extends Utilities
         if($form_company && $form_company != ''){ $message .= '<p><b>Компания *</b>: ' . $form_company . '</p>'; };
         if($form_doc && $form_doc != ''){ $message .= '<p><b>Номер договора *</b>: ' . $form_doc . '</p>'; };
         if($form_sender_name && $form_sender_name != ''){ $message .= '<p><b>Ф.И.О. отправителя *</b>: ' . $form_sender_name . '</p>'; };
+        if($form_email && $form_email != ''){ $message .= '<p><b>E-mail *</b>: ' . $form_email . '</p>'; };
 
 
         if($form_car_make || $form_car_colour || $form_car_id){
@@ -438,6 +442,24 @@ Class Project extends Utilities
 
             Utilities::sendMail('robot@' . $_SERVER['SERVER_NAME'], 'robot@' . $_SERVER['SERVER_NAME'], urldecode($constants['common']['visit_email_1'][0]), 'Заявка на посещение ДЦ', false, $body);
             Utilities::sendMail('robot@' . $_SERVER['SERVER_NAME'], 'robot@' . $_SERVER['SERVER_NAME'], urldecode($constants['common']['visit_email_2'][0]), 'Заявка на посещение ДЦ', false, $body);
+
+            $message = '
+                <p>
+                    Уточняющие вопросы Вы можете задать дежурым операторам по телефону +7 (812) 319-00-03
+                </p>
+
+                <p>Команда модульного дата-центра SDN <a hre="http://stackdata.net">stackdata.net</a></p>
+
+                <h2>Ваши данные</h2>
+            ' . $message;
+
+            $this->mail_vars = array(
+                'content' => $message,
+                'subject' => 'Заявка на посещение ДЦ'
+            );
+
+            $body = $this->smarty->fetch('mailing.tpl');
+            Utilities::sendMail('robot@' . $_SERVER['SERVER_NAME'], 'robot@' . $_SERVER['SERVER_NAME'], $form_email, 'Заявка на посещение ДЦ', false, $body);
         }
 
         return $result;

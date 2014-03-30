@@ -55,9 +55,11 @@
 
         <div class="unit-20">
             <div class="socials">
+                {*
                 <a href="#" class="fb" title="Facebook"></a>
                 <a href="#" class="in" title="Linked In"></a>
                 <a href="#" class="tw" title="Twitter"></a>
+                *}
             </div>
         </div>
 
@@ -66,3 +68,5 @@
         </div>
     </div>
 </div>
+
+{$core->getConstant('scripts', 'body_code')}

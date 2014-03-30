@@ -22,8 +22,8 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 		var win = editor.windowManager.open({
 			title: 'HTML source code',
 			url: url + '/source.html',
-			width: 800,
-			height: 550,
+			width: 700,
+			height: 400,
 			resizable : true,
 			maximizable : true,
 			buttons: [

@@ -1,7 +1,6 @@
 AddDefaultCharset utf-8
 AddCharset utf-8 *
 
-
 <IfModule mod_charset.c>
     CharsetSourceEnc utf-8
     CharsetDefault utf-8
@@ -15,6 +14,5 @@ AddCharset utf-8 *
 
 php_flag post_max_filesize 10M
 php_flag upload_max_filesize 10M
-php_value upload_max_filesize 10M
 
-php_value memory_limit 64M
+php_value memory_limit 32M

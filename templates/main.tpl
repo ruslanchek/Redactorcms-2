@@ -13,7 +13,9 @@
     {include file="include/common/slider.tpl"}
 
     {include file="include/common/flex-blocks.tpl"}
+</div>
 
+<div class="limiter">
     <div class="banner-visit">
         <a href="#" class="button button-blue visit-opener">Записаться на экскурсию в модульный дата-центр SDN</a>
     </div>

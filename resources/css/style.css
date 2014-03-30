@@ -11,10 +11,10 @@
 @font-face {
     font-family: 'DINCondensedCRegular';
     src: url('../fonts/DINCondensedC/dincondensedc.eot');
-    src: url('../fonts/DINCondensedC/dincondensedc.eot') format('embedded-opentype'),
+    src: url('../fonts/DINCondensedC/dincondensedc.eot#iefix') format('embedded-opentype'),
+		url('../fonts/DINCondensedC/dincondensedc.svg') format('svg'),
          url('../fonts/DINCondensedC/dincondensedc.woff') format('woff'),
-         url('../fonts/DINCondensedC/dincondensedc.ttf') format('truetype'),
-         url('../fonts/DINCondensedC/dincondensedc.svg#DINCondensedCRegular') format('svg');
+         url('../fonts/DINCondensedC/dincondensedc.ttf') format('truetype');
 }
 /* @end */
 
@@ -317,7 +317,7 @@ header.header .contact {
 	position: absolute;
 	right: 0;
 	top: 30px;
-	margin-right: 70px;
+	margin-right: 0;
 }
 
 .contact {
@@ -336,6 +336,7 @@ header.header .contact {
 .contact .phones .phone {
 	display: inline-block;
 	margin-right: 10px;
+	font-weight: normal;
 }
 
 .contact .phones .phone a {
@@ -360,7 +361,7 @@ header.header .contact {
 
 .contact .gray-block-button {
 	background: #DDE5E9;
-	display: block;
+	display: none;
 	position: absolute;
 	width: 70px;
 	top: 0;
@@ -927,8 +928,8 @@ footer.footer .address h2 {
 	font-family: 'DINCondensedCRegular', sans-serif;
 	padding: 8px 10% 8px 0;
 	border: none;
-	width: 55%;
-	vertical-align: bottom;
+	width: 65%;
+	vertical-align: top;
 	font-weight: normal;
 	font-size: 14px;
 	line-height: 15px;
@@ -940,10 +941,11 @@ footer.footer .address h2 {
 	padding: 8px 0;
 	border: none;
 	width: 35%;
-	vertical-align: bottom;
+	vertical-align: top;
 	font-size: 15px;
 	line-height: 15px;
 }
+
 
 .tariff-col .promo-blue {
 	color: #0a79b3;
@@ -1066,6 +1068,11 @@ form small {
 .contacts-form h2 {
 	color: #B9C8CC;
     padding: 20px 20px 0;
+}
+
+.contacts-form .form-message {
+    width: auto;
+    margin-left: 0;
 }
 /* @end */
 
@@ -1585,3 +1592,40 @@ input[type="radio"].stylish:checked:after {
 	        transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000); /* easeOutExpo */
 } 
 /* @end */
+
+
+/* @group Tabs */
+.nav-tabs {
+    font-family: 'DINCondensedCRegular', sans-serif;
+    font-size: 18px;
+}
+
+.nav-tabs li {
+    margin-bottom: 0;
+}
+
+.nav-tabs ul li .active,
+.nav-tabs ul li span {
+    padding: 12px 15px;
+    color: #888 !important;
+    text-decoration: none;
+}
+
+.nav-tabs ul li a,
+.nav-tabs ul li span {
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #0089D0;
+}
+
+.nav-tabs ul li a:hover {
+    text-decoration: none;
+}
+/* @end */
+
+.hidden-frame {
+    visibility: hidden;
+    position: absolute;
+    width: 100px;
+    left: -1000px;
+}

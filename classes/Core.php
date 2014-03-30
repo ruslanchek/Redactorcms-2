@@ -40,6 +40,7 @@ Class Core extends Modules
         $this->smarty->setCacheDir($sd . '/cache/');
 
         //Smarty settings
+		$this->smarty->force_compile = false;
         $this->smarty->debugging = false;
         $this->smarty->caching = false;
         $this->smarty->cache_lifetime = 120;

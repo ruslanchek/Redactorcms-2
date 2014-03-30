@@ -19,9 +19,9 @@
         </nav>
     </nav>
 
-    <nav class="nav-footer">
+    {*<nav class="nav-footer">
         <a href="/helpful">Полезная информация</a>
-    </nav>
+    </nav>*}
 </div>
 
 <div class="unit-20">

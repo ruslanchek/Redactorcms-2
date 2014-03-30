@@ -97,8 +97,8 @@
 
 				$(s).click($.proxy(function(e)
 				{
-					location.hash = hash;
-					e.preventDefault();
+                    e.preventDefault();
+
 					this.show(s, hash);
 
 				}, this));

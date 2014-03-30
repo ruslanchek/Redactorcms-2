@@ -40,6 +40,20 @@
         
         send('Сайт SDN (заказ тарифа)', 'order@'.$_SERVER['HTTP_HOST'], urldecode($result['common']['send_email'][0]), 'Заказ тарифа «SDN»', $message);
 
+        $message = '
+            <p>Благодарим Вас за обращение в нашу компанию.
+            После обработки заявки Вам будет дана обратная связь.</p>
+
+            <p>Уточняющие вопросы Вы можете задать дежурым операторам
+            по телефону +7 (812) 319-00-04</p>
+
+            <p>Команда модульного дата-центра SDN <a hre="http://stackdata.net">stackdata.net</a></p>
+        <h2>Ваши данные</h2>
+        ' . $message;
+
+
+        send('SDN', 'robot@'.$_SERVER['HTTP_HOST'], $_POST['email'], 'Подтверждение заказа с сайта stackdata.net', $message);
+
         print json_encode(array(
             'status' => true,
             'message' => 'Спасибо за обращение!'
