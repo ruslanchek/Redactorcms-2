@@ -11,8 +11,3 @@ AddCharset utf-8 *
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^(.*)$ /admin/index.php [QSA,L]
 </IfModule>
-
-php_flag post_max_filesize 10M
-php_flag upload_max_filesize 10M
-
-php_value memory_limit 32M

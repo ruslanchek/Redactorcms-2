@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty 3.1.4, created on 2014-03-06 22:25:52
+<?php /* Smarty version Smarty 3.1.4, created on 2014-07-09 18:57:25
          compiled from "/Users/ruslan/Sites/redactorcms2/templates/include/common/header.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:8554794695318bdb0608069-87032174%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3ea7e84a7b74c21f6d58b32335de0ca4509f4ad2' => 
     array (
       0 => '/Users/ruslan/Sites/redactorcms2/templates/include/common/header.tpl',
-      1 => 1394129863,
+      1 => 1404917680,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty 3.1.4',
+  'unifunc' => 'content_5318bdb06665f',
   'variables' => 
   array (
     'mainpage' => 0,
     'core' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty 3.1.4',
-  'unifunc' => 'content_5318bdb06665f',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5318bdb06665f')) {function content_5318bdb06665f($_smarty_tpl) {?><?php if (!$_smarty_tpl->tpl_vars['mainpage']->value){?>
     <a href="/" class="logo">SDN</a>

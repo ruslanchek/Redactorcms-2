@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty 3.1.4, created on 2014-03-06 22:25:52
+<?php /* Smarty version Smarty 3.1.4, created on 2014-07-09 18:57:25
          compiled from "/Users/ruslan/Sites/redactorcms2/templates/include/common/flex-blocks.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:19046511405318bdb091f935-89723286%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '81d8f7aa41d25605fc08d8437c89edff2011e2a0' => 
     array (
       0 => '/Users/ruslan/Sites/redactorcms2/templates/include/common/flex-blocks.tpl',
-      1 => 1394129863,
+      1 => 1404917680,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty 3.1.4',
+  'unifunc' => 'content_5318bdb0964bb',
   'variables' => 
   array (
     'core' => 0,
     'item' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty 3.1.4',
-  'unifunc' => 'content_5318bdb0964bb',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5318bdb0964bb')) {function content_5318bdb0964bb($_smarty_tpl) {?>
 <div class="flex-blocks units-row-end">

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty 3.1.4, created on 2014-03-06 22:25:52
+<?php /* Smarty version Smarty 3.1.4, created on 2014-07-09 18:57:25
          compiled from "/Users/ruslan/Sites/redactorcms2/templates/include/common/slider.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:10179606925318bdb081f879-50381598%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '458ec751e6ba75b5cd4c83337e1bfffced37cc01' => 
     array (
       0 => '/Users/ruslan/Sites/redactorcms2/templates/include/common/slider.tpl',
-      1 => 1394129863,
+      1 => 1404917680,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty 3.1.4',
+  'unifunc' => 'content_5318bdb090995',
   'variables' => 
   array (
     'core' => 0,
@@ -24,8 +26,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'image' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty 3.1.4',
-  'unifunc' => 'content_5318bdb090995',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5318bdb090995')) {function content_5318bdb090995($_smarty_tpl) {?><?php $_smarty_tpl->tpl_vars['s'] = new Smarty_variable($_smarty_tpl->tpl_vars['core']->value->getSliderItems(), null, 0);?>
 

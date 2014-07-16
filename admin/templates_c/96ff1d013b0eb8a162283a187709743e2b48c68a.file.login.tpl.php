@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty 3.1.4, created on 2014-03-06 22:26:19
+<?php /* Smarty version Smarty 3.1.4, created on 2014-07-15 17:38:54
          compiled from "/Users/ruslan/Sites/redactorcms2/admin/templates/login.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:5263542785318bdcb2bc724-06676238%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '96ff1d013b0eb8a162283a187709743e2b48c68a' => 
     array (
       0 => '/Users/ruslan/Sites/redactorcms2/admin/templates/login.tpl',
-      1 => 1394129899,
+      1 => 1404917680,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty 3.1.4',
+  'unifunc' => 'content_5318bdcb3efb5',
   'variables' => 
   array (
     'main' => 0,
     'login' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty 3.1.4',
-  'unifunc' => 'content_5318bdcb3efb5',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5318bdcb3efb5')) {function content_5318bdcb3efb5($_smarty_tpl) {?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

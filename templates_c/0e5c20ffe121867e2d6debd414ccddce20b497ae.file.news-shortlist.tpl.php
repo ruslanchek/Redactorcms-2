@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty 3.1.4, created on 2014-03-06 22:25:52
+<?php /* Smarty version Smarty 3.1.4, created on 2014-07-09 18:57:26
          compiled from "/Users/ruslan/Sites/redactorcms2/templates/include/common/news-shortlist.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:12638159645318bdb0cc1306-23454014%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '0e5c20ffe121867e2d6debd414ccddce20b497ae' => 
     array (
       0 => '/Users/ruslan/Sites/redactorcms2/templates/include/common/news-shortlist.tpl',
-      1 => 1394129863,
+      1 => 1404917680,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty 3.1.4',
+  'unifunc' => 'content_5318bdb0d0e01',
   'variables' => 
   array (
     'core' => 0,
     'item' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty 3.1.4',
-  'unifunc' => 'content_5318bdb0d0e01',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5318bdb0d0e01')) {function content_5318bdb0d0e01($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date')) include '/Users/ruslan/Sites/redactorcms2/smarty/plugins/modifier.date.php';
 ?><div class="news">

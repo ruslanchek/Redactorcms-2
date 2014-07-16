@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty 3.1.4, created on 2014-03-06 22:25:52
+<?php /* Smarty version Smarty 3.1.4, created on 2014-07-09 18:57:25
          compiled from "/Users/ruslan/Sites/redactorcms2/templates/include/common/tariffs.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15555756165318bdb096c294-01842973%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3674c0ed88d25997eaeb268bbb8b9ee50f8cb817' => 
     array (
       0 => '/Users/ruslan/Sites/redactorcms2/templates/include/common/tariffs.tpl',
-      1 => 1394129863,
+      1 => 1404917680,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty 3.1.4',
+  'unifunc' => 'content_5318bdb0ca715',
   'variables' => 
   array (
     'core' => 0,
@@ -29,8 +31,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'tariffs_3' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty 3.1.4',
-  'unifunc' => 'content_5318bdb0ca715',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5318bdb0ca715')) {function content_5318bdb0ca715($_smarty_tpl) {?><?php $_smarty_tpl->tpl_vars['pack_1'] = new Smarty_variable($_smarty_tpl->tpl_vars['core']->value->getTariffsPack(1), null, 0);?>
 <?php $_smarty_tpl->tpl_vars['pack_2'] = new Smarty_variable($_smarty_tpl->tpl_vars['core']->value->getTariffsPack(2), null, 0);?>

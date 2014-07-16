@@ -30,7 +30,7 @@
 
 		//DB vars
 		'db_host'                   => 'localhost',
-		'db_base'                   => 'rdc',
+		'db_base'                   => 'rdc2',
 		'db_user'                   => 'root',
 		'db_pass'                   => '123'
 	);
